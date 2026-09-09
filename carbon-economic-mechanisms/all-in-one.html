@@ -2264,17 +2264,45 @@ a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
 
 /* ===== single-page shell ===== */
 html{scroll-behavior:smooth}
-#shell{display:grid; grid-template-columns:264px minmax(0,1fr); min-height:100vh;}
-@media (max-width:1080px){ #shell{grid-template-columns:1fr} }
+#shell{display:grid; grid-template-columns:250px minmax(0,1fr); min-height:100vh; transition:grid-template-columns .16s ease}
+#shell.navtight{grid-template-columns:50px minmax(0,1fr)}
+@media (max-width:1080px){ #shell,#shell.navtight{grid-template-columns:1fr} }
 #sidebar{
   border-right:1px solid var(--rule); background:var(--surface-2);
-  position:sticky; top:0; height:100vh; overflow-y:auto; padding:26px 18px 40px;
+  position:sticky; top:0; height:100vh; overflow-y:auto; overflow-x:hidden; padding:18px 14px 32px;
 }
 @media (max-width:1080px){
   #sidebar{position:static; height:auto; border-right:none; border-bottom:1px solid var(--rule);}
 }
-#sidebar .brand{font-family:"IBM Plex Serif",Georgia,serif; font-size:1.05rem; font-weight:600; line-height:1.25; margin:0 0 4px; color:var(--ink)}
-#sidebar .brandsub{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin-bottom:20px}
+.sidehead{display:flex; align-items:flex-start; gap:8px; margin-bottom:16px}
+.sidehead .txt{min-width:0; flex:1}
+#sidebar .brand{font-family:"IBM Plex Serif",Georgia,serif; font-size:1.02rem; font-weight:600; line-height:1.2; margin:0 0 3px; color:var(--ink); cursor:pointer}
+#sidebar .brandsub{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3)}
+.sidebtn{
+  background:none; border:1px solid var(--rule); border-radius:3px; cursor:pointer;
+  width:26px; height:26px; flex:0 0 26px; color:var(--ink-3); font-size:13px; line-height:1;
+  display:flex; align-items:center; justify-content:center; padding:0;
+}
+.sidebtn:hover{color:var(--accent); border-color:var(--accent)}
+.railbtn{
+  width:100%; margin-top:14px; height:26px; border:1px solid var(--rule); background:none;
+  border-radius:3px; cursor:pointer; color:var(--ink-3); padding:0 8px;
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase;
+  display:flex; align-items:center; justify-content:center; gap:6px;
+}
+.railbtn:hover{color:var(--accent); border-color:var(--accent)}
+/* collapsed sidebar: numbers only, still clickable */
+#shell.navtight .sidehead .txt,
+#shell.navtight .navblock .gname,
+#shell.navtight .navblock .gcount,
+#shell.navtight .navitem .ntitle,
+#shell.navtight .railbtn span{display:none}
+#shell.navtight #sidebar{padding:18px 6px 32px}
+#shell.navtight .sidehead{justify-content:center}
+#shell.navtight .navblock{justify-content:center; padding:7px 0; margin-top:8px}
+#shell.navtight .navitem{justify-content:center; padding:7px 0; gap:0}
+#shell.navtight .navitem .nnum{min-width:0; font-size:11px}
+#shell.navtight .railbtn{justify-content:center; padding:0}
 .navgroup{margin-bottom:2px}
 .navblock{
   display:flex; align-items:center; gap:9px; width:100%; text-align:left;
@@ -2327,17 +2355,45 @@ html{scroll-behavior:smooth}
 .cover-conv dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:9px 16px; align-items:baseline}
 .cover-conv dt{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); white-space:nowrap}
 .cover-conv dd{margin:0; font-size:14.5px; color:var(--ink-2)}
-.chapfoot{max-width:1180px; margin:0 auto; padding:0 24px 72px; display:flex; gap:12px; flex-wrap:wrap}
-.chapfoot button{
-  background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:11px 18px;
-  font-family:"IBM Plex Sans",sans-serif; font-size:14px; color:var(--ink-2); cursor:pointer;
+/* chapter footer: prev / index / next, tight */
+.chapfoot{
+  margin:0; padding:14px 24px 28px; display:grid;
+  grid-template-columns:1fr auto 1fr; gap:10px; align-items:stretch;
+  border-top:1px solid var(--rule-soft);
 }
-.chapfoot button:hover{color:var(--ink); border-color:var(--accent)}
+.chapfoot .cf{
+  background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:10px 14px;
+  font-family:"IBM Plex Sans",sans-serif; font-size:13.5px; color:var(--ink-2); cursor:pointer;
+  display:flex; align-items:center; gap:9px; min-width:0; text-align:left; line-height:1.3;
+}
+.chapfoot .cf:hover{color:var(--ink); border-color:var(--accent)}
+.chapfoot .cf .arw{font-family:"IBM Plex Mono",monospace; color:var(--accent); flex:0 0 auto}
+.chapfoot .cf .lbl{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.chapfoot .cf .kicker{font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:1px}
+.chapfoot .next{justify-content:flex-end; text-align:right}
+.chapfoot .home{justify-content:center; white-space:nowrap; padding:10px 20px}
+.chapfoot .cf[hidden]{visibility:hidden; display:flex}
+@media (max-width:700px){ .chapfoot{grid-template-columns:1fr; } .chapfoot .next{justify-content:flex-start; text-align:left} }
 
-/* ===== full-width override — text boxes use the whole page ===== */
-#main .wrap, #main .coverwrap{max-width:none}
-#main .cols{grid-template-columns:200px minmax(0,1fr); gap:48px}
+/* ===== section rail: collapsible to a marker strip ===== */
+#main.railtight .cols{grid-template-columns:32px minmax(0,1fr); gap:20px}
+#main.railtight .rail h4{display:none}
+#main.railtight .rail a{font-size:0; text-align:center; padding:8px 0; border-bottom-color:transparent}
+#main.railtight .rail a .n{font-size:11px; margin-right:0}
+#main.railtight .rail a:hover .n{color:var(--accent)}
+
+/* ===== full-width override + tighter rhythm ===== */
+#main .wrap, #main .coverwrap{max-width:none; padding-left:24px; padding-right:24px; padding-bottom:0}
+#main .coverwrap{padding-top:40px; padding-bottom:64px}
+#main .mast{padding:34px 0 24px}
+#main .cols{grid-template-columns:184px minmax(0,1fr); gap:36px; margin-top:30px}
 @media (max-width:940px){ #main .cols{grid-template-columns:1fr; gap:0} }
+#main main{gap:40px}
+#main main > section:last-of-type{padding-bottom:4px}
+#main .rail{top:16px}
+/* figures never push the page sideways */
+#main .figure{overflow-x:auto}
+#main .figure .svgbox{overflow-x:auto}
 #main h1, #main .standfirst, #main .cover-lede,
 #main p, #main .sec-intro, #main main p,
 #main .card p, #main .keyline p, #main .lens p, #main .lensbig li,
@@ -2357,8 +2413,13 @@ html{scroll-behavior:smooth}
 
 <div id="shell">
 <aside id="sidebar">
-  <div class="brand" data-home style="cursor:pointer">Carbon Pricing</div>
-  <div class="brandsub">Literature brief &middot; 12 parts</div>
+  <div class="sidehead">
+    <div class="txt">
+      <div class="brand" data-home>Carbon Pricing</div>
+      <div class="brandsub">Literature brief &middot; 12 parts</div>
+    </div>
+    <button class="sidebtn" id="navToggle" title="Collapse chapter menu" aria-label="Collapse chapter menu">&#10094;</button>
+  </div>
   <div class="navgroup" id="grp-g0"><button class="navblock" data-toggle="g0" aria-expanded="true"><span class="chev" aria-hidden="true">&#9662;</span><span class="gname">Orientation</span><span class="gcount">1</span></button><div class="navitems"><button class="navitem" data-target="s00" data-group="g0"><span class="nnum">00</span><span class="ntitle">The Vocabulary Kit</span></button></div></div>
 <div class="navgroup" id="grp-g1"><button class="navblock" data-toggle="g1" aria-expanded="true"><span class="chev" aria-hidden="true">&#9662;</span><span class="gname">Global foundations</span><span class="gcount">6</span></button><div class="navitems"><button class="navitem" data-target="s01" data-group="g1"><span class="nnum">01</span><span class="ntitle">Why Put a Price on Carbon</span></button>
 <button class="navitem" data-target="s02" data-group="g1"><span class="nnum">02</span><span class="ntitle">The Treaty Scaffolding</span></button>
@@ -2373,6 +2434,9 @@ html{scroll-behavior:smooth}
 <div class="navgroup" id="grp-g4"><button class="navblock" data-toggle="g4" aria-expanded="true"><span class="chev" aria-hidden="true">&#9662;</span><span class="gname">Synthesis</span><span class="gcount">1</span></button><div class="navitems"><button class="navitem" data-target="s11" data-group="g4"><span class="nnum">11</span><span class="ntitle">One Tonne, End to End</span></button></div></div>
 <div class="navgroup" id="grp-g5"><button class="navblock" data-toggle="g5" aria-expanded="true"><span class="chev" aria-hidden="true">&#9662;</span><span class="gname">Update</span><span class="gcount">1</span></button><div class="navitems"><button class="navitem" data-target="s12" data-group="g5"><span class="nnum">12</span><span class="ntitle">The Implementing Layer</span></button></div></div>
 <div class="navgroup" id="grp-g6"><button class="navblock" data-toggle="g6" aria-expanded="true"><span class="chev" aria-hidden="true">&#9662;</span><span class="gname">Sources</span><span class="gcount">1</span></button><div class="navitems"><button class="navitem" data-target="sled" data-group="g6"><span class="nnum">§</span><span class="ntitle">Source Ledger</span></button></div></div>
+  <button class="railbtn" id="railToggle" title="Collapse the section rail inside each chapter">
+    <span class="ic">&#9776;</span><span>Section rail</span>
+  </button>
 </aside>
 
 <div id="main">
@@ -2548,11 +2612,7 @@ html{scroll-behavior:smooth}
       </svg>
       <p class="figcap">Fig. 0.1 — The two production lines. Lane 1 terms are all defined in Perpres 110/2025 Pasal 1 angka 2, 14, 15, 16 (pp. 3–4); Lane 2 terms in angka 9, 8, 26, 37 (pp. 3, 6); the exits in angka 22, 24, 27, 28 (pp. 5).<sup class="fn"><a class="tip tr" href="#s00-n1" data-tip="Note 1 — Perpres RI No. 110 Tahun 2025, Pasal 1 (44 definitions), pp. 2–7. Verified in file: pages 1–15 read directly this session. Click to jump to the full source entry.">1</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= A ================= -->
   <section id="s00-a">
@@ -2617,11 +2677,7 @@ html{scroll-behavior:smooth}
       </article>
 
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= B ================= -->
   <section id="s00-b">
@@ -2685,11 +2741,7 @@ html{scroll-behavior:smooth}
       </article>
 
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= C ================= -->
   <section id="s00-c">
@@ -2759,11 +2811,7 @@ html{scroll-behavior:smooth}
       </article>
 
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= D ================= -->
   <section id="s00-d">
@@ -2871,11 +2919,7 @@ html{scroll-behavior:smooth}
       </article>
 
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= E ================= -->
   <section id="s00-e">
@@ -2976,11 +3020,7 @@ html{scroll-behavior:smooth}
       </article>
 
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= PRACTITIONER USAGE ================= -->
   <section id="s00-usage">
@@ -3040,11 +3080,7 @@ html{scroll-behavior:smooth}
       <p><b>Name the instrument, not the category.</b> “Carbon market” covers an ETS, a crediting mechanism and a voluntary standard, which behave differently. Saying which one removes most ambiguity before it starts.</p>
       <p><b>Separate the unit from its use.</b> A credit is an instrument; retiring it is an act; the claim made afterwards is a third thing. Most disputes about integrity are disputes about one of the three being described as another.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= TRAPS ================= -->
   <section id="s00-traps">
@@ -3062,11 +3098,7 @@ html{scroll-behavior:smooth}
         </tbody>
       </table>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= GAPS ================= -->
   <section id="s00-gaps">
@@ -3076,11 +3108,7 @@ html{scroll-behavior:smooth}
       <p>I read all 44 definitions in Pasal 1 (pp. 2–7) and confirmed the absence of both. This is not a criticism of the regulation — a Presidential Regulation sets architecture, and these belong to implementing rules — but it is load-bearing for how you research from here.</p>
       <p><b>What it means practically:</b> the two questions a project developer or asset owner cares about most — <i>will my project qualify as additional?</i> and <i>who is allowed to verify me?</i> — are answered <b>below</b> the Perpres, in ministerial regulations and methodology documents. So when we reach Session 08, reading Perpres 110 alone will not answer them; we will need the implementing layer, and I will say so explicitly rather than filling the gap from memory.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= CHECK ================= -->
   <section id="s00-check">
@@ -3095,11 +3123,7 @@ html{scroll-behavior:smooth}
         <li>Why is “I bought an offset” three separate events, and where can integrity fail in each?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ================= NOTES ================= -->
   <section id="s00-notes" class="notes">
@@ -3110,11 +3134,7 @@ html{scroll-behavior:smooth}
       <li id="s00-n2"><span class="verified byref">by reference</span> <b>Paris Agreement</b>, Article 6.2 (cooperative approaches / internationally transferred mitigation outcomes), 6.4 (mechanism), 6.8 (non-market approaches). Cited by article, the correct citation unit for treaty text. <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/cooperative-implementation" target="_blank" rel="noopener">UNFCCC cooperative implementation portal</a>. To be read in full for Session 03.</li>
       <li id="s00-n3"><span class="verified byref">by reference</span> Indonesian ETS intensity benchmarking and IDXCarbon operational details — flagged <span class="q">[?]</span> above pending citation to Ministry of Environment and OJK/IDX primary documents in Sessions 08–09.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -3122,7 +3142,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -3179,11 +3201,7 @@ html{scroll-behavior:smooth}
       <p><b>Coase (1960)</b> argued that if property rights over the externality are clearly defined and bargaining is cheap, the parties will trade their way to the efficient outcome without the state setting a price at all — the state's job is to define and enforce the right. That lineage runs to cap-and-trade: an allowance <i>is</i> a property right in emissions.<sup class="fn"><a class="tip" href="#s01-n2" data-tip="Note 2 — Coase, R.H. (1960), &lsquo;The Problem of Social Cost&rsquo;, Journal of Law and Economics 3:1–44. Cited by reference.">2</a></sup></p>
       <p>Neither displaced the other. Modern systems run both simultaneously, which is exactly why Perpres 110 defines a levy <i>and</i> an allowance market as parallel NEK instruments rather than alternatives.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s01-levers">
@@ -3223,11 +3241,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <p style="margin-top:18px">Read the middle two columns as a pair and the whole architecture snaps into focus: <b>a price instrument and a quantity instrument are the same trade made in opposite directions.</b> One fixes price and lets emissions float; the other fixes emissions and lets price float. You cannot fix both — that is not a policy failing, it is arithmetic.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s01-macc">
@@ -3317,11 +3331,7 @@ html{scroll-behavior:smooth}
       <p>Measures 1–3 pay for themselves and are <i>still</i> not done. That apparent paradox — money left on the table — is well documented in the energy-efficiency literature, and it shapes what a carbon price can and cannot achieve in this segment. The barriers are not price: they are split incentives (the landlord buys the chiller, the tenant pays the bill), capital rationing, information cost, and the absence of clear internal ownership.</p>
       <p><b>Consequence for instrument design:</b> a carbon price alone will not unlock negative-cost abatement, because those measures were already profitable and were skipped anyway. Efficiency needs the fourth lever — obligation, finance, or information — not the second or third. Any policy package that relies on price alone leaves the cheapest tonnes on the table.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s01-weitzman">
@@ -3347,11 +3357,7 @@ html{scroll-behavior:smooth}
       <p>If <b>marginal damage is steep</b> — one extra tonne does sharply more harm — getting the quantity wrong is costly, so use a <b>quantity</b> instrument. If <b>marginal abatement cost is steep</b> — a small overshoot in required abatement gets very expensive very fast — getting the price wrong is costly, so use a <b>price</b> instrument.</p>
       <p>For CO₂ specifically the standard reading is that it is a <b>stock</b> pollutant: damage depends on cumulative atmospheric concentration, so the marginal damage of one particular year's tonne is comparatively flat. On Weitzman's criterion that argues for a price instrument. In practice governments overwhelmingly built quantity instruments anyway — because a cap is what you can put in a treaty pledge, and “tax” is what loses elections. <b>The theory points one way and the politics the other, which is why hybrids won.</b></p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s01-absint">
@@ -3416,11 +3422,7 @@ html{scroll-behavior:smooth}
       <p>Indonesia's power-sector trading scheme has been reported to operate on <b>intensity benchmarks</b> at installation level. <span class="q">[?]</span> <span style="color:var(--ink-2)">— to be verified against the implementing ministerial regulation in Session 08 rather than asserted here.</span></p>
       <p>If both hold, the architecture contains a <b>deliberate translation problem</b>: intensity-based obligations at the installation, an absolute allocation at the nation. That translation — not the trading mechanics — is where the real design difficulty sits, and it is worth watching for in every implementing rule we read from here on.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s01-hybrid">
@@ -3437,11 +3439,7 @@ html{scroll-behavior:smooth}
         <p>Note the stated purpose carefully: it is a buffer against <b>the country missing its target</b>, not primarily a market price-stabilisation tool. A cost-containment reserve protects <i>firms</i> from price spikes; <i>Karbon Cadangan</i> protects <i>the state</i> from NDC failure. They may end up being used similarly, but they are justified differently — and if the reserve is ever released into the market, which purpose governs will matter a great deal. An open question for Session 08.</p>
       </details>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s01-priority">
@@ -3460,11 +3458,7 @@ html{scroll-behavior:smooth}
       <p>The trap in sequencing voluntary-first: projects get built against a demand curve that can evaporate, and the country establishes prices and expectations that the later compliance system inherits. Indonesia has been building both tracks in parallel — Perpres 110 defines domestic trading, international transfer, offsets, RBP and the levy as one instrument family rather than a sequence.<sup class="fn"><a class="tip" href="#s01-n5" data-tip="Note 5 — Perpres RI No. 110 Tahun 2025, Pasal 1 angka 22–25 and 30, pp. 5–6. Verified in file.">5</a></sup></p>
       <p style="color:var(--ink-2)">Full treatment in Session 05 (compliance beyond ETS) and Session 06 (VCM). Flagged here only so the phrase stops being ambiguous when you next hear it.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s01-lenses">
@@ -3483,11 +3477,7 @@ html{scroll-behavior:smooth}
         <p>Instrument type sets your <b>revenue volatility profile</b>. Cap-and-trade means a floating price you cannot hedge far out; a levy means a stable administered price with no upside. If your model uses a flat carbon price for fifteen years, it is describing a levy — check that is the instrument you are actually in.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 9 -->
   <section id="s01-sector">
@@ -3506,11 +3496,7 @@ html{scroll-behavior:smooth}
       </table>
     </div>
     <p style="margin-top:18px">This is the structural reason — not a political one — that compliance trading systems worldwide tend to start in power and heavy industry, while forest carbon flows through results-based payment and voluntary markets. Session 10 tests whether Indonesia's actual practice matches this logic or departs from it.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s01-check">
@@ -3525,11 +3511,7 @@ html{scroll-behavior:smooth}
         <li>A developer tells you their revenue model uses a flat carbon price for fifteen years. What instrument are they implicitly assuming, and what should you ask next?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s01-notes" class="notes">
@@ -3544,11 +3526,7 @@ html{scroll-behavior:smooth}
       <li id="s01-n6"><span class="verified byref">by reference</span> <b>Dales, J.H. (1968)</b>, <i>Pollution, Property and Prices</i>. University of Toronto Press. First full proposal of transferable pollution rights.</li>
       <li id="s01-n7"><span class="verified byref">by reference</span> <b>World Bank</b>, <i>State and Trends of Carbon Pricing</i> (annual series) — the standard reference for which instruments are live in which jurisdictions. To be used for coverage figures in Session 05; <b>no statistic from it is quoted here</b>, since it has not been opened. <a class="ext" href="https://carbonpricingdashboard.worldbank.org/" target="_blank" rel="noopener">Carbon Pricing Dashboard →</a></li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -3556,7 +3534,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -3606,11 +3586,7 @@ html{scroll-behavior:smooth}
       <p class="lead">The treaty layer exists to make unilateral action rational — by making it reciprocal.</p>
       <p>Everything above the domestic instrument — pledges, transparency rules, review cycles, market mechanisms — is machinery for one purpose: giving each country enough confidence that others are also moving to justify moving itself. Read the whole architecture as a solution to a trust problem and it stops looking bureaucratic.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s02-three">
@@ -3634,11 +3610,7 @@ html{scroll-behavior:smooth}
       <p>Paris abandoned assigned targets entirely. Instead <b>every</b> party submits its own <span class="tip" data-tip="Nationally Determined Contribution — each country&rsquo;s self-set climate pledge under Paris Article 4, renewed on a five-year cycle with a duty of progression.">NDC</span>, on a five-year cycle, with a duty of progression — each successive NDC must represent the party's “highest possible ambition” and go beyond the last.<sup class="fn"><a class="tip" href="#s02-n3" data-tip="Note 3 — Paris Agreement (2015), Article 2 (temperature goal), Article 4 (NDCs, progression), Article 6 (cooperative approaches), Article 13 (transparency), Article 14 (global stocktake). Cited by article.">3</a></sup></p>
       <p>The trade it made is explicit: <b>universality bought at the price of bindingness</b>. All Parties participate, and no Party's target is set externally. What binds is not the number — it is the <b>procedure</b>: you must submit, you must report, you must be reviewed, you must ratchet.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ANNEX REFERENCE -->
   <section id="s02-annex">
@@ -3729,11 +3701,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Why a 1992 list still governs a 2026 carbon market.</p>
       <p>Paris abolished the <b>operative</b> consequence of the split — everyone now has an NDC, which is what Fig. 2.2 is about. But the Annexes were never deleted, and the CBDR-RC principle they encode still shapes who funds whom, who reports what, and which arguments carry weight in a negotiating room. <b>The binary stopped determining obligations and became a fault line in the politics instead.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s02-timeline">
@@ -3814,11 +3782,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 2.1 — Note the gaps between adoption and entry into force: Kyoto took eight years, Paris under one. Note also that Paris was agreed in 2015 but its Article 6 rulebook was not settled until 2021, and the crediting mechanism not operational until 2024. <b>Treaty text moves slowly; rulebooks move slower.</b> COP30 (Belém, Nov 2025) outcomes <span class="q">[?]</span> — beyond what I can verify here; to be confirmed against primary decisions in Session 03.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s02-shift">
@@ -3897,11 +3861,7 @@ html{scroll-behavior:smooth}
       <p>Because a corresponding adjustment is applied only when a host <b>authorises</b> a transfer, the same project can produce credits of two different grades: <b>adjusted</b> (authorised, usable against another country's NDC or a compliance scheme like <span class="tip" data-tip="Carbon Offsetting and Reduction Scheme for International Aviation — ICAO&rsquo;s scheme obliging airlines to offset growth in international aviation emissions above a baseline.">CORSIA</span>) and <b>unadjusted</b> (unauthorised, usable for voluntary claims but not counted against any state's target).</p>
       <p>They are physically identical tonnes and legally different assets. That distinction did not exist before Paris, it is invisible in the project itself, and it is decided by a ministry — which is exactly why <i>Otorisasi</i> appears as a defined term in Perpres 110 (Pasal 1(27), p.5) rather than being left to contract.<sup class="fn"><a class="tip" href="#s02-n4" data-tip="Note 4 — Perpres RI No. 110 Tahun 2025, Pasal 1 angka 27 (Otorisasi) and angka 28 (Corresponding Adjustment), p.5. Verified in file.">4</a></sup></p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s02-machinery">
@@ -3945,11 +3905,7 @@ html{scroll-behavior:smooth}
       <p>There is no court, no fine, no trade sanction. The compliance mechanism under Article 15 is explicitly <b>facilitative and non-punitive</b>. What Paris relies on instead is a three-step loop: you <b>pledge</b> (Art. 4), you <b>report and are reviewed</b> (Art. 13), and the collective result is <b>assessed publicly</b> (Art. 14) in time to shape your next pledge.</p>
       <p>Whether that is sufficient is the central open question about the whole regime — and it is a legitimate criticism, not a settled one. But note what it means for you practically: <b>the transparency framework, not a penalty, is what makes a corresponding adjustment real.</b> A country that fails to apply one is not fined; it is visible. Design your expectations accordingly.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s02-bodies">
@@ -3966,11 +3922,7 @@ html{scroll-behavior:smooth}
       </table>
     </div>
     <p style="margin-top:18px">All three meet at the same annual conference in the same building, which is why the distinction collapses in press coverage. But <b>Article 6 rules are CMA decisions</b> — so when you search for the Article 6 rulebook, you are looking for CMA decisions from Glasgow (2021) onward, not COP decisions. Getting this right saves an hour of searching the wrong document series.<sup class="fn"><a class="tip" href="#s02-n5" data-tip="Note 5 — Article 6 guidance and rules adopted through CMA decisions at COP26 Glasgow (2021) and subsequent sessions. Specific decision numbers to be confirmed from the UNFCCC decision series in Session 03; not asserted here.">5</a></sup></p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s02-indonesia">
@@ -3987,11 +3939,7 @@ html{scroll-behavior:smooth}
       <p>Under Kyoto, exporting credits was close to free money for a non-Annex I country: revenue in, no target to protect. The instinct that carbon export is straightforwardly good was formed in that era and is <b>still widely held</b>.</p>
       <p>Under Paris the arithmetic reversed. Every authorised export is a tonne Indonesia must find somewhere else to stay on track — so carbon export is now a genuine <b>trade-off between revenue and domestic target headroom</b>, not a windfall. A government lens on Session 03 has to weigh both sides; a developer lens has to accept that the state has a rational reason to be restrictive that did not exist fifteen years ago.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s02-lenses">
@@ -4010,11 +3958,7 @@ html{scroll-behavior:smooth}
         <p>Post-Paris, “carbon credit” names <b>two different assets</b> — adjusted and unadjusted — with different buyers and different prices. Any model that assumes a single credit price is assuming an authorization decision it has not verified.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s02-check">
@@ -4028,11 +3972,7 @@ html{scroll-behavior:smooth}
         <li>Two credits, same project, same vintage, same tonne. One sells for materially more. What is the difference and who created it?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s02-notes" class="notes">
@@ -4047,11 +3987,7 @@ html{scroll-behavior:smooth}
       <li id="s02-n7"><span class="verified">verified in file</span> <b>United Nations Framework Convention on Climate Change (1992), Annex I and Annex II</b> — full country lists reproduced above verbatim from the Convention text, <b>Annex I at p. 32, Annex II at p. 33</b>, including footnote a/ (“Countries that are undergoing the process of transition to a market economy”). PDF fetched and read directly this session. Counts stated above (36 Annex I entries, 11 EITs, 25 Annex II entries) were derived by reading the lists, not from a secondary source. Post-1992 amendments to the annexes were <b>not</b> verified and are flagged <span class="q">[?]</span>. <a class="ext" href="https://unfccc.int/files/essential_background/background_publications_htmlpdf/application/pdf/conveng.pdf" target="_blank" rel="noopener">Convention text PDF →</a></li>
       <li id="s02-n6"><span class="verified byref">by reference</span> <b>Indonesia's Enhanced NDC</b> — target figures cited in Section 7 are widely reported but unverified here; the submitted NDC document is an open item for Session 07. <a class="ext" href="https://unfccc.int/NDCREG" target="_blank" rel="noopener">UNFCCC NDC Registry →</a></li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -4059,7 +3995,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -4162,11 +4100,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 3.1 — Article 6 structure. Cited by paragraph, the correct unit for treaty text.<sup class="fn"><a class="tip tr" href="#s03-n1" data-tip="Note 1 — Paris Agreement (2015), Article 6, paragraphs 6.1 to 6.9. Cited by paragraph; treaty text not opened this session.">1</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s03-62">
@@ -4184,11 +4118,7 @@ html{scroll-behavior:smooth}
       <p>6.2 has no supervisory body, so its discipline is reporting. A participating party submits an <b>initial report</b> setting out the cooperative approach and how it will avoid double counting; then <b>regular and annual information</b> on transfers; and reflects all of it in its <span class="tip" data-tip="Biennial Transparency Report — the periodic submission every Party makes under the Paris Article 13 Enhanced Transparency Framework, covering its inventory, NDC progress and Article 6 transfers.">Biennial Transparency Report</span> under Article 13.<sup class="fn"><a class="tip" href="#s03-n2" data-tip="Note 2 — CMA guidance on Article 6.2, adopted from Glasgow (2021) onward. Specific decision numbers not asserted; see source note.">2</a></sup></p>
       <p>Practical reading: <b>6.2 integrity is a function of who your counterparty government is.</b> There is no central referee, so the quality of a 6.2 arrangement depends on the two parties' own standards and on the exposure that reporting creates. This is the reason 6.2 deals are fast and the reason they are scrutinised.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s03-64">
@@ -4214,11 +4144,7 @@ html{scroll-behavior:smooth}
       <p>The transition rules permit eligible CDM activities to move into the 6.4 mechanism on host-country request within a deadline, and permit limited use of pre-existing CERs toward first NDCs, subject to conditions on vintage. <span class="q">[?]</span> <span style="color:var(--ink-2)">— the eligibility cut-offs and deadlines are specific and consequential; they are an explicit reading item for Session 04 and I will not paraphrase them from memory here.</span></p>
       <p>The reason to care: a large legacy pipeline of registered CDM projects, Indonesian ones among them, sat in limbo for years pending these rules. Whether an old project can transition is a live commercial question with a documented answer — which we will read rather than guess.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s03-versus">
@@ -4240,11 +4166,7 @@ html{scroll-behavior:smooth}
         </tbody>
       </table>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s03-ca">
@@ -4289,11 +4211,7 @@ html{scroll-behavior:smooth}
       <p>If domestic abatement is cheap and the NDC is comfortably achievable, selling is attractive: you monetise headroom you did not need. If the NDC is tight and abatement is expensive, every export makes the remaining task harder and dearer — you are selling your cheapest tonnes and keeping the expensive ones.</p>
       <p>So the rational sequencing question is: <b>which tonnes can we afford to sell, and at what price does selling beat keeping?</b> That is a marginal abatement cost question — Session 01's Fig. 1.1, applied to a national portfolio. The two sessions join here.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s03-68">
@@ -4351,11 +4269,7 @@ html{scroll-behavior:smooth}
       <p>Sitting fifteen pages earlier is the provision that completes the picture. The Minister is <b>obliged to count</b> all emission reductions produced through GHG offset as part of Indonesia's NDC achievement — <b><i>“sepanjang belum diterbitkan Corresponding Adjustment sesuai ketentuan UNFCCC”</i></b> — for as long as no corresponding adjustment has been issued under UNFCCC provisions.<sup class="fn"><a class="tip" href="#s03-n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 56(1) and 56(2), p.42. Verified in file this session.">3</a></sup></p>
       <p>Read that carefully, because it inverts the intuition most people start with. <b>The default is that the tonne belongs to Indonesia.</b> A corresponding adjustment is not what grants Indonesia the credit — it is what <b>takes it away</b>. Export is the exception that has to be actively authorised, not the natural state of a credit.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- RESOLVED -->
   <section id="s03-resolved">
@@ -4375,11 +4289,7 @@ html{scroll-behavior:smooth}
       <p>Session 01 described the “cut first, offset the residual” limit as a standard feature of compliance systems. Indonesia has it, at <b>Pasal 62(1) huruf d, p.45</b>: among the steps by which a sectoral minister runs emissions trading is <b>setting the portion of the emission cap that may be compensated with GHG Offset</b>.<sup class="fn"><a class="tip" href="#s03-n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 62(1) huruf a–e, p.45. Verified in file this session.">3</a></sup></p>
       <p>The mitigation hierarchy is therefore not rhetoric in Indonesian law — it is a quantitative dial, set per sector, by the sectoral minister.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s03-68b">
@@ -4408,11 +4318,7 @@ html{scroll-behavior:smooth}
       <p><b>Pasal 88(4), p.60:</b> SPE-GRK <b>cannot be issued from leftover emission quota</b>.<sup class="fn"><a class="tip" href="#s03-n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 88(4) p.60; Pasal 88(2)–(3) pp.59–60; Pasal 65(8) p.47. Verified in file this session.">3</a></sup> An integrity firewall between the two lanes of Session 00's Fig. 0.1: an installation that under-emits because its cap was generous cannot convert that slack into sellable credits. Unused allowance is not an achievement.</p>
       <p>Also worth noting: <b>Pasal 65(8), p.47</b> specifies that SRUK operates as a <b>decentralised network</b> whose data and transactions are transparent, traceable, real-time, permanent, and interoperable with other registries — unusually specific infrastructure language for a Presidential Regulation.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s03-lenses">
@@ -4431,11 +4337,7 @@ html{scroll-behavior:smooth}
         <p>Under Pasal 68 the same tonne is two assets. Diligence question: <b>has authorization been granted, is it applied for, or is it merely assumed?</b> If the model prices credits at internationally authorised levels and the answer is “assumed”, the revenue line is unfounded.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s03-check">
@@ -4449,11 +4351,7 @@ html{scroll-behavior:smooth}
         <li>A forestry project earns results-based payment; a geothermal project sells authorised ITMOs. Both reduce 100 kt. Which one leaves Indonesia's NDC position better off, and why?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s03-notes" class="notes">
@@ -4465,11 +4363,7 @@ html{scroll-behavior:smooth}
       <li id="s03-n3"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>, <i>Penyelenggaraan Instrumen Nilai Ekonomi Karbon dan Pengendalian Emisi Gas Rumah Kaca Nasional</i>. Read directly this session: <b>pp. 42–51</b> (BAB III Tata Laksana — Pasal 55 instruments; Pasal 56 NDC counting and CA; Pasal 58 trading; Pasal 59 SRUK recording; Pasal 60–61 domestic/international split; Pasal 62 ETS steps incl. offset limit; Pasal 63 cap compliance and carbon tax; Pasal 65 DRAM/DPP process; Pasal 66–67 offset units; <b>Pasal 68 international trading, authorization and CA</b>; Pasal 69 multi-sector and international linkage; Pasal 70–72 results-based payment; Pasal 73–74 carbon levy and fund management; Pasal 75 transparency framework) and <b>pp. 56–60</b> (Pasal 83–86 validation and verification, LVV criteria and KAN accreditation; Pasal 87 SRN PPI; Pasal 88–89 SPE-GRK issuance and use). Combined with pp. 1–15 read in Session 00.</li>
       <li id="s03-n4"><span class="verified byref">by reference</span> <b>ICAO CORSIA</b> — referenced as the archetype of a non-NDC international obligation captured by Pasal 68(1) huruf a angka 3. Programme eligibility rules not opened; not relied on for any assertion here.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -4477,7 +4371,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -4575,11 +4471,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 4.1 — Decision -/CMA.3 annex, para. 32.<sup class="fn"><a class="tip tr" href="#s04-n1" data-tip="Note 1 — Decision -/CMA.3, annex paras. 31–32. Verified from the UNFCCC PDF this session.">1</a></sup> Para. 31 adds that the activity must be additional, must not lead to an increase in global emissions, and must achieve its reductions in the host Party.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s04-baseline">
@@ -4623,11 +4515,7 @@ html{scroll-behavior:smooth}
       <p>Session 00 flagged MRV as the dominant recurring cost, and noted it scales badly for small projects. A standardized baseline moves the counterfactual argument <b>from the project to the sector</b>: it is settled once, centrally, for everyone. Each project then inherits it rather than paying consultants to re-derive it.</p>
       <p>For Indonesia this is the highest-leverage thing a government can do for a small-project pipeline — industrial efficiency, small hydro, biogas — because it removes the fixed cost that makes those projects uneconomic to certify individually. Worth watching whether the implementing regulations take it up.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s04-additionality">
@@ -4659,11 +4547,7 @@ html{scroll-behavior:smooth}
       <summary>The one flexibility the rulebook grants</summary>
       <p>Para. 39 permits the Supervisory Body to apply <b>simplified additionality approaches</b> for any least developed country or small island developing State at that Party's request. Indonesia is neither, so the standard demonstration applies — a small but real competitive asymmetry against LDC-hosted projects.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s04-cycle">
@@ -4743,11 +4627,7 @@ html{scroll-behavior:smooth}
       <p>Para. 57: renewing a crediting period requires approval by <b>both</b> the Supervisory Body and the host Party, following a technical assessment by a DOE to determine necessary updates to <b>the baseline, the additionality and the quantification of emission reductions</b>.</p>
       <p>For an asset owner this is a material risk that flat revenue models routinely miss: at renewal the counterfactual is rebuilt against a world that has moved on — cheaper technology, tighter regulation, a more ambitious benchmark. <b>Credit volumes can legitimately fall at renewal even when the plant performs exactly as designed.</b></p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s04-periods">
@@ -4771,11 +4651,7 @@ html{scroll-behavior:smooth}
       <p class="lead">“Addressed in full” is an open-ended liability attached to a finite revenue stream.</p>
       <p>An avoided tonne from a wind farm is done. A stored tonne in a forest is a promise that must survive fire, harvest and politics — and if it fails, the rulebook says it must be made good in full. That single clause is why forestry credits price lower than energy credits of identical vintage, and why buffer pools exist at all.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- LEVIES RESOLVED -->
   <section id="s04-levies">
@@ -4833,11 +4709,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 4.3 — Decision -/CMA.3 annex, paras. 43, 58, 59, 60, 67, 69.<sup class="fn"><a class="tip tr" href="#s04-n1" data-tip="Note 1 — Decision -/CMA.3, annex paras. 43, 58–60, 66–70. Verified from the UNFCCC PDF read this session.">1</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- TRANSITION RESOLVED -->
   <section id="s04-transition">
@@ -4863,11 +4735,7 @@ html{scroll-behavior:smooth}
       <p>Paragraph 75(d) then departs from the pattern above: for these CERs the host Party is <b>“not required to apply a corresponding adjustment”</b> and they are <b>not subject to the share of proceeds</b>.</p>
       <p>Read against Fig. 4.3, the treatment differs in two respects. A new 6.4 unit costs the host 100 tonnes of headroom plus a 5% levy. A transitioned pre-2021 CER costs it <b>nothing on either count</b> — a deliberate Kyoto-era carve-over, limited to the first NDC, so the legacy pipeline could clear without hosts being retroactively charged for units issued under different rules.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s04-host">
@@ -4886,11 +4754,7 @@ html{scroll-behavior:smooth}
       </table>
     </div>
     <p style="margin-top:18px">Para. 27 then permits a host Party to specify, in advance, the <b>baseline approaches, methodological requirements including additionality, and crediting periods</b> it will apply to activities it hosts. That is a substantial sovereign power and it maps directly onto Perpres 110's repeated delegation of methodology detail to <i>Peraturan Menteri Terkait</i>. <b>Indonesia has the treaty room to set its own stricter methodology terms — the question is whether the implementing regulations use it.</b> An explicit thing to look for in Session 08.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s04-indonesia">
@@ -4915,11 +4779,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Indonesia did not invent a parallel system. It built a domestic mirror of the Article 6.4 cycle and kept the authorization gate in the same place.</p>
       <p>The one real divergence is at issuance: PACM issues centrally, while Indonesia issues SPE-GRK <b>ministerially</b> and lets international standards issue non-SPE-GRK — but only with sectoral approval. Even on the international route, the state keeps a hand on the valve.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s04-lenses">
@@ -4938,11 +4798,7 @@ html{scroll-behavior:smooth}
         <p>Three numbers most models get wrong: you receive <b>≤93%</b> of issued units, not 100%; the crediting period is <b>5+5+5 or 10</b>, not the asset life; and volumes can legitimately <b>fall at renewal</b>. Model the waterfall in Fig. 4.3 explicitly.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s04-check">
@@ -4956,11 +4812,7 @@ html{scroll-behavior:smooth}
         <li>A transitioned pre-2021 CER and a newly issued A6.4ER both represent one tonne. Name two ways the rulebook treats them differently, and say who benefits from each difference.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s04-notes" class="notes">
@@ -4972,11 +4824,7 @@ html{scroll-behavior:smooth}
       <li id="s04-n3"><span class="verified byref">by reference</span> <b>Kyoto Protocol</b> Article 12 (Clean Development Mechanism) — the predecessor mechanism whose designated operational entities, project cycle and baseline logic Article 6.4 inherits. Decision -/CMA.3 para. 5(b)(i) expressly directs the Supervisory Body to review CDM baseline and monitoring methodologies for application, with revisions, under the new mechanism.</li>
       <li id="s04-n4"><span class="verified byref">by reference</span> <b>UNFCCC PACM / CDM transition portal and FAQs</b> — consulted for corroboration of the transition deadlines; the operative dates quoted above are taken from the decision text itself, not from the portal. Any <b>later CMA decision amending the chapter XI deadlines</b> has not been checked and is flagged <span class="q">[?]</span>. <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/paris-agreement-crediting-mechanism/CDM_transition" target="_blank" rel="noopener">unfccc.int — CDM transition →</a></li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -4984,7 +4832,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -5035,11 +4885,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <p style="margin-top:20px">This is why the ETS-shaped mental model misleads. An ETS happens to combine three things — a legal obligation, a quantity cap, and a tradable unit. Strip out the tradable unit and you have a carbon tax. Strip out the cap and you have a baseline-and-credit scheme. Strip out both and you have a performance standard. <b>All four are compliance.</b> Only one is an ETS.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s05-family">
@@ -5136,11 +4982,7 @@ html{scroll-behavior:smooth}
       <p>A cap forces the government to decide, in advance and in public, the total tonnage the economy may emit — and then to allocate it, which means choosing winners. A facility-level baseline avoids both. Each installation gets its own line, obligations are calibrated to what that installation can plausibly do, and no aggregate number ever has to be defended in parliament.</p>
       <p>The cost is exactly what Session 01 predicted: <b>you lose the tonnage guarantee</b>. If output grows, total emissions can grow while every facility complies. It is the intensity-versus-absolute trade, embedded in the choice of instrument rather than in the target.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s05-allocation">
@@ -5190,11 +5032,7 @@ html{scroll-behavior:smooth}
       <p><b>Benchmarking</b> allocates in proportion to <i>output</i> at a performance standard — typically the average of the best performers in the sector, which is the same construction the Article 6.4 rulebook uses for an ambitious baseline (Session 04, ¶36(a)(ii)). Efficient producers receive more allowances than they need and can sell; laggards must buy. It rewards the right behaviour and it is much harder to compute.</p>
       <p>The practical consequence for you: <b>when an Indonesian sectoral benchmark is proposed, the question to ask is not “how tight?” but “benchmarked on what, against whom?”</b> That single choice determines which firms in the sector are net buyers and which are net sellers — before a single tonne is abated.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s05-eu">
@@ -5214,11 +5052,7 @@ html{scroll-behavior:smooth}
       <p><b>2 — Surplus is structural, so quantity systems need a quantity valve.</b> Recessions, cheap gas and overlapping renewable policies all cut emissions without cutting the cap, and the surplus persists for years because allowances bank. The EU's answer was the <span class="tip" data-tip="Market Stability Reserve — a rules-based mechanism that withdraws allowances from auction into a reserve when the accumulated surplus is too high, and releases them when it is too low. A quantity-side stabiliser rather than a price floor.">Market Stability Reserve</span>: a quantity-side stabiliser. Session 01's hybrids, made necessary by experience rather than theory.</p>
       <p><b>3 — Free allocation is easy to start and very hard to stop.</b> It was introduced to protect trade-exposed industry from leakage; twenty years later, removing it required inventing an entirely new instrument at the border. Whatever Indonesia grants freely at the start of Phase 2 will be extraordinarily difficult to withdraw later. <b>Design the exit before you grant the entry.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- LANDSCAPE -->
   <section id="s05-landscape">
@@ -5238,11 +5072,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Read the 28% the other way round: nearly three quarters of global emissions still face no carbon price at all.</p>
       <p>That is the honest state of the field after three decades. It is also why Article 6 matters commercially — with most of the world uncovered, the cheapest abatement is overwhelmingly located outside the jurisdictions that have obligations, and the whole architecture of Sessions 03 and 04 exists to move value across that gap.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s05-priority">
@@ -5262,11 +5092,7 @@ html{scroll-behavior:smooth}
       <p>The sequencing trap in voluntary-first: projects get financed against a demand curve that can evaporate, and the price expectations formed in the voluntary phase are inherited by the compliance system that follows.</p>
       <p><b>Indonesia's answer is to refuse the sequence.</b> Pasal 55(2), p.42 defines carbon trading, results-based payment and the carbon levy as <b>one instrument family</b>, not a phased programme; Pasal 58(1), p.43 states that carbon trading proceeds <i>“tanpa menunggu tercapainya target NDC”</i> — without waiting for the NDC target to be achieved.<sup class="fn"><a class="tip" href="#s05-n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 55(2) p.42 and Pasal 58(1) p.43. Verified in file in Session 03.">3</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s05-stack">
@@ -5317,11 +5143,7 @@ html{scroll-behavior:smooth}
 
     <p style="margin-top:18px"><s style="color:var(--ink-3)">The design has a clear internal logic, and a specific limitation. Using the tax as the compliance backstop means Indonesia never needs a separate penalty regime, and firms always have a known worst case. The cost is that the ETS cannot discover a price above the tax rate — so if the tax is set low, the cap can be as tight as you like and the market will still not signal scarcity above that level.</s></p>
     <p><b>Replaces the struck text:</b> using the tax as the compliance backstop means Indonesia never needs a separate penalty regime. And because UU HPP Pasal 13 pegs the rate at or above the prevailing carbon market price, the backstop does <b>not</b> cap what the market can discover — it guarantees that non-compliance is never the cheap option. The Rp30,00/kg floor binds only when the market is weaker still. <b>The cap can therefore bind as hard as the government chooses to set it.</b></p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s05-leakage">
@@ -5336,11 +5158,7 @@ html{scroll-behavior:smooth}
       <p>The strategic consequence is counter-intuitive and important: <b>a domestic carbon price stops being purely a cost and starts being a way of keeping revenue at home.</b> If the carbon cost of an exported tonne will be collected somewhere regardless, the live question becomes which treasury collects it. That reframing — carbon pricing as revenue retention rather than as burden — is one of the strongest arguments available to a finance ministry, and it changes the political economy of Session 01's instrument choice considerably.</p>
       <p><span class="q">[?]</span> <span style="color:var(--ink-2)">The specific scope, covered goods and timeline of the EU's CBAM are not asserted here — I did not open the CBAM regulation. Anyone acting on this needs the regulation itself, and the July 2026 proposal the Commission flags as pending.</span></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s05-lenses">
@@ -5359,11 +5177,7 @@ html{scroll-behavior:smooth}
         <p>The <b>offset limit</b> caps your volume — that constraint stands. On price, see the correction above: the carbon tax does <b>not</b> cap the market, since UU HPP pegs the rate at or above it. So the binding question for revenue is the <b>tightness of the cap</b>, not the tax rate. Ask what <i>Batas Atas Emisi</i> has been set for the sector.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s05-check">
@@ -5377,11 +5191,7 @@ html{scroll-behavior:smooth}
         <li>A finance ministry says a domestic carbon price would hurt exporters. Give the counter-argument that a border adjustment in the destination market makes available.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s05-notes" class="notes">
@@ -5395,11 +5205,7 @@ html{scroll-behavior:smooth}
       <li id="s05-n5"><span class="verified">verified in file</span> <b>UU No. 7 Tahun 2021 (UU HPP) Pasal 13</b> — the legal basis for Indonesia's <i>pajak karbon</i>. <b>Resolved in Session 08</b> via the Directorate General of Taxes: the rate is set equal to or higher than the carbon market price per kg CO₂e, with Rp30,00/kg as a floor. This <b>corrects</b> the price-ceiling inference originally made in §6 of this session — see the correction banner there. The statute text itself was not opened; DJP's description is a government source about the statute.</li>
       <li id="s05-n6"><span class="verified byref">by reference</span> <b>EU Carbon Border Adjustment Mechanism regulation</b> — named in §7 as the archetype of a border instrument. Not opened; scope, covered goods and timeline deliberately not asserted.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -5407,7 +5213,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -5471,11 +5279,7 @@ html{scroll-behavior:smooth}
       <p class="lead">The VCM's great virtue and its great weakness are the same property.</p>
       <p>No sovereign in the loop means it can finance a cookstove programme in a country with no carbon law at all, years before any compliance system could reach it. It also means the arithmetic was not subject to review by a body with public accountability. <span class="interp tip" data-tip="Author&#39;s interpretation. The underlying facts are cited; the framing and the emphasis are mine, and a practitioner might read them differently.">analysis</span></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s06-chain">
@@ -5551,11 +5355,7 @@ html{scroll-behavior:smooth}
       <p>The largest are <b>Verra</b> (the Verified Carbon Standard), <b>Gold Standard</b>, the <b>American Carbon Registry</b>, the <b>Climate Action Reserve</b>, <b>Plan Vivo</b>, and <b>ART</b> for jurisdictional-scale forest programmes. Each runs its own registry, approves its own methodologies, and accredits its own auditors.<sup class="fn"><a class="tip" href="#s06-n4" data-tip="Note 4 — the major voluntary standards, named by reference. Their programme documents were not opened this session; use each registry directly for methodology and issuance data.">4</a></sup></p>
       <p>For project-level and issuance data across all of them, the <b>Berkeley Carbon Trading Project's Voluntary Registry Offsets Database</b> is the standard research-grade aggregation — a university source rather than a market participant, which matters when the market participants are the ones being assessed.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s06-crisis">
@@ -5576,11 +5376,7 @@ html{scroll-behavior:smooth}
       <p>The 2023 finding was contested by the standards concerned, and the literature has since moved. A subsequent <i>Science</i> paper is titled <b>“Tropical forest carbon offsets deliver partial gains amid persistent over-crediting”</b> — a framing that concedes real gains alongside persistent over-issuance rather than dismissing the category outright.<sup class="fn"><a class="tip" href="#s06-n2" data-tip="Note 2 — Science, DOI 10.1126/science.adw4094. The paper is paywalled and returned HTTP 403; only its title is relied on here, not its detailed findings.">2</a></sup> <span class="q">[?]</span> <span style="color:var(--ink-2)">— that paper is paywalled and I could not open it, so I rely only on its title and assert none of its specific findings.</span></p>
       <p>The state of the evidence: <b>the direction of the finding is robust and repeatedly replicated — avoided-deforestation crediting has systematically over-issued — while the magnitude is contested and methodology-dependent.</b> Anyone who tells you either “offsets are worthless” or “the critiques were debunked” is overstating what the evidence supports.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s06-response">
@@ -5627,11 +5423,7 @@ html{scroll-behavior:smooth}
       <p>The remedy for a voluntary market's integrity problem was <b>more voluntary institutions</b>. ICVCM and VCMI have no legal authority; a developer may ignore the CCP label and a company may ignore the Claims Code. They work only insofar as buyers demand them.</p>
       <p>That is not necessarily a weakness — a label that buyers actually price is a real constraint. But it does mean the VCM's integrity architecture rests on the same foundation as its demand: <b>continued voluntary participation.</b> Which brings us to the one development that put a sovereign into the loop after all.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s06-twotier">
@@ -5678,11 +5470,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 6.2 — The post-Article 6 bifurcation. Legal basis: Decision -/CMA.3 annex ¶43 (units usable toward NDCs only if authorized) and Perpres 110/2025 Pasal 68(1), pp.47–48.<sup class="fn"><a class="tip tr" href="#s06-n6" data-tip="Note 6 — Decision -/CMA.3 annex ¶43 (Session 04) and Perpres 110/2025 Pasal 68(1) huruf a and b, pp.47–48 (Session 03). Both verified in file.">6</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s06-claims">
@@ -5707,11 +5495,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <p style="margin-top:18px">The market is moving toward contribution-style language for unauthorised credits — and it is the honest framing. It is also, for a host country, <b>the more attractive one</b>, for the reason in the next section.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s06-indonesia">
@@ -5733,11 +5517,7 @@ html{scroll-behavior:smooth}
       <p><b>3 — Buyer preference.</b> Voluntary buyers have historically favoured nature-based credits for their story and co-benefits. Which is also why the integrity crisis landed hardest exactly there.</p>
       <p>Session 10 tests all three against what Indonesia has actually issued.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s06-lenses">
@@ -5756,11 +5536,7 @@ html{scroll-behavior:smooth}
         <p>“Verified voluntary credit” names two assets at different prices. Before underwriting, ask three things: <b>which standard, is it CCP-labelled, and is it authorised?</b> A model priced on authorised-tier assumptions with an unauthorised asset is out by the whole spread — and for avoided-deforestation vintages, also carries the over-crediting risk the literature has repeatedly found.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s06-check">
@@ -5775,11 +5551,7 @@ html{scroll-behavior:smooth}
         <li>ICVCM Principles 5, 7 and 10 map onto three requirements in the Article 6.4 rulebook. Name them — and say what it means that a private body and a UN treaty converged on the same tests.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s06-notes" class="notes">
@@ -5793,11 +5565,7 @@ html{scroll-behavior:smooth}
       <li id="s06-n5"><span class="verified">verified in file</span> <b>Voluntary Carbon Markets Integrity Initiative (VCMI), Claims Code of Practice.</b> Fetched and read this session. Used above: the three tiers (“Silver, Gold, and Platinum Carbon Integrity Claims recognize increasing levels of climate action”); the requirement to purchase and retire high-quality credits proportionate to remaining emissions once near-term targets are met or progressed; and the foundational criteria on emissions accounting (national inventory methodologies or the GHG Protocol), near-term science-aligned targets consistent with net zero by 2050, long-term commitment, and sourcing credits from outside the company's value chain. <b>The page read did not compare VCMI to ICVCM</b>; the supply-side/demand-side framing above is my analysis, not a quotation. <a class="ext" href="https://vcmintegrity.org/vcmi-claims-code-of-practice/" target="_blank" rel="noopener">vcmintegrity.org →</a></li>
       <li id="s06-n6"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b> and <b>Decision -/CMA.3</b>. Cited above: Perpres Pasal 56(2) p.42 (Minister counts offset reductions toward the NDC until a CA is issued); Pasal 58(3)(a) p.43 (national carbon trading roadmap); Pasal 62 p.45 (emissions trading steps); Pasal 68(1) huruf a and b, pp.47–48 (which cross-border trades require <i>Otorisasi</i> and a corresponding adjustment, and which do not). Decision -/CMA.3 annex ¶43 (A6.4ERs usable toward NDCs only if authorized), ¶33, ¶36, ¶38 (baseline quality, baseline approaches, additionality). Read in Sessions 00, 03 and 04.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -5805,7 +5573,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -5891,11 +5661,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 7.1 — All instruments named are cited in the Second NDC itself, pp. 4, 6, 10.<sup class="fn"><a class="tip tr" href="#s07-n1" data-tip="Note 1 — Second NDC of Indonesia (2025), pp. 4 (Perpres 110/2025, PP 26/2025), 6 (LTS-LCCR 2050 pathway), 10 (PP 40/2025, PP 33/2023, Perpres 112/2022). Fetched and read this session.">1</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- FLAG -->
   <section id="s07-shift">
@@ -5927,11 +5693,7 @@ html{scroll-behavior:smooth}
       <p>A BAU-relative pledge is only as demanding as the baseline it is measured against, and the baseline is a projection the pledging country builds itself. A level-of-emission target against an <b>observed</b> year removes that discretion entirely. The NDC says so in its own footnote: the 2019 reference was chosen because it is “the most current methodologies and GHG inventory pre-COVID-19 to better inform Indonesia's actual state.”<sup class="fn"><a class="tip" href="#s07-n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.18, footnote 2. Quoted verbatim; verified in file this session.">1</a></sup></p>
       <p style="margin-top:10px">This is a <b>genuine methodological strengthening</b>, and it is also why every percentage figure you have previously heard about Indonesia's target is now the wrong currency. Do not mix them.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s07-numbers">
@@ -5968,11 +5730,7 @@ html{scroll-behavior:smooth}
       <p>Even the most ambitious — LCCP_L, 1.5°C-aligned and dependent on international support — lands <b>9.8% higher</b> than the reference year. This is not a criticism smuggled in from outside; it is Indonesia's own submitted table. What the NDC promises is that emissions <b>peak in 2030</b> and then turn, reaching net-negative by 2060 in both LCCP scenarios.</p>
       <p style="margin-top:10px">Hold this when you read the market design: <b>a growing emissions envelope is the context in which the cap under Pasal 62 will be set.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s07-waterfall">
@@ -6068,11 +5826,7 @@ html{scroll-behavior:smooth}
       <p><b>2 — Energy is where crediting room exists, and where the cap will bind.</b> Energy emissions are planned to grow, which means the <i>Batas Atas Emisi</i> under Pasal 62 will be set against a rising envelope. That makes an intensity-benchmarked design far more likely than an absolute one at installation level — and reopens exactly the translation problem flagged in Session 01.</p>
       <p><b>3 — The 2019 composition explains the emphasis.</b> The NDC reports 2019 emissions dominated by LUCF including peat fires at <b>50.13%</b>, energy at 34.49%. But the First BTR reports 2022 emissions of 1,383 Gg-scale dominated by <b>energy at 69.01%</b> with LUCF at 22.58%.<sup class="fn"><a class="tip" href="#s07-n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.8: 2019 emissions 1.845 GtCO₂e, LUCF incl. peat fires 50.13%, energy 34.49%, waste 6.52%, IPPU 3.15%; First BTR 2022 emissions 1.383 GtCO₂e, energy 69.01%, LUCF incl. peat fires 22.58%.">1</a></sup> The two years differ enormously because 2019 was a severe fire year. <b>Indonesia's emissions profile swings on fire</b> — which is why the reference-year choice matters so much, and why permanence risk in Session 04 is not an abstraction here.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s07-energy">
@@ -6104,11 +5858,7 @@ html{scroll-behavior:smooth}
       <p>Worth flagging because it shows the implementing layer is being built sector by sector: the NDC cites <b>Minister of Marine Affairs and Fisheries Regulation No. 1 of 2025 on the Governance of Carbon Economic Value Implementation in the Marine Sector</b>, alongside KKP Decree No. 52/2024 on the climate change mitigation roadmap for the marine and fisheries sector.<sup class="fn"><a class="tip" href="#s07-n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.13. Verified in file this session.">1</a></sup></p>
       <p>That is a <i>Peraturan Menteri Terkait</i> of exactly the kind Perpres 110 repeatedly delegates to. When Session 08 asks where additionality and methodology detail actually live, this is the shape of the answer — and it means the answer will differ by sector.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s07-nek">
@@ -6120,11 +5870,7 @@ html{scroll-behavior:smooth}
     <p style="margin-top:16px">Three things this settles. First, <b>Perpres 110 is subordinate to the NDC</b> — it is the delivery instrument, not the objective. Second, the instrument list in the NDC matches Pasal 55(2) exactly: trading, levy, results-based payment, registry. Third, <b>sectoral ministries are named as the responsible institutions</b>, which is precisely why Perpres 110 hands so much to <i>Menteri Terkait</i> — the offset limit, the ETS design, the methodology detail.</p>
 
     <p>The NDC also names <b>PP No. 26 of 2025</b> on Environmental Protection and Management Planning, which sets the framework for the national RPPLH and elaborates decarbonisation, resilience and disaster risk reduction as concrete policy.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s07-institutions">
@@ -6137,11 +5883,7 @@ html{scroll-behavior:smooth}
       <p>This confirms from primary text what Session 00 left carefully unstated: the former KLHK has been separated, and the UNFCCC focal-point mandate now sits with the <b>Ministry of Environment</b> — which is also the <i>Menteri</i> to whom Perpres 110 assigns <i>Otorisasi</i> (Pasal 68(2)) and SPE-GRK issuance (Pasal 65(5)).</p>
       <p>The NDC names the coordination set explicitly: Ministry of Environment, <b>BAPPENAS</b> and <b>Ministry of Finance</b> for climate finance and international negotiation, with line ministries — <b>Forestry, Energy and Mineral Resources, Industry, Agriculture, Marine Affairs and Fisheries</b> — and Ministry of Home Affairs for subnational implementation. Session 09 maps this against Perpres 110's steering committee.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s07-lenses">
@@ -6160,11 +5902,7 @@ html{scroll-behavior:smooth}
         <p>The NDC is now stated in <b>absolute tonnes against a 2019 reference</b>, so any diligence memo quoting “31.89% below BAU” is working from a superseded framework. Ask which NDC the counterparty's model was built against — and note that energy sector emissions are planned to rise, which shapes how tight any cap can realistically be.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s07-check">
@@ -6178,11 +5916,7 @@ html{scroll-behavior:smooth}
         <li>Indonesia's 2019 emissions were 50% LUCF; its 2022 emissions were 69% energy. What single factor explains most of that swing, and what does it imply for permanence risk?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s07-notes" class="notes">
@@ -6195,11 +5929,7 @@ html{scroll-behavior:smooth}
       <li id="s07-n4"><span class="verified byref">by reference</span> <b>Decision -/CMA.3</b>, annex ¶38 — the regulatory-surplus limb of the additionality test, applied in §4 to PP 33/2023 and MEPS. Read in full in Session 04.</li>
       <li id="s07-n5"><span class="verified byref">by reference</span> <b>LTS-LCCR 2050 (2021)</b>, <b>PP No. 40/2025</b>, <b>PP No. 33/2023</b>, <b>Perpres 112/2022</b>, <b>PP No. 26/2025</b>, <b>UU HPP</b>, <b>RUKN 2025</b> — all named and characterised <b>as described in the Second NDC</b>. The instruments themselves were not opened; where a figure is given above it is the NDC's rendering of it. Reading the underlying regulations is an open item for Sessions 08–10.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -6207,7 +5937,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -6276,11 +6008,7 @@ html{scroll-behavior:smooth}
       <p>I reached the wrong answer by reasoning correctly from a generic model of hybrid instruments instead of reading the specific statute. That is exactly the failure mode this curriculum's sourcing discipline exists to catch — and it is the failure mode you should expect from any adviser, consultant or briefing note that describes Indonesia's system by analogy to the EU's.</p>
       <p>Session 05's own source note flagged UU HPP as “not opened; the rate is an explicit reading item for Session 08.” The flag was right; the surrounding analysis went further than the flag permitted. <b>When a source is flagged unread, the conclusions built on it should be flagged too.</b> I will hold that line more carefully.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 1 -->
   <section id="s08-identity">
@@ -6303,11 +6031,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Perpres 110 was promulgated 10 October 2025. The Second NDC was submitted 27 October 2025 — seventeen days later.</p>
       <p>That sequencing is not coincidence. Session 07 found the NDC citing Perpres 110 by name as “a legal framework to implement NDC.” Indonesia put the domestic legal machinery in place <b>first</b>, then submitted an international pledge that points at it. Read together, the two documents are a single act: the pledge and the apparatus to deliver it, filed a fortnight apart.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s08-cascade">
@@ -6373,11 +6097,7 @@ html{scroll-behavior:smooth}
       <p>Pasal 18 (pp.18–19) permits the national or sector baseline to change on four grounds: a change in national development policy relating to climate; the addition of new <i>Data Aktivitas</i>; a change in <i>Faktor Emisi</i>; or a methodological change materially affecting the calculation. The same four grounds appear for <i>Alokasi Karbon</i> at Pasal 5 (p.9) and, with provincial variants, at Pasal 21 (p.21).</p>
       <p><b>Why a developer should care:</b> your project's creditable volume is measured against a baseline that the state may lawfully revise mid-stream, through a defined procedure, on grounds including “better data”. Combined with the Article 6.4 renewal reassessment from Session 04 (¶57), that is <b>two independent mechanisms</b> by which a credit stream can legitimately shrink without anything going wrong at the project.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s08-who">
@@ -6405,11 +6125,7 @@ html{scroll-behavior:smooth}
       <p><b>2 — The offset limit is set by the sectoral minister, not the environment ministry.</b> Session 03 located that dial at Pasal 62(1)(d); Pasal 62(1) assigns the whole ETS operation to <i>Menteri Terkait</i>. So <b>how much offsetting your sector may use will be decided by ESDM or Perindustrian</b> — which is where a developer's engagement should be directed.</p>
       <p><b>3 — Forestry and environment are now different ministries.</b> Session 07 found the UNFCCC focal point moved to the Ministry of Environment; here, <i>Menteri Kehutanan</i> appears as a distinct sector coordinator and as a distinct member of the steering committee. Anyone still writing “KLHK” is describing a body that has been split.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ADDITIONALITY -->
   <section id="s08-additionality">
@@ -6427,11 +6143,7 @@ html{scroll-behavior:smooth}
       <p class="lead">The test that determines whether a project earns credits is not set out in the Presidential Regulation. It is in ministerial rules that were not yet published when this regulation took effect.</p>
       <p>That is not unusual drafting — a Perpres sets architecture. But it does mean that anyone telling you today what qualifies as additional in Indonesia is either citing a ministerial regulation you should ask to see, or is extrapolating. <b>Ask which.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s08-transition">
@@ -6457,11 +6169,7 @@ html{scroll-behavior:smooth}
       <p><b>Pasal 100, p.67:</b> but the <b>implementing regulations</b> of Perpres 98/2021 — together with those of Perpres 61/2011 (RAN-GRK) and Perpres 71/2011 (national GHG inventory) — <b>“dinyatakan tetap berlaku”</b>, remain in force, insofar as they do not conflict with this Perpres or have not yet been replaced under it.</p>
       <p>So the parent regulation is dead and its children live on. Practically: <b>the ministerial regulations you would consult today were mostly written under a regulation that no longer exists</b>, and they remain valid only to the extent they do not contradict Perpres 110. Reading any Permen from the 98/2021 era therefore requires checking it clause by clause against the new architecture — which is precisely the kind of work that produces confident-sounding but wrong advice.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s08-clock">
@@ -6510,11 +6218,7 @@ html{scroll-behavior:smooth}
 
     <p style="margin-top:18px">Everything converges on <b>10 October 2026</b>: the implementing regulations that will contain additionality, methodology, MRV procedure and the sectoral offset limits; the deadline for existing unit-holders to come into compliance; the deadline for adjusting pre-existing international agreements; and the deadline for realigning national and regional action plans.</p>
     <p><b>This is the most decision-relevant fact in the session.</b> The rules that determine whether an Indonesian project is creditable, and on what terms, are due within weeks of now. <span class="q">[?]</span> <span style="color:var(--ink-2)">Whether they have been issued, and what they say, is beyond what I can verify from the documents I hold — it is the first thing to check before acting on anything in this curriculum.</span></p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s08-lenses">
@@ -6533,11 +6237,7 @@ html{scroll-behavior:smooth}
         <p>Two revision risks to price, not one: the <b>baseline may be lawfully revised</b> under Pasal 18, and an Article 6.4 crediting period is <b>reassessed at renewal</b> (¶57). Add the Pasal 100 problem — advice resting on Perpres 98-era ministerial regulations may be citing rules that survive only conditionally.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s08-check">
@@ -6551,11 +6251,7 @@ html{scroll-behavior:smooth}
         <li>Additionality is absent from Perpres 110. Where does it enter Indonesian practice in the meantime, and what should you ask anyone who states an Indonesian additionality rule today?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s08-notes" class="notes">
@@ -6568,11 +6264,7 @@ html{scroll-behavior:smooth}
       <li id="s08-n4"><span class="verified">verified in file</span> <b>Second NDC of Indonesia (2025)</b>, p.4 — cited in §1 for the NDC's own description of Perpres 110 as the legal framework implementing the NDC. Read in Session 07.</li>
       <li id="s08-n5"><span class="verified">verified in file</span> <b>Decision -/CMA.3</b>, annex ¶38 (additionality) and ¶57 (renewal reassessment) — cross-referenced in §4 and §6. Read in Session 04.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -6580,7 +6272,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -6716,11 +6410,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 9.1 — Institutional map. Perpres articles verified in Sessions 00, 03 and 08; POJK 14/2023 and the exchange verified this session.<sup class="fn"><a class="tip tr" href="#s09-n1" data-tip="Note 1 — Perpres 110/2025: Pasal 1(19),(20),(29); 19–21; 26; 30; 58(2); 59; 62; 65(5),(6),(8); 68(2); 73(3); 74; 85; 87; 96. All verified in file.">1</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s09-four">
@@ -6749,11 +6439,7 @@ html{scroll-behavior:smooth}
       <p>The steering committee is chaired by the <i>Menteri Koordinator Bidang Pangan</i>, with the Coordinating Ministers for Economic Affairs and for Infrastructure as deputies (Pasal 96(4), pp.64–65). Placing carbon governance under the food portfolio rather than the economic one is a structural choice worth registering: it groups carbon with land, forestry and agriculture rather than with markets and finance.</p>
       <p>Two members are easy to overlook and both are telling. <b>Ketua Dewan Komisioner OJK</b> sits on the committee — with Pasal 96(5) expressly preserving OJK's independence — which acknowledges that carbon units are financial instruments. And <b>Kepala BMKG</b>, the meteorology, climatology and geophysics agency, brings the physical-science function into a body otherwise composed of ministries.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s09-registries">
@@ -6773,11 +6459,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <p style="margin-top:18px">The division is the same one Session 00 drew in Fig. 0.1: <b>what you did</b> versus <b>what you hold</b>. An action can exist in SRN PPI without ever producing a tradable unit — a results-based payment project, for instance, which under Pasal 70(3) transfers no ownership at all. A unit cannot exist without an action behind it.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s09-lvv">
@@ -6791,11 +6473,7 @@ html{scroll-behavior:smooth}
       <p>Validator and verifier <b>competence standards are set by a KAN regulation</b> (Pasal 85(2)); procedures by a <i>Peraturan Menteri Terkait</i> (Pasal 86).</p>
       <p>Notice the pattern repeating down the stack. <b>DRAM → domestic → KAN. DPP → international standard → international accreditation.</b> The fork chosen at project design in Session 00 propagates all the way to who is allowed to audit you.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s09-exchange">
@@ -6835,11 +6513,7 @@ html{scroll-behavior:smooth}
       <p>POJK 14/2023 was issued under the <b>Perpres 98/2021</b> regime and refers to registration in <b>SRN-PPI</b>. Perpres 110/2025 revoked Perpres 98 (Pasal 101) and routes unit recording to <b>SRUK</b> (Pasal 59(1)), a registry SRN-PPI's own definition does not cover.</p>
       <p>Under Pasal 100 the older implementing rules remain in force <i>insofar as they do not conflict and have not been replaced</i>. So POJK 14/2023 is presumably still operative — but its registry reference now points at an architecture the parent regulation has restructured. <b>This is exactly the Session 08 problem, in the wild:</b> a live financial-markets regulation whose plumbing references have moved beneath it. Whether OJK has updated it is <span class="q">[?]</span> — I have not verified, and it is worth checking before relying on the registration pathway.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5b -->
   <section id="s09-money">
@@ -6857,11 +6531,7 @@ html{scroll-behavior:smooth}
       </table>
     </div>
     <p style="margin-top:18px">Note the asymmetry that Session 06 identified, now visible in the institutional design: <b>results-based payment brings money in without giving the tonne away</b>, while trading brings money in and — where authorised — surrenders it. The same ministry does not control both channels, which is why the steering committee has a dedicated fiscal field chaired by the finance minister.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s09-sovereignty">
@@ -6874,11 +6544,7 @@ html{scroll-behavior:smooth}
       <p>Every gate this curriculum has catalogued — <i>Otorisasi</i> at Pasal 68(2), Menteri Terkait approval even on the international-standard route at Pasal 65(6), mandatory SRUK recording at Pasal 59(1) — is an expression of the same constitutional claim: <b>carbon is a national resource, and the state decides the terms on which it leaves.</b> Read as export control rather than as permitting steps, the sequence and its timing become easier to anticipate.</p>
       <p style="margin-top:10px"><span class="q">[?]</span> <span style="color:var(--ink-2)">This is a government framing of its own regulation, sourced to a ministry communication rather than to the Perpres text. The regulation's own recitals, read in Session 00, cite climate and sustainable development grounds rather than Article 33 — so treat the sovereignty framing as authoritative about intent, not as operative law.</span></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s09-gap">
@@ -6890,11 +6556,7 @@ html{scroll-behavior:smooth}
       <p><b>That is not proof of absence.</b> Indonesian ministerial regulations are often published on ministry JDIH portals that a general search reaches poorly, and my search was in one language against one index. What it does mean is that I cannot tell you these rules exist, and neither should anyone who has not shown you the document.</p>
       <p>Concretely, these remain unanswerable from what I hold: <b>what additionality test applies; what the sectoral offset limits are; which installations are <i>Instalasi yang Diatur</i>; what the <i>Batas Atas Emisi</i> is for power or industry; whether POJK 14/2023 has been aligned to SRUK; and whether pre-existing international agreements have been adjusted under Pasal 99.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s09-lenses">
@@ -6913,11 +6575,7 @@ html{scroll-behavior:smooth}
         <p>Two diligence points specific to this session. First, an Indonesian carbon unit traded on exchange is a <b>security</b> — check the intermediation and disclosure chain, not just the offtake. Second, <b>the offset limit that creates your domestic demand has probably not been set yet</b>; if a model shows compliance-market revenue, ask which ministerial regulation it relies on.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s09-check">
@@ -6931,11 +6589,7 @@ html{scroll-behavior:smooth}
         <li>POJK 14/2023 requires registration in SRN-PPI; Perpres 110 routes unit recording to SRUK. Explain the legal position under Pasal 100, and what you would check before relying on either.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s09-notes" class="notes">
@@ -6949,11 +6603,7 @@ html{scroll-behavior:smooth}
       <li id="s09-n5"><span class="verified byref">by reference</span> <b>Search for implementing regulations under Perpres 110/2025</b> — conducted this session; returned the Perpres, government commentary and legal-practice notes, <b>no ministerial regulation issued under it</b>. Recorded as a negative search result, <b>not</b> as evidence that none exists. Ministry JDIH portals should be checked directly.</li>
       <li id="s09-n6"><span class="verified">verified in file</span> <b>Second NDC of Indonesia (2025)</b>, p.20 — the DG Climate Change focal-point mandate and its transfer to the Ministry of Environment, and the BAPPENAS / Ministry of Finance coordination set. Read in Session 07.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -6961,7 +6611,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -7049,11 +6701,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 10.1 — Computed from the provincial production table, DJK <i>Statistik Ketenagalistrikan 2024</i>. Component figures sum to 343,891.74 GWh against the table's stated 343,891.75 — reconciled.<sup class="fn"><a class="tip tr" href="#s10-n1" data-tip="Note 1 — DJK, Statistik Ketenagalistrikan 2024, &lsquo;Produksi Tenaga Listrik PT PLN&rsquo;. Read from the user's reference folder this session; shares computed from the provincial table. The page does not label the reference year.">1</a></sup> Includes own production, rental and IPP purchases. <span class="q">[?]</span> The page read does not label the data year; the publication is the 2024 edition.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ETS FLAG -->
   <section id="s10-ets">
@@ -7081,11 +6729,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Session 01 predicted a translation problem. It exists, and it is now specified: intensity at the installation, absolute tonnage at the nation.</p>
       <p>Perpres 110 Pasal 22(2) requires every mitigation target — national, sector, provincial — to be stated <b>in tonnes CO₂e</b>, and <i>Alokasi Karbon</i> is defined as an absolute CO₂e quantity. But the instrument that actually binds a power plant allocates by <b>tCO₂e per MWh</b>. Those two are only reconcilable through an assumption about how much electricity gets generated.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s10-oba">
@@ -7130,11 +6774,7 @@ html{scroll-behavior:smooth}
       <p>Benchmarking also does real work that a flat cap would not: the 29.8% spread between the two Phase I benchmarks means <b>efficient large plants receive surplus quota to sell and inefficient plants must buy</b>. Within the coal fleet, that is a genuine merit-order pressure. What it cannot do is reduce the fleet.</p>
       <p><b>On the design as drafted, the instrument acts on the emissions intensity of a growing coal fleet rather than on its size. <span class="interp tip" data-tip="Author&#39;s interpretation. The underlying facts are cited; the framing and the emphasis are mine, and a practitioner might read them differently.">analysis</span></b> Whether that is the right first step or an insufficient one is a judgement — but it should be made knowing which of the two the instrument is.</p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s10-efficiency">
@@ -7152,11 +6792,7 @@ html{scroll-behavior:smooth}
       <p class="lead">The cheapest abatement in your sector is the hardest to monetise through carbon markets.</p>
       <p>Industrial energy efficiency is where the negative-cost tonnes are — and it is simultaneously the most exposed to the additionality squeeze, the least responsive to a price signal, and administratively split from the power scheme. <b>Expect the compliance market to deliver less efficiency abatement than the MACC suggests is available</b>, and treat efficiency policy as a regulatory and finance problem with a carbon-market component, rather than the reverse.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s10-forestry">
@@ -7188,11 +6824,7 @@ html{scroll-behavior:smooth}
       <p>Counterparties are dispersed, with land-tenure and community-rights questions an allowance market has no way to handle. And <b>Pasal 70(3)</b> gives the decisive institutional answer: results-based payment <b>transfers no carbon ownership</b>, and under Pasal 70(4) the reductions stay in Indonesia's NDC. For a sector that must deliver a 389,796 Gg swing, that is exactly the instrument you want — payment without surrender.</p>
       <p><span class="q">[?]</span> <span style="color:var(--ink-2)">Whether forestry in fact dominates Indonesian voluntary-market issuance — flagged in Session 06 — remains unverified; I have not pulled registry data. The structural argument stands regardless of the issuance split.</span></p>
     </details>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s10-why">
@@ -7218,11 +6850,7 @@ html{scroll-behavior:smooth}
       <p>Forestry generates the removals international buyers want and holds the credits with the strongest voluntary-market demand. It is also the sector delivering the 389,796 Gg swing on which the NDC depends. Every authorised forest tonne exported under Pasal 68 comes out of that swing — while energy, which has abundant creditable activity in principle, is largely inside the compliance system where Session 04's regulatory-surplus test bites.</p>
       <p style="margin-top:10px"><b>That tension carries directly into Session 11.</b> It is not a flaw in the design; it is the real constraint the design has to manage.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s10-ruptl">
@@ -7250,11 +6878,7 @@ html{scroll-behavior:smooth}
       <p><b>PP 40/2025</b> sets new and renewable energy at <b>19–23% by 2030</b> — but of the <b>primary energy supply mix</b>, which includes transport fuel, industrial heat and cooking, not only electricity. Fig. 10.1's 11.5% is <b>electricity generation</b> by PLN.</p>
       <p>These are different denominators and the numbers are not comparable. Mixing them is one of the commonest errors in Indonesian energy commentary — including in otherwise careful briefing notes. When someone quotes a renewable share, <b>ask which denominator</b>.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s10-lenses">
@@ -7273,11 +6897,7 @@ html{scroll-behavior:smooth}
         <p>An intensity benchmark means a coal asset's carbon liability <b>scales with dispatch, not with a fixed cap</b> — model it per MWh, not as an annual tonnage. And your exposure is to the <b>benchmark trajectory</b>, which is a regulatory variable revised phase by phase, not a market price you can hedge.</p>
       </div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s10-check">
@@ -7291,11 +6911,7 @@ html{scroll-behavior:smooth}
         <li>Someone tells you Indonesia is “at 23% renewables.” What is the one question you ask before accepting the number?</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s10-notes" class="notes">
@@ -7310,11 +6926,7 @@ html{scroll-behavior:smooth}
       <li id="s10-n6"><span class="verified byref">by reference</span> <b>Decision -/CMA.3</b>, annex ¶38 — the regulatory-surplus limb of the additionality test, applied in §3 to PP 33/2023 and MEPS. Read in full in Session 04.</li>
       <li id="s10-n7"><span class="verified byref">by reference</span> <b>PLN, <i>Statistik 2025</i></b> — also in your reference folder, 110 pages. <b>Not read this session</b>; it is the natural source for a longer generation and emissions time series than Fig. 10.1's single year.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -7322,7 +6934,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -7377,11 +6991,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Before any of the carbon machinery: this plant is in Central Java, which Session 10's data shows is Indonesia's largest electricity-producing province — on a grid that is 67.5% coal.</p>
       <p>That is why displaced grid power is worth counting at all. The emission factor behind these 25,000 tonnes is a coal-heavy grid. In a system dominated by hydro, the same 20 MWp would abate a fraction of this. <b>The value of the project is a property of the grid it sits on, not of the panels.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s11-gates">
@@ -7443,11 +7053,7 @@ html{scroll-behavior:smooth}
       <h3>Exchange or direct</h3>
       <p>Trading may be through the <b>Bursa Karbon</b> or by <b>direct trade</b> (Pasal 58(2)); every trade must be recorded in <b>SRUK</b> (Pasal 59(1)). If it goes across IDXCarbon, the unit is legally a <b>security</b> and the whole OJK apparatus attaches — licensing, market conduct, settlement, disclosure.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s11-forks">
@@ -7515,11 +7121,7 @@ html{scroll-behavior:smooth}
       </div>
       <p class="figcap">Fig. 11.1 — Synthesis of Perpres 110 Pasal 56(2), 62(1)(d), 68(1)–(2) with Decision -/CMA.3 ¶43. All verified in Sessions 03, 04 and 08.<sup class="fn"><a class="tip tr" href="#s11-n1" data-tip="Note 1 — Perpres 110/2025 Pasal 56(2) p.42; 62(1)d p.45; 68(1)–(2) pp.47–48. Decision -/CMA.3 annex ¶43. All read directly in earlier sessions.">1</a></sup></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s11-gov">
@@ -7536,11 +7138,7 @@ html{scroll-behavior:smooth}
         <li><b>Regulating more shrinks your creditable pipeline.</b> Every MEPS tightening moves measures from creditable to merely compliant. That is not an argument against regulating — it is an argument for designing carbon policy and sectoral regulation as one thing.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s11-dev">
@@ -7557,11 +7155,7 @@ html{scroll-behavior:smooth}
         <li><b>Do not assume authorisation.</b> It is a sovereign judgement about national headroom, made after your project exists, on grounds that have nothing to do with your project's quality. Build the timeline around it rather than the sales process.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s11-own">
@@ -7578,11 +7172,7 @@ html{scroll-behavior:smooth}
         <li><b>“Is this a commodity or a security?”</b> Traded across IDXCarbon it is legally a security, with the intermediation, disclosure and settlement obligations that implies. And for a coal asset, carbon liability scales with <b>dispatch per MWh</b>, not with a fixed annual tonnage.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s11-truths">
@@ -7600,11 +7190,7 @@ html{scroll-behavior:smooth}
       <div class="truth"><p><b>Indonesia can sell a voluntary credit abroad and keep the tonne.</b> Pasal 68(1)(b) plus Pasal 56(2) permit export without authorisation while the reduction still counts toward the NDC. The buyer gets a contribution claim, not an offsetting one — and that is honest, not deficient.</p></div>
       <div class="truth"><p><b>Nearly three quarters of global emissions still face no carbon price.</b> About 28% are covered. That is the honest state of the field after three decades, and it is why Article 6 exists commercially.</p></div>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s11-unknown">
@@ -7634,11 +7220,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Each of these is a point where a sourced answer and an assumed one look alike.</p>
       <p>Each row above is a question that can be answered fluently without a document behind it. <b>Asking which instrument an answer rests on</b> separates a sourced position from an inferred one.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 9 -->
   <section id="s11-next">
@@ -7655,11 +7237,7 @@ html{scroll-behavior:smooth}
       <p>You opened this saying you understood about 30% and that it felt like vibes rather than structure. Eleven sessions later the structure exists: the economics beneath the instruments, the treaty scaffolding, Article 6 end to end, how a methodology manufactures a tonne, the compliance family, the voluntary market, Indonesia's NDC and its NEK architecture read from the primary text, the institutions, and your two sectors tested against all of it.</p>
       <p style="margin-top:10px">More usefully: <b>you now know what is not known</b>, and you have a source ledger that distinguishes what was read from what was inferred. That is the difference between fluency and grounding — and it is the part that survives contact with a room full of people who are confident.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CHECK -->
   <section id="s11-check">
@@ -7674,11 +7252,7 @@ html{scroll-behavior:smooth}
         <li>You are handed a diligence memo asserting an Indonesian additionality rule, a sectoral offset limit, and a compliance-market price. For each, say what document you would demand — and what it means if none exists.</li>
       </ol>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s11-notes" class="notes">
@@ -7693,11 +7267,7 @@ html{scroll-behavior:smooth}
       <li id="s11-n6"><span class="verified byref">by reference</span> <b>Paris Agreement Article 6</b>; <b>Kyoto Protocol Articles 6, 12, 17</b>; <b>West et al. (2023), <i>Science</i> 381:873–877</b>; <b>Pigou (1920)</b>, <b>Coase (1960)</b>, <b>Weitzman (1974)</b>, <b>Dales (1968)</b>, <b>Baumol &amp; Oates</b>. Cited by article, paragraph or journal citation as appropriate; not opened.</li>
       <li id="s11-n7"><span class="verified">verified in file</span> <b>Running source ledger</b> — <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">_Sources/source_ledger.html</span>. Every claim across all eleven sessions, with document, location, verification status and the session that logged it, including the one correction issued against Session 05.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -7705,7 +7275,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -7763,11 +7335,7 @@ html{scroll-behavior:smooth}
     </div>
 
     <p style="margin-top:18px">The forestry rule reached me as a <b>26-page PDF on the Ministry of Forestry's own JDIH portal</b>. I read it in full. Its recitals state that it implements <b>Pasal 64, Pasal 68 ayat (4), Pasal 76 ayat (4), Pasal 86 and Pasal 94 ayat (6)</b> of Perpres 110/2025 — offset trading procedures, non-authorised international trading, MRV guidance, validation and verification procedures, and participation.<sup class="fn"><a class="tip" href="#s12-n1" data-tip="Note 1 — Peraturan Menteri Kehutanan on forestry carbon offset trading, PDF from jdih.kehutanan.go.id, read in full this session. Recitals (Menimbang) p.1.">1</a></sup> That maps exactly onto the delegations Session 08 identified as outstanding.</p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- CAVEAT -->
   <section id="s12-caveat">
@@ -7779,11 +7347,7 @@ html{scroll-behavior:smooth}
       <p>Multiple independent secondary reports describe <b>Permenhut No. 6 Tahun 2026</b> with this exact title, in force from <b>13 April 2026</b>, implementing Perpres 110/2025 and revoking Permen LHK 7/2023 — which matches this draft's own Pasal 64. So this is almost certainly the text that was enacted.</p>
       <p><b>But I have not seen the gazetted version.</b> Article numbers, thresholds and dates could have moved between draft and enactment. Everything below is cited to the draft, and before you rely on any article number, <b>obtain the Berita Negara text.</b></p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- ADDITIONALITY -->
   <section id="s12-addl">
@@ -7802,11 +7366,7 @@ html{scroll-behavior:smooth}
       <p>It states the <b>counterfactual limb</b> cleanly: additional compared with what would have happened without the project. It does <b>not</b> restate the Article 6.4 rulebook's other two limbs — that mitigation must <b>exceed what law or regulation already requires</b>, and that a <b>conservative approach must avoid locking in</b> carbon-intensive practices (Decision -/CMA.3 ¶38, Session 04).</p>
       <p style="margin-top:10px">That does not mean regulatory surplus is irrelevant in Indonesia — <b>Pasal 12 ayat (1) huruf c</b> requires the DRAM to state its application of <b>national, UNFCCC and other international methodology and standards</b>, and any Article 6.4 or major voluntary methodology carries the fuller test. But the <b>domestic definition itself is narrower than the treaty one</b>, and if you are advising on an Indonesian forestry project, that gap is worth knowing precisely.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 2 -->
   <section id="s12-what">
@@ -7829,11 +7389,7 @@ html{scroll-behavior:smooth}
       <p><b>Pasal 6</b> lists eligible <i>Pelaku Usaha</i>: holders of <b>PBPH</b> (forest utilisation business licences) and management rights; holders of <b>Social Forestry Management Approval</b>; <b>adat law communities</b> holding customary forest status; private-forest registration holders; and holders of <b>PB-PJL Karbon</b> — a carbon environmental-services business licence for conservation areas and hunting parks.</p>
       <p>Notably, <b>Pasal 6 ayat (2)</b> requires social forestry groups, adat communities and private-forest holders to be <b>accompanied by a registered partner or facilitator</b>. That is a real answer to the counterparty-dispersion problem Session 01 identified as the structural reason forestry fits poorly in an allowance market.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 3 -->
   <section id="s12-new">
@@ -7856,11 +7412,7 @@ html{scroll-behavior:smooth}
       <p class="lead">Nesting is the concept that resolves a problem this brief has circled since Session 03.</p>
       <p>If Indonesia credits at national level (the NDC), at provincial level (jurisdictional programmes), <b>and</b> at project level, the same tonne can be claimed three times without anyone lying. Nesting is the discipline that stops it — and its appearance as a defined term, alongside <i>Program Berbasis Yurisdiksi</i>, signals that Indonesia intends to run <b>jurisdictional and project crediting simultaneously</b>. That is technically demanding and it is where forest-carbon integrity disputes concentrate globally.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 4 -->
   <section id="s12-trans">
@@ -7879,11 +7431,7 @@ html{scroll-behavior:smooth}
       </table>
     </div>
     <p style="margin-top:18px"><b>Pasal 61 is the one to act on.</b> If the regulation took effect on 13 April 2026 as reported, its six-month reporting window closes around <b>mid-October 2026</b> — roughly a month from now. Anyone holding forestry carbon units in Indonesia, or mid-way through validation, has a live obligation. <span class="q">[?]</span> <span style="color:var(--ink-2)">Confirm the promulgation date from the gazette before relying on that timing.</span></p>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 5 -->
   <section id="s12-esdm">
@@ -7901,11 +7449,7 @@ html{scroll-behavior:smooth}
       <p class="lead">On sequencing: forestry got its rule first.</p>
       <p>The sector that <b>carries the national target</b> and holds the credits international buyers want has an operative implementing regulation. The sector where <b>emissions are planned to grow 69%</b> is still synchronising spreadsheets. Whatever the reason, the practical effect is that Indonesian forest carbon has a working legal pathway right now, and industrial energy carbon does not.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 6 -->
   <section id="s12-state">
@@ -7917,11 +7461,7 @@ html{scroll-behavior:smooth}
       <p>Two things follow. First, a roughly <b>eightfold</b> gap between ambition and market is not closed by exhortation — it is closed by a binding cap, which returns you to Session 10: an intensity benchmark that grows with output does not produce scarcity. Second, at US$4–5 the <b>Rp30,000/tonne carbon tax floor</b> from Session 08 sits in broadly the same range, meaning the statutory floor is currently doing real work rather than sitting far below the market. <span class="q">[?]</span> <span style="color:var(--ink-2)">— that comparison depends on an exchange rate I have not fixed to a source; treat it as an order-of-magnitude observation, not a calculation.</span></p>
       <p>Also reported: ESDM is working on assigning <b>carbon unit ownership rights directly to the developer or energy producer</b>, so that firms investing in low-emission technology can claim the economic value themselves. If that holds, it is directly relevant to your owner lens — but it is a ministry statement about a draft, not a rule.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 7 -->
   <section id="s12-flags">
@@ -7946,11 +7486,7 @@ html{scroll-behavior:smooth}
         </tbody>
       </table>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- 8 -->
   <section id="s12-means">
@@ -7966,11 +7502,7 @@ html{scroll-behavior:smooth}
       <p class="lead">As things stand, the forestry sector has an operative implementing regulation and the energy sector does not. <span class="interp tip" data-tip="Author&#39;s interpretation. The underlying facts are cited; the framing and the emphasis are mine, and a practitioner might read them differently.">analysis</span></p>
       <p>If you need to act on something in the next few months, the forestry pathway is the one with law behind it — including a <b>six-month reporting obligation</b> that may already be running for existing unit holders. For energy, the correct posture is to watch ESDM and to treat any confident statement about industrial carbon crediting rules as premature.</p>
     </div>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   <!-- NOTES -->
   <section id="s12-notes" class="notes">
@@ -7984,11 +7516,7 @@ html{scroll-behavior:smooth}
       <li id="s12-n5"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b> — Pasal 62(1)(d), 64, 65(5)–(6), 68(4), 76(4), 86, 94(6), 99, 102. Read in Sessions 00, 03 and 08. <b>Decision -/CMA.3</b> annex ¶38 — read in Session 04. <b>Second NDC (2025)</b> Table 1 p.23 — read in Session 07.</li>
       <li id="s12-n6"><span class="verified byref">by reference</span> Secondary legal and industry commentary describing the regulation as <b>Permenhut No. 6 Tahun 2026</b>, in force <b>13 April 2026</b>, revoking Permen LHK 7/2023. Used <b>only</b> to identify the draft; every substantive statement above is cited to the draft text itself.</li>
     </ol>
-  
-<div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
-</div>
-</section>
+  </section>
 
   </main>
 </div>
@@ -7996,7 +7524,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -8453,7 +7983,9 @@ html{scroll-behavior:smooth}
 
 
 <div class="chapfoot">
-  <button data-home>&#8592; All chapters</button>
+  <button class="cf prev" data-nav="prev"><span class="arw">&#8592;</span><span class="lbl"><span class="kicker">Previous</span><span class="t"></span></span></button>
+  <button class="cf home" data-home>All chapters</button>
+  <button class="cf next" data-nav="next"><span class="lbl"><span class="kicker">Next</span><span class="t"></span></span><span class="arw">&#8594;</span></button>
 </div>
 </section>
 
@@ -8464,6 +7996,21 @@ html{scroll-behavior:smooth}
 <script>
 (function(){
   var ids = ['s00', 's01', 's02', 's03', 's04', 's05', 's06', 's07', 's08', 's09', 's10', 's11', 's12', 'sled'];
+  var CH  = [{id:'s00',num:'00',title:'The Vocabulary Kit'}, {id:'s01',num:'01',title:'Why Put a Price on Carbon'}, {id:'s02',num:'02',title:'The Treaty Scaffolding'}, {id:'s03',num:'03',title:'Article 6, End to End'}, {id:'s04',num:'04',title:'Methodologies and the Crediting Cycle'}, {id:'s05',num:'05',title:'Compliance Beyond the ETS'}, {id:'s06',num:'06',title:'The Voluntary Market'}, {id:'s07',num:'07',title:'Indonesia\'s Climate Stack'}, {id:'s08',num:'08',title:'Reading Perpres 110'}, {id:'s09',num:'09',title:'Who Holds the Levers'}, {id:'s10',num:'10',title:'Energy and Forests'}, {id:'s11',num:'11',title:'One Tonne, End to End'}, {id:'s12',num:'12',title:'The Implementing Layer'}, {id:'sled',num:'§',title:'Source Ledger'}];
+  function wireFoot(id){
+    var i = ids.indexOf(id);
+    var sec = document.getElementById(id);
+    if(!sec) return;
+    var foot = sec.querySelector('.chapfoot'); if(!foot) return;
+    [['prev', i-1], ['next', i+1]].forEach(function(pair){
+      var btn = foot.querySelector('.'+pair[0]); if(!btn) return;
+      var c = CH[pair[1]];
+      if(!c){ btn.hidden = true; btn.removeAttribute('data-go'); return; }
+      btn.hidden = false;
+      btn.setAttribute('data-go', c.id);
+      var t = btn.querySelector('.t'); if(t) t.textContent = c.num + ' · ' + c.title;
+    });
+  }
   function setGroup(gid, collapsed){
     var g = document.getElementById('grp-'+gid);
     if(!g) return;
@@ -8485,10 +8032,13 @@ html{scroll-behavior:smooth}
         if(g) g.classList.add('hasactive');
       }
     });
+    wireFoot(id);
     if(push){ try{ history.replaceState(null,'', '#'+id); }catch(e){} }
     window.scrollTo(0,0);
   }
   document.addEventListener('click', function(e){
+    var go = e.target.closest('[data-go]');
+    if(go && !go.hidden){ e.preventDefault(); show(go.getAttribute('data-go'), true); return; }
     var tg = e.target.closest('[data-toggle]');
     if(tg){
       e.preventDefault();
@@ -8501,6 +8051,30 @@ html{scroll-behavior:smooth}
     var home = e.target.closest('[data-home]');
     if(home){ e.preventDefault(); show('cover', true); }
   });
+  // ---- collapse toggles (both rails fold to the left, never fully vanish) ----
+  var shell = document.getElementById('shell'), main = document.getElementById('main');
+  function pref(k, v){ try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k, v); }catch(e){ return null; } }
+  function setNav(t){
+    shell.classList.toggle('navtight', t);
+    var b = document.getElementById('navToggle');
+    if(b){ b.innerHTML = t ? '&#10095;' : '&#10094;';
+           b.title = t ? 'Expand chapter menu' : 'Collapse chapter menu';
+           b.setAttribute('aria-label', b.title); }
+    pref('cp_nav', t ? '1' : '0');
+  }
+  function setRail(t){
+    main.classList.toggle('railtight', t);
+    var b = document.getElementById('railToggle');
+    if(b) b.title = t ? 'Expand the section rail' : 'Collapse the section rail';
+    pref('cp_rail', t ? '1' : '0');
+  }
+  var nb = document.getElementById('navToggle');
+  if(nb) nb.addEventListener('click', function(e){ e.stopPropagation(); setNav(!shell.classList.contains('navtight')); });
+  var rb = document.getElementById('railToggle');
+  if(rb) rb.addEventListener('click', function(e){ e.stopPropagation(); setRail(!main.classList.contains('railtight')); });
+  setNav(pref('cp_nav') === '1');
+  setRail(pref('cp_rail') === '1');
+
   var h = (location.hash||'').replace('#','');
   var base = h.split('-')[0];
   if(h && ids.indexOf(base)>-1){
