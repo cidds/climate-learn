@@ -1,0 +1,509 @@
+<title>Article 6, End to End</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:17ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card .stamp{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--law); background:var(--law-soft); padding:2px 7px; border-radius:2px; margin-left:8px; white-space:nowrap;}
+.card.id{border-left:3px solid var(--law)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:940px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:640px; font-size:14.5px}
+th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.total td{background:var(--surface-2); font-weight:600}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+.resolved{background:var(--accent-soft); border:1px solid transparent; border-left:3px solid var(--accent); padding:18px 22px; border-radius:3px;}
+.resolved h3{font-family:"IBM Plex Serif",serif; font-size:1.02rem; margin:0 0 8px; font-weight:600}
+.resolved p{margin:0 0 10px; font-size:14.5px; color:var(--ink-2)} .resolved p:last-child{margin-bottom:0}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 03 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>Article 6, End to End</h1>
+  <p class="standfirst">Three hundred and twenty words of treaty text that took six years to write rules for. This session takes Article 6 apart paragraph by paragraph — and then shows you the exact article of Perpres 110/2025 where Indonesia implements it, which turns out to be one of the cleanest expressions of Article 6 logic in any national law.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>Prerequisite</b> · Sessions 00–02</span>
+    <span><b>New primary reading</b> · Perpres 110/2025 pp. 42–51, 56–60</span>
+    <span><b>Next</b> · 04 · CDM → PACM methodology</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#anatomy"><span class="n">1</span>Anatomy of Article 6</a>
+    <a href="#62"><span class="n">2</span>6.2 — cooperative approaches</a>
+    <a href="#64"><span class="n">3</span>6.4 — the mechanism</a>
+    <a href="#versus"><span class="n">4</span>6.2 vs 6.4, side by side</a>
+    <a href="#ca"><span class="n">5</span>The CA, worked</a>
+    <a href="#68"><span class="n">6</span>Indonesia: Pasal 68</a>
+    <a href="#resolved"><span class="n">!</span>Two flags resolved</a>
+    <a href="#68b"><span class="n">7</span>What else Pasal 55–68 shows</a>
+    <a href="#lenses"><span class="n">8</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="anatomy">
+    <div class="sec-head"><span class="n">1</span><h2>Anatomy of Article 6</h2></div>
+    <p class="sec-intro">People say “Article 6” and mean “6.2 and 6.4”. The article has nine paragraphs, and three of the ones nobody quotes do real work.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 330" role="img" aria-label="Map of Article 6 paragraphs. 6.1 sets the framing. 6.2 and 6.3 govern cooperative approaches and authorization. 6.4 to 6.7 establish the centralised mechanism, its anti-double-counting rule, share of proceeds and rulemaking. 6.8 and 6.9 cover non-market approaches.">
+        <text x="0" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">PARIS AGREEMENT · ARTICLE 6 · NINE PARAGRAPHS, THREE DOORS</text>
+
+        <!-- 6.1 framing bar -->
+        <rect x="0" y="34" width="880" height="40" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="14" y="52" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent)">6.1</text>
+        <text x="46" y="52" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Voluntary cooperation is permitted — to raise ambition, and with environmental integrity</text>
+        <text x="46" y="67" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">The umbrella. Everything below inherits these conditions.</text>
+
+        <!-- three doors -->
+        <!-- door 1 -->
+        <rect x="0" y="92" width="278" height="150" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1.4"/>
+        <text x="14" y="114" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">Door 1 — decentralised</text>
+        <text x="14" y="136" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--law)">6.2</text>
+        <text x="46" y="136" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">Cooperative approaches; ITMOs;</text>
+        <text x="46" y="151" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">robust accounting; no double counting</text>
+        <text x="14" y="176" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--law)">6.3</text>
+        <text x="46" y="176" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">Use is <tspan font-weight="600">voluntary</tspan> and must be</text>
+        <text x="46" y="191" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)"><tspan font-weight="600">authorized</tspan> by participating Parties</text>
+        <text x="14" y="220" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)">Country-to-country. No UN body issues</text>
+        <text x="14" y="234" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)">the unit. Rules set between the parties.</text>
+
+        <!-- door 2 -->
+        <rect x="301" y="92" width="278" height="150" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="315" y="114" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">Door 2 — centralised</text>
+        <text x="315" y="136" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent)">6.4</text>
+        <text x="347" y="136" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">The mechanism — UN-supervised,</text>
+        <text x="347" y="151" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">now operating as PACM</text>
+        <text x="315" y="172" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent)">6.5</text>
+        <text x="347" y="172" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">No double counting — treaty level</text>
+        <text x="315" y="193" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent)">6.6</text>
+        <text x="347" y="193" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">Share of proceeds → adaptation</text>
+        <text x="315" y="214" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent)">6.7</text>
+        <text x="347" y="214" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">CMA adopts the rulebook</text>
+        <text x="315" y="234" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)">Standardised. Portable. Slower.</text>
+
+        <!-- door 3 -->
+        <rect x="602" y="92" width="278" height="150" rx="2" fill="var(--warm-soft)" stroke="var(--warm)" stroke-width="1.4"/>
+        <text x="616" y="114" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">Door 3 — no units at all</text>
+        <text x="616" y="136" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--warm)">6.8</text>
+        <text x="648" y="136" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">Non-market approaches —</text>
+        <text x="648" y="151" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">integrated, holistic, balanced</text>
+        <text x="616" y="172" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--warm)">6.9</text>
+        <text x="648" y="172" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">A framework for those approaches</text>
+        <text x="616" y="203" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)">Finance, technology, capacity — with</text>
+        <text x="616" y="217" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)"><tspan font-weight="600">no transfer</tspan> of mitigation outcomes.</text>
+        <text x="616" y="234" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)">The door developing countries asked for.</text>
+
+        <!-- bottom note -->
+        <rect x="0" y="258" width="880" height="54" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="14" y="279" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">The paragraph almost nobody quotes, and the one that matters most: 6.5</text>
+        <text x="14" y="298" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">A reduction used by another Party toward its NDC shall NOT also be used by the host to show achievement of its own NDC. Double counting is banned in the treaty itself — not merely in the rulebook.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 3.1 — Article 6 structure. Cited by paragraph, the correct unit for treaty text.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Paris Agreement (2015), Article 6, paragraphs 6.1 to 6.9. Cited by paragraph; treaty text not opened this session.">1</a></sup></p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="62">
+    <div class="sec-head"><span class="n">2</span><h2>6.2 — cooperative approaches</h2></div>
+    <p class="sec-intro">The bilateral door. Two governments agree terms between themselves; the UN receives reports but issues nothing.</p>
+
+    <div class="card">
+      <h3>What 6.2 actually requires</h3>
+      <p>The paragraph is short and its obligations are conditions, not procedures. Parties using <span class="tip" data-tip="Internationally Transferred Mitigation Outcome — the unit of Article 6.2. Deliberately called an &lsquo;outcome&rsquo; rather than a credit, so it need not come from a project: a sectoral or programme-level result can be transferred too.">ITMOs</span> toward an NDC must <b>promote sustainable development</b>, <b>ensure environmental integrity and transparency including in governance</b>, and <b>apply robust accounting</b> to avoid double counting, consistent with CMA guidance.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Paris Agreement (2015), Article 6.2 and 6.3. Cited by paragraph.">1</a></sup></p>
+      <p>Article 6.3 adds the two words that give host countries their power: use of ITMOs is <b>voluntary</b> and <b>authorized</b> by participating Parties. That is the treaty basis for every national authorization regime, Indonesia's included.</p>
+    </div>
+
+    <details>
+      <summary>The reporting chain — where “robust accounting” actually happens</summary>
+      <p>6.2 has no supervisory body, so its discipline is reporting. A participating party submits an <b>initial report</b> setting out the cooperative approach and how it will avoid double counting; then <b>regular and annual information</b> on transfers; and reflects all of it in its <span class="tip" data-tip="Biennial Transparency Report — the periodic submission every Party makes under the Paris Article 13 Enhanced Transparency Framework, covering its inventory, NDC progress and Article 6 transfers.">Biennial Transparency Report</span> under Article 13.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — CMA guidance on Article 6.2, adopted from Glasgow (2021) onward. Specific decision numbers not asserted; see source note.">2</a></sup></p>
+      <p>Practical reading: <b>6.2 integrity is a function of who your counterparty government is.</b> There is no central referee, so the quality of a 6.2 arrangement depends on the two parties' own standards and on the exposure that reporting creates. This is the reason 6.2 deals are fast and the reason they are scrutinised.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="64">
+    <div class="sec-head"><span class="n">3</span><h2>6.4 — the mechanism, now PACM</h2></div>
+    <p class="sec-intro">The centralised door, and the CDM's institutional heir. A UN body approves the methodology, accredits the auditor, and issues the unit.</p>
+
+    <div class="card">
+      <h3>What Article 6.4 sets up</h3>
+      <p>A mechanism under the <b>authority and guidance of the CMA</b>, supervised by a designated body, with four stated aims: promote mitigation alongside sustainable development; incentivise participation by <b>public and private entities authorised by a Party</b>; contribute to emission reductions in the host Party which <b>another Party may also use</b> toward its NDC; and deliver an <span class="tip" data-tip="Overall Mitigation in Global Emissions — the requirement that the mechanism produce a net reduction in global emissions, not merely a transfer of the same tonne between two countries. Delivered mainly by cancelling a portion of issued units.">overall mitigation in global emissions</span>.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Paris Agreement (2015), Article 6.4(a)–(d), 6.5, 6.6, 6.7. Cited by paragraph.">1</a></sup></p>
+      <p>That fourth aim is what most sharply separates 6.4 from the CDM. The CDM moved a tonne from one ledger to another. <b>6.4 is required to shrink the total.</b></p>
+      <p>Two further paragraphs carry money and law: <b>6.5</b> bans the host from also counting a transferred reduction, and <b>6.6</b> requires a <b>share of proceeds</b> to fund administration and to help particularly vulnerable developing countries meet adaptation costs.</p>
+    </div>
+
+    <details>
+      <summary>PACM — the name, the body, and the two levies</summary>
+      <p><b>PACM</b> — the Paris Agreement Crediting Mechanism — is the operating name adopted for the Article 6.4 mechanism. Its supervisory body sets methodology and removals standards, accredits validation and verification bodies (the CDM's <span class="tip" data-tip="Designated Operational Entity — the CDM&rsquo;s accredited third-party auditor. The 6.4 mechanism accredits equivalent bodies under its own standards.">DOE</span> role), registers activities and issues units.</p>
+      <p>The Glasgow rules attach two mandatory levies to 6.4 issuance: a <b>share of proceeds for adaptation</b>, and a <b>mandatory cancellation</b> of a portion of units to deliver OMGE. Commonly cited at <b>5%</b> and <b>2%</b> respectively. <span class="q">[?]</span> <span style="color:var(--ink-2)">— the design is certain; the exact percentages should be confirmed against the CMA decision text before you quote them in any deliverable. Flagged rather than asserted.</span></p>
+      <p>Under 6.2 neither is mandatory — they are encouraged. <b>That asymmetry is a real commercial difference, not a technicality:</b> a 6.4 unit arrives with a levy already deducted; a 6.2 unit need not.</p>
+    </details>
+
+    <details>
+      <summary>What happened to the CDM pipeline</summary>
+      <p>The transition rules permit eligible CDM activities to move into the 6.4 mechanism on host-country request within a deadline, and permit limited use of pre-existing CERs toward first NDCs, subject to conditions on vintage. <span class="q">[?]</span> <span style="color:var(--ink-2)">— the eligibility cut-offs and deadlines are specific and consequential; they are an explicit reading item for Session 04 and I will not paraphrase them from memory here.</span></p>
+      <p>The reason to care: a large legacy pipeline of registered CDM projects, Indonesian ones among them, sat in limbo for years pending these rules. Whether an old project can transition is a live commercial question with a documented answer — which we will read rather than guess.</p>
+    </details>
+  </section>
+
+  <!-- 4 -->
+  <section id="versus">
+    <div class="sec-head"><span class="n">4</span><h2>6.2 vs 6.4, side by side</h2></div>
+    <p class="sec-intro">The table you will return to. Note the last row especially — they are not rival products.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Article 6.2 — cooperative approaches</th><th>Article 6.4 — the mechanism (PACM)</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Governance</td><td><b>Decentralised.</b> Bilateral or plurilateral agreement between governments</td><td><b>Centralised.</b> CMA authority, supervisory body</td></tr>
+          <tr><td class="pair">Who sets<br>the methodology</td><td>The participating Parties, between themselves</td><td>The supervisory body, published as standards</td></tr>
+          <tr><td class="pair">Who verifies</td><td>Whoever the Parties accept</td><td>Bodies <b>accredited by the mechanism</b></td></tr>
+          <tr><td class="pair">Who issues<br>the unit</td><td><b>Nobody centrally</b> — parties account for transfers</td><td>The mechanism issues A6.4ERs</td></tr>
+          <tr><td class="pair">Levies</td><td>Encouraged, not required</td><td><b>Mandatory</b> adaptation share + OMGE cancellation</td></tr>
+          <tr><td class="pair">Corresponding<br>adjustment</td><td>Required when used toward an NDC</td><td>Required for authorised use</td></tr>
+          <tr><td class="pair">Speed</td><td><b>Fast</b> — as fast as two governments can agree</td><td><b>Slow</b> — methodology approval, accreditation, registration</td></tr>
+          <tr><td class="pair">Portability<br>of the unit</td><td>Low. Shaped by one bilateral relationship</td><td><b>High.</b> Standardised, recognisable to any buyer</td></tr>
+          <tr class="total"><td class="pair">Relationship</td><td colspan="2"><b>Not rivals.</b> An A6.4ER <i>becomes</i> an ITMO when it is authorised and transferred across a border. 6.4 describes how a unit is <b>made</b>; 6.2 describes how a unit <b>moves</b>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="ca">
+    <div class="sec-head"><span class="n">5</span><h2>The corresponding adjustment, worked</h2></div>
+    <p class="sec-intro">Session 02 explained why CAs exist. Here is the arithmetic, because seeing the ledgers move settles it permanently.</p>
+
+    <p>A geothermal project in Indonesia avoids <b>100,000 tCO₂e</b> in a year. Indonesia's NDC target requires it to be at 900 Mt; without the project it would be at 900.1 Mt. A Japanese buyer wants the credits for its own NDC.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Ledger</th><th>Before</th><th>Effect of the project</th><th>After the authorised transfer</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair">Indonesia<br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">host</span></td>
+            <td class="num">900.100 Mt</td>
+            <td class="num">900.000 Mt<br><span style="font-size:11.5px;color:var(--accent)">−100 kt, on target</span></td>
+            <td class="num">900.100 Mt<br><span style="font-size:11.5px;color:var(--flag)">+100 kt added back</span></td>
+          </tr>
+          <tr>
+            <td class="pair">Japan<br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">buyer</span></td>
+            <td class="num">X</td>
+            <td class="num">X<br><span style="font-size:11.5px;color:var(--ink-3)">unchanged</span></td>
+            <td class="num">X − 100 kt<br><span style="font-size:11.5px;color:var(--accent)">counts toward its NDC</span></td>
+          </tr>
+          <tr class="total">
+            <td class="pair">Atmosphere</td>
+            <td class="num">—</td>
+            <td class="num">100 kt avoided</td>
+            <td class="num">100 kt avoided — <b>counted once</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:20px">
+      <p class="lead">Indonesia built the project, and ends the year exactly where it started.</p>
+      <p>The reduction is physically real and happened on Indonesian soil — and after the corresponding adjustment, Indonesia's own NDC position is unimproved. What it received instead was money. <b>That is the trade, stated honestly:</b> revenue in exchange for target headroom. Anyone who presents Article 6 export as costless has not run this table.</p>
+    </div>
+
+    <details>
+      <summary>The consequence for how a host country should think</summary>
+      <p>If domestic abatement is cheap and the NDC is comfortably achievable, selling is attractive: you monetise headroom you did not need. If the NDC is tight and abatement is expensive, every export makes the remaining task harder and dearer — you are selling your cheapest tonnes and keeping the expensive ones.</p>
+      <p>So the rational sequencing question is: <b>which tonnes can we afford to sell, and at what price does selling beat keeping?</b> That is a marginal abatement cost question — Session 01's Fig. 1.1, applied to a national portfolio. The two sessions join here.</p>
+    </details>
+  </section>
+
+  <!-- 6 -->
+  <section id="68">
+    <div class="sec-head"><span class="n">6</span><h2>Indonesia's implementation — Pasal 68</h2></div>
+    <p class="sec-intro">This is the payoff. I read the international trading provisions directly, and Pasal 68 is a notably clean piece of drafting: it sorts every cross-border trade by a single question.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 380" role="img" aria-label="Decision tree from Perpres 110 Pasal 68. If the carbon unit is used toward another country's NDC or another international obligation, authorization and a corresponding adjustment are required. If it is not used for any obligation, neither is required.">
+        <text x="0" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">PERPRES 110/2025 · PASAL 68 · PERDAGANGAN KARBON LUAR NEGERI · PP. 47–48</text>
+
+        <!-- question -->
+        <rect x="215" y="36" width="450" height="52" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="440" y="60" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)" text-anchor="middle">Is the unit used to meet an obligation?</text>
+        <text x="440" y="78" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)" text-anchor="middle">another country's NDC, or any other international obligation</text>
+
+        <line x1="330" y1="88" x2="200" y2="118" stroke="var(--ink-3)" stroke-width="1.2"/>
+        <line x1="550" y1="88" x2="680" y2="118" stroke="var(--ink-3)" stroke-width="1.2"/>
+        <text x="238" y="108" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--flag)">YES</text>
+        <text x="614" y="108" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent)">NO</text>
+
+        <!-- YES branch -->
+        <rect x="0" y="120" width="420" height="200" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.4"/>
+        <text x="16" y="144" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--flag)">PASAL 68(1) HURUF a</text>
+        <text x="16" y="167" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">Requires Otorisasi + Corresponding Adjustment</text>
+        <text x="16" y="192" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Covering three cases:</text>
+        <text x="16" y="213" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">1 · internationally linked emissions trading</text>
+        <text x="16" y="233" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">2 · offset trading meeting <tspan font-weight="600" fill="var(--ink)">Article 6.2 and 6.4</tspan> of Paris</text>
+        <text x="16" y="253" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">3 · voluntary offset trading used for <tspan font-weight="600" fill="var(--ink)">other</tspan></text>
+        <text x="28" y="269" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">international obligations  →  e.g. CORSIA</text>
+        <rect x="16" y="282" width="388" height="26" rx="2" fill="var(--surface)" stroke="var(--flag)" stroke-dasharray="3 2"/>
+        <text x="26" y="299" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink)">Pasal 68(2): Otorisasi granted by <tspan font-weight="600">Menteri</tspan>, on recommendation of Menteri Terkait</text>
+
+        <!-- NO branch -->
+        <rect x="460" y="120" width="420" height="200" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="476" y="144" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--accent-ink)">PASAL 68(1) HURUF b</text>
+        <text x="476" y="167" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">No Otorisasi, no Corresponding Adjustment</text>
+        <text x="476" y="192" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Covering:</text>
+        <text x="476" y="213" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">offset trading <tspan font-weight="600" fill="var(--ink)">not used</tspan> for any NDC or other</text>
+        <text x="476" y="229" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">international obligation — whether Article 6.4</text>
+        <text x="476" y="245" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">compliant or purely voluntary</text>
+        <rect x="476" y="264" width="388" height="44" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-dasharray="3 2"/>
+        <text x="486" y="281" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink)">The tonne stays on Indonesia's books — and under Pasal 56(2)</text>
+        <text x="486" y="297" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink)">still counts toward Indonesia's own NDC.</text>
+
+        <text x="0" y="348" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">The sorting rule is not &ldquo;is it a Paris credit?&rdquo; but &ldquo;is it being used against someone's obligation?&rdquo; — which is exactly the right question,</text>
+        <text x="0" y="366" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">because double counting is caused by <tspan font-weight="600" fill="var(--ink)">use</tspan>, not by pedigree.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 3.2 — Perpres 110/2025, Pasal 68(1)–(2), pp. 47–48. Verified in file this session.<sup class="fn"><a class="tip tr" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 68(1) huruf a and b, pp. 47–48; Pasal 68(2) p.48. Read directly from the PDF this session.">3</a></sup></p>
+    </div>
+
+    <div class="card id" style="margin-top:18px">
+      <h3>The article that makes the whole logic explicit — Pasal 56(2)</h3>
+      <p>Sitting fifteen pages earlier is the provision that completes the picture. The Minister is <b>obliged to count</b> all emission reductions produced through GHG offset as part of Indonesia's NDC achievement — <b><i>“sepanjang belum diterbitkan Corresponding Adjustment sesuai ketentuan UNFCCC”</i></b> — for as long as no corresponding adjustment has been issued under UNFCCC provisions.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 56(1) and 56(2), p.42. Verified in file this session.">3</a></sup></p>
+      <p>Read that carefully, because it inverts the intuition most people start with. <b>The default is that the tonne belongs to Indonesia.</b> A corresponding adjustment is not what grants Indonesia the credit — it is what <b>takes it away</b>. Export is the exception that has to be actively authorised, not the natural state of a credit.</p>
+    </div>
+  </section>
+
+  <!-- RESOLVED -->
+  <section id="resolved">
+    <div class="sec-head"><span class="n">!</span><h2>Two flags from Session 00, now resolved</h2></div>
+    <p class="sec-intro">The <span class="q">[?]</span> discipline earned its keep — reading further into the regulation answered both open items with primary text.</p>
+
+    <div class="resolved">
+      <h3>Resolved — LVV accreditation is by KAN, and the regulation names it</h3>
+      <p>Session 00 flagged that <i>Lembaga Validasi dan Verifikasi</i> is absent from the Pasal 1 definitions, and I declined to assert KAN as the accreditor. The provisions are at <b>Pasal 84–86, pp. 57–58</b>.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 84(2) p.57; Pasal 85(1) huruf a–c and 85(2) p.58; Pasal 86 p.58. Verified in file this session.">3</a></sup></p>
+      <p><b>Pasal 84(2):</b> validation and verification for entities undertaking Carbon Trading and Results-Based Payment is performed by an <b>independent</b> validation and verification body. <b>Pasal 85(1)</b> sets three criteria: it must be a legal entity; hold validators and verifiers competent in the relevant sector; and be accredited by —</p>
+      <p style="padding-left:18px; border-left:2px solid var(--accent);"><b>1.</b> the <b>Komite Akreditasi Nasional (KAN)</b>, for the SRUK carbon-unit issuance scheme; <b>and/or</b><br><b>2.</b> an <b>internationally valid accreditation body</b>, for units issued under an international carbon registration scheme.</p>
+      <p>So the answer is <b>both, split by track</b> — KAN for the domestic SRUK route, international accreditation for the international-standard route. That mirrors the DRAM/DPP fork exactly, one layer down. Competence standards sit in a <b>KAN regulation</b> (Pasal 85(2)); procedures in a ministerial regulation (Pasal 86).</p>
+    </div>
+
+    <div class="resolved" style="margin-top:14px">
+      <h3>Resolved — where the offset-use limit lives</h3>
+      <p>Session 01 described the “cut first, offset the residual” limit as a standard feature of compliance systems. Indonesia has it, at <b>Pasal 62(1) huruf d, p.45</b>: among the steps by which a sectoral minister runs emissions trading is <b>setting the portion of the emission cap that may be compensated with GHG Offset</b>.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 62(1) huruf a–e, p.45. Verified in file this session.">3</a></sup></p>
+      <p>The mitigation hierarchy is therefore not rhetoric in Indonesian law — it is a quantitative dial, set per sector, by the sectoral minister.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="68b">
+    <div class="sec-head"><span class="n">7</span><h2>Four more things the trading chapter reveals</h2></div>
+    <p class="sec-intro">Reading Pasal 55–68 for the Article 6 anchor surfaced several design choices worth carrying into later sessions.</p>
+
+    <div class="card">
+      <h3>1 — The carbon tax is the ETS enforcement mechanism</h3>
+      <p><b>Pasal 63, p.45.</b> A regulated installation must keep emissions under its cap, and may comply by mitigating, buying quota from another installation, or buying offsets. If it <b>exceeds the cap anyway</b>, it is <b>obliged to pay carbon tax</b>.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 63(1)–(4), p.45. Verified in file this session.">3</a></sup></p>
+      <p>This is the hybrid design from Session 01 made concrete — and it means the carbon tax rate functions as an effective <b>price ceiling</b> on the allowance market. No rational firm pays more than the tax for a quota. Whatever that rate is set at is, in practice, the maximum carbon price Indonesia's ETS can produce.</p>
+    </div>
+
+    <div class="card">
+      <h3>2 — Trading does not wait for the NDC</h3>
+      <p><b>Pasal 58(1), p.43:</b> <i>“Perdagangan Karbon diselenggarakan tanpa menunggu tercapainya target NDC”</i> — carbon trading is conducted without waiting for the NDC target to be met. A deliberate policy statement that the market is not gated on target achievement. <b>Pasal 69(2), p.48</b> adds that domestic carbon trading <b>may be linked to international carbon markets</b>.</p>
+    </div>
+
+    <div class="card">
+      <h3>3 — Results-based payment transfers no ownership</h3>
+      <p><b>Pasal 70(3), p.49:</b> results-based payment <b>does not cause a transfer of carbon ownership</b>, and <b>Pasal 70(4)</b> keeps the achieved reductions inside Indonesia's NDC.</p>
+      <p>That is the cleanest possible statement of why RBP suits forestry: <b>you are paid for the outcome and you keep the tonne.</b> No corresponding adjustment, no headroom lost. Session 10 returns to this.</p>
+    </div>
+
+    <div class="card">
+      <h3>4 — SPE-GRK cannot be minted from spare allowances</h3>
+      <p><b>Pasal 88(4), p.60:</b> SPE-GRK <b>cannot be issued from leftover emission quota</b>.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 88(4) p.60; Pasal 88(2)–(3) pp.59–60; Pasal 65(8) p.47. Verified in file this session.">3</a></sup> An integrity firewall between the two lanes of Session 00's Fig. 0.1: an installation that under-emits because its cap was generous cannot convert that slack into sellable credits. Unused allowance is not an achievement.</p>
+      <p>Also worth noting: <b>Pasal 65(8), p.47</b> specifies that SRUK operates as a <b>decentralised network</b> whose data and transactions are transparent, traceable, real-time, permanent, and interoperable with other registries — unusually specific infrastructure language for a Presidential Regulation.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">8</span><h2>Three lenses on Article 6</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>Authorization is your <b>only</b> point of control, and Pasal 68 places it with the Minister on sectoral recommendation. Every grant converts target headroom into revenue. The strategic question is not whether to authorise but <b>which tonnes, at what price, in which sectors</b> — a portfolio decision, not a permitting one.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>Your route is chosen at design stage and reaches down through every layer: DRAM or DPP → domestic or international standard → KAN-accredited or internationally accredited verifier → authorised or unauthorised. <b>Pick the destination before you draft the document.</b></p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>Under Pasal 68 the same tonne is two assets. Diligence question: <b>has authorization been granted, is it applied for, or is it merely assumed?</b> If the model prices credits at internationally authorised levels and the answer is “assumed”, the revenue line is unfounded.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Pasal 56(2) says the Minister counts offset reductions toward Indonesia's NDC “as long as no Corresponding Adjustment has been issued.” Explain why that wording makes export an <b>exception</b> rather than the default.</li>
+        <li>A Jakarta company sells credits to a Singaporean firm for a purely voluntary net-zero claim, tied to no NDC and no international obligation. Under Pasal 68, does it need <i>Otorisasi</i>? Who keeps the tonne?</li>
+        <li>Indonesia's carbon tax rate is set at level T. Explain why no allowance in the Indonesian ETS should rationally trade above T.</li>
+        <li>Why is “an A6.4ER and an ITMO are competing units” wrong? State the actual relationship in one sentence.</li>
+        <li>A forestry project earns results-based payment; a geothermal project sells authorised ITMOs. Both reduce 100 kt. Which one leaves Indonesia's NDC position better off, and why?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly this session, page confirmed. <span class="verified byref">by reference</span> primary source cited by article or paragraph but not opened here. <span class="q">[?]</span> marks a claim I decline to assert without reading the source.</p>
+    <ol>
+      <li id="n1"><span class="verified byref">by reference</span> <b>Paris Agreement</b> (2015), <b>Article 6</b>, paragraphs 6.1–6.9. Specifically: 6.1 (voluntary cooperation); 6.2 (cooperative approaches, ITMOs, robust accounting); 6.3 (voluntary and authorized); 6.4(a)–(d) (the mechanism and its aims, incl. overall mitigation in global emissions); 6.5 (no double use); 6.6 (share of proceeds for administration and adaptation); 6.7 (CMA adopts rules); 6.8–6.9 (non-market approaches and their framework). <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/cooperative-implementation" target="_blank" rel="noopener">UNFCCC Article 6 portal →</a></li>
+      <li id="n2"><span class="verified byref">by reference</span> <b>CMA decisions on Article 6</b>, from COP26 Glasgow (2021) onward, covering 6.2 guidance, 6.4 rules/modalities/procedures, and the 6.8 non-market framework; 6.4 became operational following COP29 Baku (2024). <b>Specific decision numbers, the share-of-proceeds and OMGE percentages, and the CDM transition cut-offs are deliberately not asserted here</b> — they are precise, consequential, and are explicit reading items for Session 04.</li>
+      <li id="n3"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>, <i>Penyelenggaraan Instrumen Nilai Ekonomi Karbon dan Pengendalian Emisi Gas Rumah Kaca Nasional</i>. Read directly this session: <b>pp. 42–51</b> (BAB III Tata Laksana — Pasal 55 instruments; Pasal 56 NDC counting and CA; Pasal 58 trading; Pasal 59 SRUK recording; Pasal 60–61 domestic/international split; Pasal 62 ETS steps incl. offset limit; Pasal 63 cap compliance and carbon tax; Pasal 65 DRAM/DPP process; Pasal 66–67 offset units; <b>Pasal 68 international trading, authorization and CA</b>; Pasal 69 multi-sector and international linkage; Pasal 70–72 results-based payment; Pasal 73–74 carbon levy and fund management; Pasal 75 transparency framework) and <b>pp. 56–60</b> (Pasal 83–86 validation and verification, LVV criteria and KAN accreditation; Pasal 87 SRN PPI; Pasal 88–89 SPE-GRK issuance and use). Combined with pp. 1–15 read in Session 00.</li>
+      <li id="n4"><span class="verified byref">by reference</span> <b>ICAO CORSIA</b> — referenced as the archetype of a non-NDC international obligation captured by Pasal 68(1) huruf a angka 3. Programme eligibility rules not opened; not relied on for any assertion here.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

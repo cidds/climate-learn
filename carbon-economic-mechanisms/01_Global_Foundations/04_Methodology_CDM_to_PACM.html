@@ -1,0 +1,597 @@
+<title>How a Tonne Gets Made</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:16ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+.para{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em; color:var(--accent); background:var(--accent-soft); padding:2px 6px; border-radius:2px; white-space:nowrap;}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:940px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:640px; font-size:14.5px}
+th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+tr.total td{background:var(--surface-2); font-weight:600}
+td.date{font-family:"IBM Plex Mono",monospace; white-space:nowrap; font-size:13.5px}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+.resolved{background:var(--accent-soft); border-left:3px solid var(--accent); padding:18px 22px; border-radius:3px;}
+.resolved h3{font-family:"IBM Plex Serif",serif; font-size:1.02rem; margin:0 0 8px; font-weight:600}
+.resolved p{margin:0 0 10px; font-size:14.5px; color:var(--ink-2)} .resolved p:last-child{margin-bottom:0}
+blockquote{margin:12px 0; padding:12px 16px; background:var(--surface-2); border-left:2px solid var(--law); font-size:14px; color:var(--ink-2); font-style:italic; max-width:70ch}
+blockquote b{font-style:normal; color:var(--ink)}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 04 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>How a Tonne Gets Made</h1>
+  <p class="standfirst">A methodology is the machine that converts a physical act — a turbine spinning, a boiler not firing — into a serialised financial instrument. This session opens the machine. I fetched and read the actual Article 6.4 rulebook for it, so every claim below carries a paragraph number, and both flags left open in Session 03 are now closed.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>New primary source</b> · Decision -/CMA.3, RMPs for the Art. 6.4 mechanism</span>
+    <span><b>Read</b> · decision paras 1–17; annex paras 26–75</span>
+    <span><b>Next</b> · 05 · Compliance beyond ETS</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#machine"><span class="n">1</span>The machine</a>
+    <a href="#baseline"><span class="n">2</span>Baseline — three routes</a>
+    <a href="#additionality"><span class="n">3</span>Additionality, defined</a>
+    <a href="#cycle"><span class="n">4</span>The activity cycle</a>
+    <a href="#periods"><span class="n">5</span>Crediting periods &amp; reversals</a>
+    <a href="#levies"><span class="n">!</span>Flag closed — the levies</a>
+    <a href="#transition"><span class="n">!</span>Flag closed — CDM transition</a>
+    <a href="#host"><span class="n">6</span>What a host Party must do</a>
+    <a href="#indonesia"><span class="n">7</span>Mapped onto Indonesia</a>
+    <a href="#lenses"><span class="n">8</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="machine">
+    <div class="sec-head"><span class="n">1</span><h2>The machine, in one paragraph of treaty rulebook</h2></div>
+    <p class="sec-intro">Everything a methodology does is set out in four clauses. Learn these and the rest of the session is detail.</p>
+
+    <p>Annex paragraph 32 says an activity shall apply an approved mechanism methodology <b>in order to</b>:<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Decision -/CMA.3, Rules, modalities and procedures for the Article 6.4 mechanism, annex para. 32. Read directly from the UNFCCC PDF this session.">1</a></sup></p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 260" role="img" aria-label="Four-step machine: set a baseline, demonstrate additionality, monitor accurately, calculate emission reductions — turning a physical activity into an issued A6.4ER.">
+        <text x="0" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">RMP ANNEX PARA. 32 — WHAT A METHODOLOGY IS FOR</text>
+
+        <rect x="0" y="36" width="120" height="70" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="60" y="66" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)" text-anchor="middle">Physical</text>
+        <text x="60" y="83" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)" text-anchor="middle">activity</text>
+
+        <g>
+          <rect x="152" y="36" width="160" height="70" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="162" y="56" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">32(a)</text>
+          <text x="162" y="76" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Set a baseline</text>
+          <text x="162" y="93" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">what would have happened</text>
+        </g>
+        <g>
+          <rect x="330" y="36" width="160" height="70" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+          <text x="340" y="56" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--flag)">32(b)</text>
+          <text x="340" y="76" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Prove additionality</text>
+          <text x="340" y="93" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">the gate — pass or no credit</text>
+        </g>
+        <g>
+          <rect x="508" y="36" width="160" height="70" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="518" y="56" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">32(c)</text>
+          <text x="518" y="76" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Monitor accurately</text>
+          <text x="518" y="93" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">what actually happened</text>
+        </g>
+        <g>
+          <rect x="686" y="36" width="194" height="70" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="696" y="56" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent-ink)">32(d)</text>
+          <text x="696" y="76" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Calculate the reduction</text>
+          <text x="696" y="93" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">baseline − actual</text>
+        </g>
+
+        <g stroke="var(--ink-3)" stroke-width="1.2" fill="none" marker-end="url(#m4)">
+          <path d="M120,71 L148,71"/><path d="M312,71 L326,71"/><path d="M490,71 L504,71"/><path d="M668,71 L682,71"/>
+        </g>
+        <defs><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+
+        <rect x="0" y="134" width="880" height="52" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="14" y="156" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">Two of the four are measured. Two are constructed.</text>
+        <text x="14" y="176" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">Monitoring and calculation are engineering. Baseline and additionality are <tspan font-style="italic">judgements made under rules</tspan> — which is why they carry every integrity failure in this industry.</text>
+
+        <text x="0" y="216" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--flag)" letter-spacing="1.2">THE CONSEQUENCE</text>
+        <text x="0" y="238" font-family="IBM Plex Sans" font-size="13" fill="var(--ink-2)">A methodology is not a measurement protocol. It is a <tspan font-weight="600" fill="var(--ink)">standardised way of arguing about a counterfactual</tspan> — approved in advance, so the argument</text>
+        <text x="0" y="254" font-family="IBM Plex Sans" font-size="13" fill="var(--ink-2)">does not have to be re-litigated for every project.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 4.1 — Decision -/CMA.3 annex, para. 32.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Decision -/CMA.3, annex paras. 31–32. Verified from the UNFCCC PDF this session.">1</a></sup> Para. 31 adds that the activity must be additional, must not lead to an increase in global emissions, and must achieve its reductions in the host Party.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="baseline">
+    <div class="sec-head"><span class="n">2</span><h2>Baseline — the rulebook gives exactly three routes</h2></div>
+    <p class="sec-intro">Session 00 called the baseline the most consequential number in a project. Here is how Article 6.4 constrains it — and note how much stricter it is than the CDM instinct of “projected business as usual”.</p>
+
+    <p>Para. 33 sets the overarching quality bar for every methodology: it must be <b>“real, transparent, conservative, credible, below ‘business as usual’”</b>, avoid leakage, recognise suppressed demand, align to the Paris temperature goal, and contribute to reducing emission levels in the host Party.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Decision -/CMA.3, annex para. 33. Verified this session.">1</a></sup></p>
+
+    <div class="keyline">
+      <p class="lead">“Below business as usual” is the phrase that separates PACM from the CDM.</p>
+      <p>A CDM baseline aimed to <i>represent</i> business as usual. A 6.4 baseline must sit <b>underneath</b> it. Every credit is therefore discounted by construction — the mechanism is designed so that crediting alone tightens the counterfactual over time.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Route <span style="text-transform:none;letter-spacing:0">(para. 36)</span></th><th>How the baseline is set</th><th>Where it fits your sectors</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair">36(a)(i)<br><b>Performance-based</b></td>
+            <td>Based on <b>best available technologies</b> that represent an economically feasible and environmentally sound course of action</td>
+            <td>Strong fit for new-build power and industrial equipment, where a defensible technology frontier exists</td>
+          </tr>
+          <tr>
+            <td class="pair">36(a)(ii)<br><b>Ambitious benchmark</b></td>
+            <td>Set <b>at least at the average emission level of the best performing comparable activities</b> providing similar outputs in a defined scope and similar circumstances</td>
+            <td>The natural route for industrial energy efficiency — it is the same logic as an ETS intensity benchmark, so the two can be made consistent</td>
+          </tr>
+          <tr>
+            <td class="pair">36(a)(iii)<br><b>Historical, adjusted</b></td>
+            <td>Existing actual or historical emissions, <b>adjusted downwards</b> to align with para. 33</td>
+            <td>Common where no comparable fleet exists; the downward adjustment is the safeguard against grandfathering poor performance</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px">Two further provisions matter commercially. Para. 36 closes by noting the <b>host Party may determine a more ambitious level at its discretion</b> — sovereign tightening is expressly permitted. And para. 37 allows <b>standardized baselines</b>, developed by the Supervisory Body at a host Party's request or by the host Party and approved centrally, <b>“established at the highest possible level of aggregation”</b>.</p>
+
+    <details>
+      <summary>Why standardized baselines are the quiet efficiency win</summary>
+      <p>Session 00 flagged MRV as the dominant recurring cost, and noted it scales badly for small projects. A standardized baseline moves the counterfactual argument <b>from the project to the sector</b>: it is settled once, centrally, for everyone. Each project then inherits it rather than paying consultants to re-derive it.</p>
+      <p>For Indonesia this is the highest-leverage thing a government can do for a small-project pipeline — industrial efficiency, small hydro, biogas — because it removes the fixed cost that makes those projects uneconomic to certify individually. Worth watching whether the implementing regulations take it up.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="additionality">
+    <div class="sec-head"><span class="n">3</span><h2>Additionality — the definition Session 00 could not find</h2></div>
+    <p class="sec-intro">Perpres 110 never defines it. The Article 6.4 rulebook does, in one dense paragraph, and it is stricter than the folk definition.</p>
+
+    <blockquote>Para. 38 — “Additionality shall be demonstrated using a <b>robust assessment</b> that shows the activity would not have occurred <b>in the absence of the incentives from the mechanism</b>, taking into account <b>all relevant national policies, including legislation</b>, and representing mitigation that <b>exceeds any mitigation that is required by law or regulation</b>, and taking a <b>conservative approach that avoids locking in</b> levels of emissions, technologies or carbon-intensive practices…”<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Decision -/CMA.3, annex para. 38. Quoted from the UNFCCC PDF read this session.">1</a></sup></blockquote>
+
+    <p>Three tests are packed in there, and projects fail on different ones:</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Test</th><th>The question</th><th>Typical failure</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Counterfactual</td><td>Would this have happened without carbon revenue?</td><td>A project already financed and under construction, retro-fitted with a carbon story</td></tr>
+          <tr><td class="pair">Regulatory<br>surplus</td><td>Does it exceed what <b>law or regulation already requires</b>?</td><td>Claiming credit for meeting a mandatory efficiency standard or a renewable portfolio obligation</td></tr>
+          <tr><td class="pair">Lock-in<br>avoidance</td><td>Does crediting it entrench a carbon-intensive path?</td><td>Efficiency credits on a coal unit that extend its economic life</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <h3>The regulatory-surplus test is the one that bites in Indonesia</h3>
+      <p>Because additionality must account for <b>all relevant national policies, including legislation</b>, an ambitious domestic policy <b>destroys the additionality</b> of projects that merely comply with it. If a regulation mandates a technology, deploying that technology can no longer be credited.</p>
+      <p>This creates a genuine and underappreciated tension for a government: <b>the more you regulate, the smaller your creditable pipeline becomes.</b> It is not a reason to regulate less — it is a reason to design carbon policy and sectoral regulation together, and to expect the creditable universe to shrink as regulation matures. Carry this into Session 10, where it directly shapes what is creditable in Indonesian power and industry.</p>
+    </div>
+
+    <details>
+      <summary>The one flexibility the rulebook grants</summary>
+      <p>Para. 39 permits the Supervisory Body to apply <b>simplified additionality approaches</b> for any least developed country or small island developing State at that Party's request. Indonesia is neither, so the standard demonstration applies — a small but real competitive asymmetry against LDC-hosted projects.</p>
+    </details>
+  </section>
+
+  <!-- 4 -->
+  <section id="cycle">
+    <div class="sec-head"><span class="n">4</span><h2>The activity cycle, with paragraph numbers</h2></div>
+    <p class="sec-intro">This is the reference diagram to keep. Every stage below is a named chapter of the rulebook annex.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 300" role="img" aria-label="The Article 6.4 activity cycle: design, host Party approval and authorization, validation by a designated operational entity, registration, monitoring, verification and certification, issuance, first transfer.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">DECISION -/CMA.3 ANNEX · CHAPTER V · ACTIVITY CYCLE</text>
+
+        <!-- lane labels -->
+        <text x="0" y="52" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)" letter-spacing="1.2">PARTICIPANT</text>
+        <text x="0" y="122" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--warm)" letter-spacing="1.2">HOST PARTY</text>
+        <text x="0" y="192" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent)" letter-spacing="1.2">DOE / UN BODY</text>
+
+        <!-- participant lane -->
+        <g>
+          <rect x="108" y="30" width="128" height="42" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="118" y="47" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Design activity</text>
+          <text x="118" y="63" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">paras 30–32</text>
+
+          <rect x="484" y="30" width="128" height="42" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="494" y="47" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Monitor</text>
+          <text x="494" y="63" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">para 50</text>
+        </g>
+
+        <!-- host lane -->
+        <g>
+          <rect x="264" y="100" width="180" height="52" rx="2" fill="var(--warm-soft)" stroke="var(--warm)" stroke-width="1.4"/>
+          <text x="274" y="118" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Approval + authorization</text>
+          <text x="274" y="134" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">is it authorized for NDC use?</text>
+          <text x="274" y="148" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--warm)">paras 40–45</text>
+        </g>
+
+        <!-- DOE lane -->
+        <g>
+          <rect x="264" y="170" width="128" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="274" y="187" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Validation</text>
+          <text x="274" y="203" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent-ink)">para 46 · DOE</text>
+
+          <rect x="404" y="170" width="128" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="414" y="187" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Registration</text>
+          <text x="414" y="203" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent-ink)">paras 47–49</text>
+
+          <rect x="612" y="170" width="128" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="622" y="187" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Verification</text>
+          <text x="622" y="203" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent-ink)">para 51 · DOE</text>
+
+          <rect x="752" y="170" width="128" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+          <text x="762" y="187" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Issuance</text>
+          <text x="762" y="203" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--accent-ink)">paras 52–55</text>
+        </g>
+
+        <!-- flow arrows -->
+        <g stroke="var(--ink-3)" stroke-width="1.2" fill="none" marker-end="url(#m5)">
+          <path d="M236,51 C256,51 256,110 260,120"/>
+          <path d="M330,152 L330,166"/>
+          <path d="M392,191 L400,191"/>
+          <path d="M480,170 C490,120 500,90 500,76"/>
+          <path d="M548,51 C580,51 600,140 608,168"/>
+          <path d="M740,191 L748,191"/>
+        </g>
+        <defs><marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+
+        <!-- note -->
+        <rect x="0" y="240" width="880" height="52" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="14" y="261" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Para. 43 — the gate that governs the asset's value</text>
+        <text x="14" y="280" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">“A6.4ERs may <tspan font-style="italic">only</tspan> be used towards NDCs or towards international mitigation purposes if they are authorized in accordance with paragraph 42.” Authorization is a separate host-Party statement — not implied by approval or registration.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 4.2 — Article 6.4 activity cycle. Note the CDM's term survives: paras. 46 and 51 assign validation and verification to a <b>designated operational entity</b>. The institutional furniture was inherited even where the accounting was rebuilt.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Decision -/CMA.3, annex chapter V paras. 30–62 and chapter VI paras. 63–65. Verified this session.">1</a></sup></p>
+    </div>
+
+    <details>
+      <summary>Renewal is a re-test, not a rubber stamp</summary>
+      <p>Para. 57: renewing a crediting period requires approval by <b>both</b> the Supervisory Body and the host Party, following a technical assessment by a DOE to determine necessary updates to <b>the baseline, the additionality and the quantification of emission reductions</b>.</p>
+      <p>For an asset owner this is a material risk that flat revenue models routinely miss: at renewal the counterfactual is rebuilt against a world that has moved on — cheaper technology, tighter regulation, a more ambitious benchmark. <b>Credit volumes can legitimately fall at renewal even when the plant performs exactly as designed.</b></p>
+    </details>
+  </section>
+
+  <!-- 5 -->
+  <section id="periods">
+    <div class="sec-head"><span class="n">5</span><h2>Crediting periods, permanence and reversals</h2></div>
+    <p class="sec-intro">Para. 31 quietly does the energy-versus-forestry work that Session 10 will pick up.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Activity type</th><th>Crediting period <span style="text-transform:none;letter-spacing:0">(para. 31(f))</span></th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Standard activities</td><td><b>5 years, renewable twice</b> (15 total) — <b>or</b> 10 years with no renewal</td></tr>
+          <tr><td class="pair">Activities involving <b>removals</b></td><td><b>15 years, renewable twice</b> (45 total), subject to Supervisory Body approval</td></tr>
+          <tr class="total"><td class="pair">Both</td><td>Host Party may specify a <b>shorter</b> period; no crediting period may start before 2021</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px">Removals get up to three times the crediting horizon, because a forest or a geological store must be <b>watched</b> for far longer than a turbine needs to be paid for. The same asymmetry appears in the obligations: para. 31(d)(ii) requires activities to <b>minimise the risk of non-permanence over multiple NDC implementation periods</b> and, <b>where reversals occur, ensure these are addressed in full</b>; para. 50 requires participants to monitor <b>potential reversals</b> beyond the reduction itself.</p>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">“Addressed in full” is an open-ended liability attached to a finite revenue stream.</p>
+      <p>An avoided tonne from a wind farm is done. A stored tonne in a forest is a promise that must survive fire, harvest and politics — and if it fails, the rulebook says it must be made good in full. That single clause is why forestry credits price lower than energy credits of identical vintage, and why buffer pools exist at all.</p>
+    </div>
+  </section>
+
+  <!-- LEVIES RESOLVED -->
+  <section id="levies">
+    <div class="sec-head"><span class="n">!</span><h2>Flag closed — the levies, exactly as drafted</h2></div>
+    <p class="sec-intro">Session 03 marked the 5% and 2% figures <span class="q">[?]</span> and declined to assert them. Here they are from the decision text, with one detail almost everyone gets wrong.</p>
+
+    <div class="resolved">
+      <h3>Confirmed — and the 2% is a <em>minimum</em>, not a fixed rate</h3>
+      <p><b>Para. 58:</b> at issuance the registry administrator effects a first transfer of <b>5 per cent</b> of the issued A6.4ERs to an account held by the <b>Adaptation Fund</b>, for developing country Parties particularly vulnerable to climate change. Para. 67(a) states it as “a levy of 5 per cent of A6.4ERs at issuance”; para. 66 routes it to the Adaptation Fund under decisions 13/CMA.1 and 1/CMP.14.</p>
+      <p><b>Para. 59:</b> at issuance the administrator also effects a first transfer, for cancellation, of <b>“a minimum of 2 per cent”</b> of the issued A6.4ERs to the OMGE cancellation account. Para. 69(b) confirms the cancelled units <b>“shall not be further transferred or used for any purpose”</b>.</p>
+      <p>So my Session 03 note was right on the numbers and imprecise on the second: <b>2% is a floor.</b> Decision paras. 8 and 9 also require the Supervisory Body to evaluate both the share of proceeds and the OMGE delivery — <b>including the percentage applied</b> — no later than 2026 and every five years after. That review is live now. <span class="q">[?]</span> <span style="color:var(--ink-2)">— whether it has concluded or changed the rate is beyond what I can verify here.</span></p>
+    </div>
+
+    <div class="figure" style="margin-top:16px">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 250" role="img" aria-label="Issuance waterfall: 100 A6.4ERs issued, 5 go to the Adaptation Fund, at least 2 are cancelled for overall mitigation, up to 93 reach the participants — but the host country applies a corresponding adjustment on all 100.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">WHAT HAPPENS TO 100 ISSUED A6.4ERs · PARAS 43, 58, 59, 69</text>
+
+        <rect x="0" y="34" width="150" height="60" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="14" y="58" font-family="IBM Plex Mono, monospace" font-size="18" font-weight="500" fill="var(--ink)">100</text>
+        <text x="14" y="78" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">issued at verification</text>
+
+        <rect x="200" y="20" width="200" height="52" rx="2" fill="var(--warm-soft)" stroke="var(--warm)"/>
+        <text x="214" y="42" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="var(--warm)">5</text>
+        <text x="240" y="42" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">→ Adaptation Fund</text>
+        <text x="214" y="60" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">levy at issuance · para 58, 67(a)</text>
+
+        <rect x="200" y="82" width="200" height="52" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="214" y="104" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="var(--flag)">≥2</text>
+        <text x="244" y="104" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">→ cancelled, OMGE</text>
+        <text x="214" y="122" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">never usable again · para 59, 69(b)</text>
+
+        <rect x="200" y="144" width="200" height="52" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="214" y="166" font-family="IBM Plex Mono, monospace" font-size="15" font-weight="500" fill="var(--accent-ink)">≤93</text>
+        <text x="256" y="166" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">→ the participants</text>
+        <text x="214" y="184" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">the sellable asset · para 60</text>
+
+        <g stroke="var(--ink-3)" stroke-width="1.1" fill="none" marker-end="url(#m6)">
+          <path d="M150,55 C176,55 176,46 196,46"/>
+          <path d="M150,64 C176,64 176,108 196,108"/>
+          <path d="M150,72 C178,72 178,170 196,170"/>
+        </g>
+        <defs><marker id="m6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+
+        <!-- the CA bracket -->
+        <path d="M420,30 L440,30 L440,190 L420,190" fill="none" stroke="var(--flag)" stroke-width="1.6"/>
+        <rect x="456" y="72" width="424" height="76" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.4"/>
+        <text x="470" y="96" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">The host applies a corresponding adjustment on all 100</text>
+        <text x="470" y="117" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">Para. 43 requires CAs for the transferred units <tspan font-weight="600" fill="var(--ink)">and</tspan> for those levied for share of</text>
+        <text x="470" y="133" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">proceeds and cancelled for OMGE.</text>
+
+        <text x="0" y="228" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">So the host country gives up 100 tonnes of NDC headroom and is paid for at most 93. The 7 are a real, quantified transfer from the host's</text>
+        <text x="0" y="244" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">climate target to adaptation finance and to the atmosphere — and almost no revenue model shows it.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 4.3 — Decision -/CMA.3 annex, paras. 43, 58, 59, 60, 67, 69.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Decision -/CMA.3, annex paras. 43, 58–60, 66–70. Verified from the UNFCCC PDF read this session.">1</a></sup></p>
+    </div>
+  </section>
+
+  <!-- TRANSITION RESOLVED -->
+  <section id="transition">
+    <div class="sec-head"><span class="n">!</span><h2>Flag closed — the CDM transition, with dates</h2></div>
+    <p class="sec-intro">Session 03 declined to paraphrase these from memory. They are in annex chapter XI, and they are unusually consequential because they have deadlines that have now passed.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Requirement <span style="text-transform:none;letter-spacing:0">(para. 73)</span></th><th>Deadline</th><th>Status as of now</th></tr></thead>
+        <tbody>
+          <tr><td>Transition request made to the secretariat and CDM host Party, by or for project participants approved by that host Party</td><td class="date">31 Dec 2023</td><td><b>passed</b></td></tr>
+          <tr><td>Host Party's approval of the transition provided to the Supervisory Body</td><td class="date">31 Dec 2025</td><td><b>passed</b></td></tr>
+          <tr><td>Activity may keep using its existing CDM methodology until the earlier of end of current crediting period <b>or</b> this date, then must move to a 6.4 methodology</td><td class="date">31 Dec 2025</td><td><b>passed</b></td></tr>
+          <tr class="total"><td colspan="3">Also required: compliance with the RMPs including application of a corresponding adjustment (para. 73(c)). Small-scale CDM activities and programmes of activities get an <b>expedited</b> transition process (para. 74).</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px"><span class="q">[?]</span> <span style="color:var(--ink-2)">Whether any later CMA decision extended these dates is beyond what I verified — I read the Glasgow RMPs, not the subsequent decision series. Before relying on “the window is shut”, check the current CMA decisions. The dates above are exact as drafted.</span></p>
+
+    <div class="card" style="margin-top:18px">
+      <h3>The CER carve-out — and why it is strange</h3>
+      <p>Para. 75 lets CERs be used toward an NDC only if <b>all</b> of: the CDM activity was registered <b>on or after 1 January 2013</b> (75(a)); the CERs are held in the mechanism registry and identified as <b>pre-2021</b> reductions (75(b)); and they are used toward the <b>first NDC only</b> (75(c)). Temporary and long-term CERs <b>“shall not be used towards NDCs”</b> at all (75(f)).</p>
+      <p>Then 75(d) does something remarkable: for these CERs the host Party is <b>“not required to apply a corresponding adjustment”</b> and they are <b>not subject to the share of proceeds</b>.</p>
+      <p>Read against Fig. 4.3 that is a striking asymmetry. A new 6.4 unit costs the host 100 tonnes of headroom plus a 5% levy. A transitioned pre-2021 CER costs it <b>nothing on either count</b> — a deliberate Kyoto-era carve-over, limited to the first NDC, so the legacy pipeline could clear without hosts being retroactively charged for units issued under different rules.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="host">
+    <div class="sec-head"><span class="n">6</span><h2>What a host Party must have in place</h2></div>
+    <p class="sec-intro">Para. 26 lists the entry conditions. Read it as a checklist against Indonesia and the institutional picture from Session 03 sharpens considerably.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Para. 26 requirement</th><th>Indonesia's corresponding provision</th></tr></thead>
+        <tbody>
+          <tr><td>(a) Is a Party to the Paris Agreement</td><td>Yes</td></tr>
+          <tr><td>(b) Has prepared, communicated and maintains an NDC</td><td>Yes — and Perpres 110 Pasal 6, p.9 makes <i>Alokasi Karbon</i> the basis for setting it</td></tr>
+          <tr><td>(c) Has <b>designated a national authority</b> for the mechanism and told the secretariat</td><td>Perpres 110 vests <i>Otorisasi</i> in the <b>Menteri</b> on recommendation of the sectoral minister — Pasal 68(2), p.48</td></tr>
+          <tr><td>(d) Has publicly indicated how participation contributes to sustainable development — expressly a <b>national prerogative</b></td><td>Pasal 65(3), p.46 requires DRAM/DPP to contain a <b>sustainable development impact analysis</b> and a public consultation role</td></tr>
+          <tr><td>(e) Has publicly indicated the <b>types of activity</b> it would approve and how they contribute to its NDC</td><td>Pasal 58(3)(a), p.43 — the national carbon trading <b>roadmap</b>, coordinated by the steering committee</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:18px">Para. 27 then permits a host Party to specify, in advance, the <b>baseline approaches, methodological requirements including additionality, and crediting periods</b> it will apply to activities it hosts. That is a substantial sovereign power and it maps directly onto Perpres 110's repeated delegation of methodology detail to <i>Peraturan Menteri Terkait</i>. <b>Indonesia has the treaty room to set its own stricter methodology terms — the question is whether the implementing regulations use it.</b> An explicit thing to look for in Session 08.</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="indonesia">
+    <div class="sec-head"><span class="n">7</span><h2>The PACM cycle mapped onto Indonesia's Pasal 65</h2></div>
+    <p class="sec-intro">Indonesia's domestic offset process is recognisably the same machine. Setting them side by side shows exactly where the two diverge.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Stage</th><th>Article 6.4 (PACM)</th><th>Indonesia — Perpres 110 Pasal 65, p.46</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Design doc</td><td>Activity design per paras. 30–32</td><td><b>DRAM</b> (domestic) or <b>DPP</b> (international standard), submitted to Menteri Terkait for recording</td></tr>
+          <tr><td class="pair">Methodology</td><td>SB-approved mechanism methodology (para. 32)</td><td>DRAM/DPP must state application of <b>national, UNFCCC and other international</b> methodology and standards — Pasal 65(3)(c)</td></tr>
+          <tr><td class="pair">Validation</td><td>Designated operational entity (para. 46)</td><td><b>Lembaga Validasi Independen</b> — accredited by <b>KAN</b> or an international body, Pasal 85(1)(c), p.58</td></tr>
+          <tr><td class="pair">Implementation</td><td>Per the registered design</td><td>Per the DRAM or DPP</td></tr>
+          <tr><td class="pair">Verification</td><td>DOE verification and certification (para. 51)</td><td><b>Lembaga Verifikasi Independen</b>, results reported to Menteri Terkait</td></tr>
+          <tr><td class="pair">Issuance</td><td>Supervisory Body approves; registry issues A6.4ERs (paras. 52–54)</td><td><b>Menteri</b> issues SPE-GRK on Menteri Terkait recommendation — Pasal 65(5). Non-SPE-GRK issued by the <b>international standard</b> but still requiring Menteri Terkait approval — Pasal 65(6)</td></tr>
+          <tr><td class="pair">Registry</td><td>Mechanism registry, distinguishing authorized units (para. 55)</td><td><b>SRUK</b> — Pasal 65(7)–(8), decentralised and real-time</td></tr>
+          <tr class="total"><td class="pair">Authorization</td><td>Separate host-Party statement; without it the unit cannot be used toward any NDC (paras. 42–43)</td><td><b>Otorisasi</b> by Menteri on sectoral recommendation — Pasal 68(2). Same architecture, same gate.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Indonesia did not invent a parallel system. It built a domestic mirror of the Article 6.4 cycle and kept the authorization gate in the same place.</p>
+      <p>The one real divergence is at issuance: PACM issues centrally, while Indonesia issues SPE-GRK <b>ministerially</b> and lets international standards issue non-SPE-GRK — but only with sectoral approval. Even on the international route, the state keeps a hand on the valve.</p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">8</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>Para. 27 lets you set baselines, additionality requirements and crediting periods in advance; para. 37 lets you commission <b>standardized baselines</b>. Both are unused leverage. And note the trap from §3: <b>every new sectoral regulation shrinks your creditable pipeline</b> — plan carbon policy and sectoral regulation as one thing.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>Additionality now has a written definition and it is stricter than the folk version — <b>regulatory surplus is the test most projects fail</b>. Check what law already requires before you build the counterfactual, not after. And budget for renewal being a genuine re-test of baseline and additionality.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>Three numbers most models get wrong: you receive <b>≤93%</b> of issued units, not 100%; the crediting period is <b>5+5+5 or 10</b>, not the asset life; and volumes can legitimately <b>fall at renewal</b>. Model the waterfall in Fig. 4.3 explicitly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Para. 33 requires baselines to be “below business as usual”. Why is that a fundamental break from the CDM rather than a tightening of it?</li>
+        <li>Indonesia issues a regulation mandating high-efficiency motors in industry. What happens to the additionality of a motor-efficiency crediting project — and why is that a policy dilemma rather than a drafting error?</li>
+        <li>A host country authorises 100,000 A6.4ERs. How many tonnes of NDC headroom does it give up, how many does it get paid for, and which paragraph creates that gap?</li>
+        <li>Why do removal activities get a 15-year crediting period when other activities get 5 or 10 — and what obligation is the extra time paying for?</li>
+        <li>A transitioned pre-2021 CER and a newly issued A6.4ER both represent one tonne. Name two ways the rulebook treats them differently, and say who benefits from each difference.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly this session. Treaty rulebooks are cited by <b>paragraph</b>, the correct unit. <span class="q">[?]</span> marks what I decline to assert.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>Decision -/CMA.3, “Rules, modalities and procedures for the mechanism established by Article 6, paragraph 4, of the Paris Agreement”</b> (advance unedited version), UNFCCC, Glasgow 2021. Fetched and read directly this session. Cited above: decision paras. 1–2, 5(b),(d),(e), 6(b), 7(b),(c), 8–10; annex paras. 26–29 (host Party participation), 30–32 (activity design), 33–35 (methodologies), 36–37 (baselines and standardized baselines), 38–39 (additionality), 40–45 (approval and authorization), 46 (validation), 47–49 (registration), 50 (monitoring), 51 (verification and certification), 52–55 (issuance), 56–57 (renewal), 58–60 (first transfer), 61 (voluntary cancellation), 63–65 (mechanism registry), 66–68 (share of proceeds), 69–70 (overall mitigation in global emissions), 71–72 (corresponding adjustments), 73–74 (transition of CDM activities), 75 (use of CERs toward first NDC). <a class="ext" href="https://unfccc.int/sites/default/files/resource/cma3_auv_12b_PA_6.4.pdf" target="_blank" rel="noopener">unfccc.int — decision PDF →</a></li>
+      <li id="n2"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cited above: Pasal 6 p.9; Pasal 58(3) p.43; Pasal 65(3),(5),(6),(7),(8) pp.46–47; Pasal 68(2) p.48; Pasal 85(1)(c) p.58. Read in Sessions 00 and 03.</li>
+      <li id="n3"><span class="verified byref">by reference</span> <b>Kyoto Protocol</b> Article 12 (Clean Development Mechanism) — the predecessor mechanism whose designated operational entities, project cycle and baseline logic Article 6.4 inherits. Decision -/CMA.3 para. 5(b)(i) expressly directs the Supervisory Body to review CDM baseline and monitoring methodologies for application, with revisions, under the new mechanism.</li>
+      <li id="n4"><span class="verified byref">by reference</span> <b>UNFCCC PACM / CDM transition portal and FAQs</b> — consulted for corroboration of the transition deadlines; the operative dates quoted above are taken from the decision text itself, not from the portal. Any <b>later CMA decision amending the chapter XI deadlines</b> has not been checked and is flagged <span class="q">[?]</span>. <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/paris-agreement-crediting-mechanism/CDM_transition" target="_blank" rel="noopener">unfccc.int — CDM transition →</a></li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

@@ -1,0 +1,839 @@
+<title>Carbon Vocabulary Kit</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1; --tip-dim:#9db0b2;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e; --tip-dim:#4d6164;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e; --tip-dim:#4d6164;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+/* ---------- masthead ---------- */
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+  font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em;
+  margin:14px 0 0; text-wrap:balance; max-width:16ch;
+}
+.standfirst{
+  margin:18px 0 0; max-width:62ch; font-size:17px; color:var(--ink-2);
+}
+.mast-meta{
+  margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);
+}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+/* ---------- layout ---------- */
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;
+}
+.rail a{
+  display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2);
+  text-decoration:none; border-bottom:1px solid var(--rule-soft);
+}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:52px;}
+
+/* ---------- sections ---------- */
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent);
+  letter-spacing:.06em; padding-top:5px;
+}
+h2{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem;
+  margin:0; letter-spacing:-.012em; text-wrap:balance;
+}
+.sec-intro{margin:0 0 24px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+
+/* ---------- term cards ---------- */
+.terms{display:flex; flex-direction:column; gap:14px}
+.term{
+  background:var(--surface); border:1px solid var(--rule); border-radius:3px;
+  padding:20px 22px; box-shadow:var(--shadow);
+}
+.term-top{display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; margin-bottom:4px}
+.term h3{
+  font-family:"IBM Plex Serif",Georgia,serif; font-size:1.09rem; font-weight:600;
+  margin:0; letter-spacing:-.008em;
+}
+.id-term{
+  font-family:"IBM Plex Sans",sans-serif; font-size:13.5px; font-weight:500;
+  color:var(--law); font-style:italic;
+}
+.cite{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.02em;
+  background:var(--law-soft); color:var(--law); padding:3px 7px; border-radius:2px;
+  white-space:nowrap;
+}
+.cite.global{background:var(--accent-soft); color:var(--accent-ink)}
+.term p{margin:8px 0 0; font-size:15px; max-width:68ch}
+.term p.def{color:var(--ink)}
+.quote{
+  margin:12px 0 0; padding:10px 14px; background:var(--surface-2);
+  border-left:2px solid var(--law); font-size:13.5px; color:var(--ink-2);
+  font-style:italic; max-width:70ch;
+}
+.quote b{font-style:normal; font-weight:500; color:var(--ink)}
+
+/* details */
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{
+  cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--accent);
+  list-style:none; display:flex; align-items:center; gap:7px;
+}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+/* ---------- hover tooltips ---------- */
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{
+  content:attr(data-tip);
+  position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px);
+  width:max-content; max-width:min(340px, 78vw);
+  background:var(--tip-bg); color:var(--tip-ink);
+  padding:10px 13px; border-radius:3px;
+  font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400;
+  font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none;
+  text-align:left; white-space:normal;
+  opacity:0; visibility:hidden; pointer-events:none; z-index:80;
+  transition:opacity .15s ease, transform .15s ease;
+  box-shadow:0 8px 28px -8px rgba(0,0,0,.45);
+}
+.tip::before{
+  content:""; position:absolute; bottom:calc(100% + 3px); left:50%;
+  transform:translateX(-50%) translateY(4px);
+  border:6px solid transparent; border-top-color:var(--tip-bg);
+  opacity:0; visibility:hidden; pointer-events:none; z-index:81;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.tip:hover::after,.tip:focus-visible::after,
+.tip:hover::before,.tip:focus-visible::before{
+  opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);
+}
+.tip.tl::after{left:0; transform:translateX(0) translateY(4px)}
+.tip.tl:hover::after,.tip.tl:focus-visible::after{transform:translateX(0) translateY(0)}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+/* abbreviation styling */
+abbr.tip, span.abbr{
+  border-bottom:1px dotted var(--accent); text-decoration:none;
+  font-variant:none; color:inherit;
+}
+.term h3 .tip, h2 .tip{border-bottom-color:var(--rule)}
+
+/* flags + links */
+.q{
+  color:var(--flag); background:var(--flag-soft); font-weight:600;
+  padding:1px 5px; border-radius:2px; font-size:.92em;
+  font-family:"IBM Plex Mono",monospace;
+}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{
+  color:inherit; text-decoration:none; border-bottom:none;
+  background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;
+}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+/* ---------- diagram ---------- */
+.figure{
+  background:var(--surface); border:1px solid var(--rule); border-radius:3px;
+  padding:22px; box-shadow:var(--shadow); overflow-x:auto;
+}
+.figure svg{display:block; min-width:760px; width:100%; height:auto}
+.figcap{
+  margin:14px 0 0; font-size:13px; color:var(--ink-3);
+  font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:74ch;
+}
+
+/* ---------- traps table ---------- */
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow)}
+/* at widths where tables fit, drop the scroll container so tooltips inside can escape it */
+@media (min-width:940px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:620px; font-size:14.5px}
+th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);
+}
+tr:last-child td{border-bottom:none}
+td b{font-weight:600}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+
+/* ---------- callout ---------- */
+.callout{
+  background:var(--accent-soft); border:1px solid transparent; border-left:3px solid var(--accent);
+  padding:18px 22px; border-radius:3px;
+}
+.callout h3{
+  font-family:"IBM Plex Serif",serif; font-size:1rem; margin:0 0 8px; font-weight:600;
+}
+.callout p{margin:0 0 10px; font-size:14.5px; max-width:68ch; color:var(--ink-2)}
+.callout p:last-child{margin-bottom:0}
+
+/* ---------- check ---------- */
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+/* ---------- footnotes ---------- */
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.notes li span.src{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3)}
+.verified{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--accent); border:1px solid var(--accent);
+  padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;
+}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 00 · Orientation <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>The Vocabulary Kit</h1>
+  <p class="standfirst">Twenty-eight terms that unlock every later session. Each one is given twice — once as the global concept, once as the legal definition Indonesian regulation actually uses — because the two do not always line up, and most confusion in this field lives in that gap.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Anything with a <span class="tip" data-tip="Like this. Hover to read, or tab to it and it opens on focus — every abbreviation, mechanism and organisation on this page carries one.">dotted underline</span> has a definition on hover; footnote markers show their source on hover and jump to the full citation on click.</p>
+  <div class="mast-meta">
+    <span><b>Primary source</b> · Perpres 110/2025, Pasal 1 (44 definitions, pp. 2–7)</span>
+    <span><b>Read for this session</b> · pp. 1–15</span>
+    <span><b>Next</b> · 01 · Why economic instruments at all</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Clusters</h4>
+    <a href="#map"><span class="n">—</span>The map</a>
+    <a href="#a"><span class="n">A</span>The traded object</a>
+    <a href="#b"><span class="n">B</span>The number behind it</a>
+    <a href="#c"><span class="n">C</span>System archetypes</a>
+    <a href="#d"><span class="n">D</span>Accounting &amp; integrity</a>
+    <a href="#e"><span class="n">E</span>Plumbing &amp; actors</a>
+    <a href="#traps"><span class="n">✕</span>Confusion traps</a>
+    <a href="#gaps"><span class="n">!</span>Notable absences</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- ================= MAP ================= -->
+  <section id="map">
+    <div class="sec-head"><span class="n">—</span><h2>One picture before the words</h2></div>
+    <p class="sec-intro">Almost every term below sits somewhere on one of two production lines. Both lines end in the same place — a tradable <i>Unit Karbon</i> — but they are built in opposite directions, and knowing which line a term belongs to resolves most of the ambiguity you have been hearing.</p>
+
+    <div class="figure">
+      <svg viewBox="0 0 880 400" role="img" aria-label="Two-lane diagram: the cap-and-trade lane produces allowances top-down from a national cap, while the crediting lane produces certificates bottom-up from a project baseline. Both converge on Unit Karbon, which can then be traded, used as an offset, or authorized for export with a corresponding adjustment.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/>
+          </marker>
+        </defs>
+
+        <!-- lane labels -->
+        <text x="0" y="24" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent)" letter-spacing="1.4">LANE 1 — CAP &amp; TRADE  ·  TOP-DOWN  ·  ALLOWANCES</text>
+        <text x="0" y="228" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--law)" letter-spacing="1.4">LANE 2 — CREDITING  ·  BOTTOM-UP  ·  CERTIFICATES</text>
+
+        <!-- LANE 1 boxes -->
+        <g font-family="IBM Plex Sans, sans-serif">
+          <rect x="0" y="40" width="150" height="54" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="12" y="60" font-size="12.5" font-weight="600" fill="var(--ink)">Alokasi Karbon</text>
+          <text x="12" y="78" font-size="10.5" fill="var(--ink-2)">national CO₂e allowed</text>
+
+          <rect x="182" y="40" width="150" height="54" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="194" y="60" font-size="12.5" font-weight="600" fill="var(--ink)">Batas Atas Emisi</text>
+          <text x="194" y="78" font-size="10.5" fill="var(--ink-2)">the cap, per installation</text>
+
+          <rect x="364" y="40" width="150" height="54" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1"/>
+          <text x="376" y="60" font-size="12.5" font-weight="600" fill="var(--ink)">Kuota Emisi GRK</text>
+          <text x="376" y="78" font-size="10.5" fill="var(--ink-2)">the allowance issued</text>
+
+          <rect x="546" y="40" width="150" height="54" rx="2" fill="var(--surface-2)" stroke="var(--rule)" stroke-width="1"/>
+          <text x="558" y="60" font-size="12.5" font-weight="600" fill="var(--ink)">Instalasi Diatur</text>
+          <text x="558" y="78" font-size="10.5" fill="var(--ink-2)">must hold &amp; surrender</text>
+        </g>
+        <g stroke="var(--ink-3)" stroke-width="1" marker-end="url(#ah)" fill="none">
+          <path d="M150,67 L176,67"/><path d="M332,67 L358,67"/><path d="M514,67 L540,67"/>
+        </g>
+
+        <!-- LANE 2 boxes -->
+        <g font-family="IBM Plex Sans, sans-serif">
+          <rect x="0" y="244" width="150" height="54" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1"/>
+          <text x="12" y="264" font-size="12.5" font-weight="600" fill="var(--ink)">Baseline BAU</text>
+          <text x="12" y="282" font-size="10.5" fill="var(--ink-2)">what would have happened</text>
+
+          <rect x="182" y="244" width="150" height="54" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1"/>
+          <text x="194" y="264" font-size="12.5" font-weight="600" fill="var(--ink)">Aksi Mitigasi</text>
+          <text x="194" y="282" font-size="10.5" fill="var(--ink-2)">the project · DRAM / DPP</text>
+
+          <rect x="364" y="244" width="150" height="54" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1"/>
+          <text x="376" y="264" font-size="12.5" font-weight="600" fill="var(--ink)">MRV</text>
+          <text x="376" y="282" font-size="10.5" fill="var(--ink-2)">measure · report · verify</text>
+
+          <rect x="546" y="244" width="150" height="54" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1"/>
+          <text x="558" y="264" font-size="12.5" font-weight="600" fill="var(--ink)">SPE-GRK</text>
+          <text x="558" y="282" font-size="10.5" fill="var(--ink-2)">the certificate issued</text>
+        </g>
+        <g stroke="var(--ink-3)" stroke-width="1" marker-end="url(#ah)" fill="none">
+          <path d="M150,271 L176,271"/><path d="M332,271 L358,271"/><path d="M514,271 L540,271"/>
+        </g>
+
+        <!-- CONVERGENCE -->
+        <rect x="742" y="140" width="138" height="62" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="754" y="164" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">Unit Karbon</text>
+        <text x="754" y="182" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--ink-2)">the tradable object</text>
+        <g stroke="var(--ink-3)" stroke-width="1" marker-end="url(#ah)" fill="none">
+          <path d="M696,67  C740,67 740,120 795,134"/>
+          <path d="M696,271 C740,271 740,220 795,208"/>
+        </g>
+
+        <!-- OUTLETS -->
+        <g font-family="IBM Plex Sans, sans-serif">
+          <text x="0" y="340" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">THREE EXITS FOR A UNIT KARBON</text>
+          <rect x="0" y="352" width="230" height="40" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="12" y="371" font-size="12" font-weight="600" fill="var(--ink)">Perdagangan Karbon</text>
+          <text x="12" y="386" font-size="10.5" fill="var(--ink-2)">sold — often via Bursa Karbon</text>
+
+          <rect x="254" y="352" width="230" height="40" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="266" y="371" font-size="12" font-weight="600" fill="var(--ink)">Offset Emisi GRK</text>
+          <text x="266" y="386" font-size="10.5" fill="var(--ink-2)">retired to cancel emissions here</text>
+
+          <rect x="508" y="352" width="372" height="40" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+          <text x="520" y="371" font-size="12" font-weight="600" fill="var(--ink)">Otorisasi → Corresponding Adjustment</text>
+          <text x="520" y="386" font-size="10.5" fill="var(--ink-2)">exported abroad — Indonesia adds it back to its own books</text>
+        </g>
+      </svg>
+      <p class="figcap">Fig. 0.1 — The two production lines. Lane 1 terms are all defined in Perpres 110/2025 Pasal 1 angka 2, 14, 15, 16 (pp. 3–4); Lane 2 terms in angka 9, 8, 26, 37 (pp. 3, 6); the exits in angka 22, 24, 27, 28 (pp. 5).<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Perpres RI No. 110 Tahun 2025, Pasal 1 (44 definitions), pp. 2–7. Verified in file: pages 1–15 read directly this session. Click to jump to the full source entry.">1</a></sup></p>
+    </div>
+  </section>
+
+  <!-- ================= A ================= -->
+  <section id="a">
+    <div class="sec-head"><span class="n">A</span><h2>The traded object</h2></div>
+    <p class="sec-intro">Start here, because this is where the 30%-understanding usually breaks. “Carbon credit” is used in casual conversation for four different things that are legally distinct.</p>
+
+    <div class="terms">
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Allowance</h3>
+          <span class="id-term">Kuota Emisi GRK</span>
+          <span class="cite">Pasal 1(15) · p.4</span>
+        </div>
+        <p class="def">A <b>permission to emit</b>, created by government when it divides a cap into shares. It is not proof that anything was reduced — it is a licence to release a set tonnage.</p>
+        <p class="quote">“jumlah Emisi GRK yang dapat dilepaskan ke atmosfer oleh <b>Instalasi yang Diatur</b>” — the amount of GHG an obligated installation may release.</p>
+        <details>
+          <summary>Why this matters for a power plant</summary>
+          <p>An allowance is scarce only because the state made it scarce. Its price is a policy output, not a market discovery — which is why an ETS cap that is set too loosely produces a near-zero price and no behaviour change. For a regulated installation (<i>Instalasi yang Diatur</i>, Pasal 1(16), p.4), allowances are a balance-sheet liability the moment the compliance period opens.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Credit</h3>
+          <span class="id-term">Unit Karbon</span>
+          <span class="cite">Pasal 1(18) · p.4</span>
+        </div>
+        <p class="def">The umbrella tradable instrument. Critically, Indonesian law defines it <b>broadly enough to include allowances</b> — so in Indonesia the allowance is a species of <i>Unit Karbon</i>, not its opposite.</p>
+        <p class="quote">“hasil pengurangan dan/atau penyerapan emisi yang disertifikatkan melalui skema sertifikasi domestik, sertifikasi internasional, <b>atau Kuota Emisi GRK</b>” — certified reductions or removals under a domestic scheme, an international scheme, <i>or</i> an emission quota.</p>
+        <details>
+          <summary>The trap this creates</summary>
+          <p>In EU or global discussion, “allowance vs credit” is a hard binary. In Perpres 110 they are nested. So when an Indonesian document says <i>Perdagangan Unit Karbon</i>, you cannot tell from the phrase alone whether ETS allowances, domestic offsets, or Verra-issued credits are in scope — you have to read what certification path is named. Watch for this in every Indonesian source from here on.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Emission reduction certificate</h3>
+          <span class="id-term">SPE-GRK</span>
+          <span class="cite">Pasal 1(37) · p.6</span>
+        </div>
+        <p class="def">Indonesia's <b>domestic credit</b>: proof of a reduction that has passed MRV and been recorded in the unit registry with a registry number.</p>
+        <p class="quote">“bukti pengurangan emisi … yang telah melalui MRV, serta tercatat dalam <b>SRUK</b> dalam bentuk nomor dan/atau kode registri.”</p>
+        <details>
+          <summary>Why “registry number” is in the definition</summary>
+          <p>A credit that is not uniquely serialised in a registry is not a credit — it is a claim. Serialisation is what makes double-selling detectable. Note that Perpres 110/2025 points SPE-GRK at <b>SRUK</b>, a unit-level registry it introduces separately from SRN PPI (see cluster E) — a structural change from the previous regime.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Offset</h3>
+          <span class="id-term">Pengimbangan / Offset Emisi GRK</span>
+          <span class="cite">Pasal 1(24) · p.5</span>
+        </div>
+        <p class="def">Not a <i>thing</i> but a <b>use</b>: reducing emissions in one place to compensate for emissions made somewhere else. Any credit becomes “an offset” at the moment it is retired against someone's footprint.</p>
+        <details>
+          <summary>Say it precisely</summary>
+          <p>“I bought an offset” is loose. Precise: “I bought a <i>credit</i> and <i>retired</i> it as an <i>offset</i> against my scope-1 emissions.” Three separate events — purchase, retirement, claim — and integrity failures happen at each one independently.</p>
+        </details>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section id="b">
+    <div class="sec-head"><span class="n">B</span><h2>The number behind the unit</h2></div>
+    <p class="sec-intro">Every credit is a subtraction: what would have happened, minus what did happen. Both halves are constructed, and that construction is where value and controversy both come from.</p>
+
+    <div class="terms">
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Baseline (business-as-usual)</h3>
+          <span class="id-term">Baseline Emisi GRK</span>
+          <span class="cite">Pasal 1(9) · p.3</span>
+        </div>
+        <p class="def">The <b>counterfactual</b>: projected emissions “tanpa intervensi kebijakan dan/atau teknologi mitigasi” — without policy or mitigation-technology intervention.</p>
+        <details>
+          <summary>The single most consequential number in a project</summary>
+          <p>Credits issued = baseline − actual. Raise the baseline and you manufacture credits without touching a single tonne of real emissions. This is why baseline-setting is procedurally defended (methodology approval, third-party validation, regulator sign-off) rather than left to the developer — and why the 2023–24 VCM integrity crisis was largely a baseline crisis. Perpres 110 sets baselines at national, sector and provincial scope (Pasal 15, p.15).</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Additionality</h3>
+          <span class="id-term">— not defined in Pasal 1 <span class="q">[?]</span></span>
+          <span class="cite global">global concept</span>
+        </div>
+        <p class="def">The test that the reduction <b>would not have happened anyway</b> — without carbon revenue, the project is not financially, technologically or legally viable.</p>
+        <p>Notable: across all 44 defined terms in Perpres 110/2025 Pasal 1 (pp. 2–7), additionality is <b>not</b> among them.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Perpres RI No. 110 Tahun 2025, Pasal 1, pp. 2–7. All 44 definitions read directly; absence of &lsquo;adisionalitas&rsquo; confirmed by inspection, not inferred.">1</a></sup> The concept is expected to live in ministerial-level methodology rules rather than the Presidential Regulation. <span class="q">[?]</span> <span style="font-size:14px;color:var(--ink-2)">— I have verified the absence from Pasal 1 directly; where exactly it <i>is</i> operationalised is to be confirmed in Session 08 against the implementing regulations.</span></p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>MRV</h3>
+          <span class="id-term">Pengukuran, Pelaporan, dan Verifikasi</span>
+          <span class="cite">Pasal 1(26) · p.5</span>
+        </div>
+        <p class="def">The assurance chain that makes a tonne credible: measure it, report it, have an independent party verify it. Perpres 110 defines MRV as covering <b>both mitigation and adaptation</b> actions.</p>
+        <details>
+          <summary>Where the cost sits</summary>
+          <p>MRV is the dominant recurring transaction cost of a crediting project, and it scales poorly for small projects — the reason programme/aggregated approaches exist. For an energy-efficiency retrofit, metering design decided at engineering stage determines whether MRV is cheap or ruinous later. Decide it early.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Activity data × emission factor</h3>
+          <span class="id-term">Data Aktivitas · Faktor Emisi GRK</span>
+          <span class="cite">Pasal 1(35),(36) · p.6</span>
+        </div>
+        <p class="def">The arithmetic of every inventory: <b>how much you did</b> (MWh generated, tonnes of clinker) <b>× emissions per unit of doing it</b>. Perpres 110 requires <span class="tip" data-tip="Intergovernmental Panel on Climate Change — the UN scientific body whose National Greenhouse Gas Inventory Guidelines are the global standard method for calculating emissions. Perpres 110 Pasal 13(5) makes their use mandatory in Indonesia.">IPCC</span> guidelines for the calculation (Pasal 13(5), p.15).</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Removals / sinks</h3>
+          <span class="id-term">Serapan GRK</span>
+          <span class="cite">Pasal 1(34) · p.6</span>
+        </div>
+        <p class="def">GHG <b>absorbed out of</b> the atmosphere, naturally or by technology — as opposed to emissions avoided. The distinction drives the whole energy-vs-forestry contrast we take up in Session 10.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section id="c">
+    <div class="sec-head"><span class="n">C</span><h2>System archetypes</h2></div>
+    <p class="sec-intro">The “compliance vs market”, “absolute vs intensity” and “ETS vs beyond-ETS” threads you heard all resolve into a small set of design choices. Here are the labels; Session 01 does the economics.</p>
+
+    <div class="terms">
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Compliance vs voluntary</h3>
+          <span class="cite global">global framing</span>
+        </div>
+        <p class="def"><b>Compliance:</b> the state obliges you to hold and surrender units; non-compliance is a legal breach. <b>Voluntary (<span class="tip" data-tip="Voluntary Carbon Market — the market where buyers with no legal obligation purchase and retire credits for corporate net-zero claims, product-level claims or reputation. Governed by private standards (Verra, Gold Standard) rather than by states. Session 06.">VCM</span>):</b> you buy because you chose to — a reputational or contractual commitment, not a legal one. Same-looking credit, entirely different demand driver and price.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Cap-and-trade (ETS)</h3>
+          <span class="id-term">Perdagangan Emisi GRK</span>
+          <span class="cite">Pasal 1(23) · p.5</span>
+        </div>
+        <p class="def">Government fixes the <b>quantity</b> and lets the market discover the price. Perpres 110 defines it narrowly as the transaction of <i>Kuota Emisi GRK</i> between business actors — i.e. allowance trading specifically.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Carbon trading (umbrella)</h3>
+          <span class="id-term">Perdagangan Karbon</span>
+          <span class="cite">Pasal 1(22) · p.5</span>
+        </div>
+        <p class="def">The wider category: any market-based buying and selling of <i>Unit Karbon</i>. <b>Perdagangan Karbon ⊃ Perdagangan Emisi GRK.</b> Two similar Indonesian phrases, one nested inside the other — reading them as synonyms will mislead you.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Carbon tax / levy</h3>
+          <span class="id-term">Pungutan Atas Karbon</span>
+          <span class="cite">Pasal 1(30) · p.6</span>
+        </div>
+        <p class="def">Government fixes the <b>price</b> and lets the market determine the quantity — the mirror image of cap-and-trade. Perpres 110's definition is notably wide: a state levy, central or regional, on goods, services or activities with carbon content or carbon-emitting potential.</p>
+        <details>
+          <summary>Beyond-ETS compliance instruments</summary>
+          <p>This is one answer to “compliance but beyond ETS”. The compliance toolkit also includes performance standards, mandatory intensity benchmarks, and results-based payment — the point being that an ETS is one instrument in a family, not the whole of compliance. Session 05 maps the full family.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Results-based payment</h3>
+          <span class="id-term">Pembayaran Berbasis Kinerja</span>
+          <span class="cite">Pasal 1(25) · p.5</span>
+        </div>
+        <p class="def">Payment <b>for verified outcomes</b> without necessarily creating a tradable unit — the mechanism behind most <span class="tip" data-tip="Reducing Emissions from Deforestation and forest Degradation, plus conservation, sustainable management and enhancement of forest carbon stocks. A UNFCCC framework under which developing countries are paid for verified forest-related emission reductions — usually as results-based payment rather than tradable credits.">REDD+</span> and donor climate finance. Perpres 110 explicitly extends it to validated <b>non-carbon benefits</b>, not just tonnes.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Absolute vs intensity target</h3>
+          <span class="cite global">global framing</span>
+        </div>
+        <p class="def"><b>Absolute:</b> a hard tonnage ceiling — emissions must fall in reality. <b>Intensity:</b> emissions per unit of output (tCO₂e/MWh, per tonne of product) — a plant can grow output and still comply while total emissions rise. Indonesia's power-sector ETS design has used intensity benchmarking. <span class="q">[?]</span> <span style="font-size:14px;color:var(--ink-2)">— widely reported, but to be verified against the implementing ministerial regulation in Session 08 rather than asserted now.</span></p>
+        <details>
+          <summary>Why a government might choose intensity anyway</summary>
+          <p>Intensity targets are politically survivable in a fast-growing economy because they do not cap growth — they reward efficiency per unit. The trade-off is that they are not directly reconcilable with an absolute NDC number, so a government running intensity benchmarks domestically still has to translate results into absolute tonnes for its NDC accounting. Perpres 110's <i>Alokasi Karbon</i> (Pasal 1(2), p.3) is defined in absolute CO₂e terms, which makes that translation an explicit design requirement rather than an afterthought.</p>
+        </details>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= D ================= -->
+  <section id="d">
+    <div class="sec-head"><span class="n">D</span><h2>Accounting &amp; integrity</h2></div>
+    <p class="sec-intro">This cluster is the entire subject matter of Paris Article 6, and Perpres 110 imports its vocabulary directly — including one term left in English inside the Indonesian legal text.</p>
+
+    <div class="terms">
+
+      <article class="term">
+        <div class="term-top">
+          <h3>NDC</h3>
+          <span class="id-term">Kontribusi yang Ditetapkan secara Nasional</span>
+          <span class="cite">Pasal 1(1) · p.2</span>
+        </div>
+        <p class="def">A country's self-set, periodically renewed climate commitment under the Paris Agreement. It is the <b>accounting boundary</b> against which every transfer below is judged.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Corresponding adjustment</h3>
+          <span class="id-term">Corresponding Adjustment <span style="font-style:normal;color:var(--ink-3);font-size:12px">(kept in English in the Indonesian text)</span></span>
+          <span class="cite">Pasal 1(28) · p.5</span>
+        </div>
+        <p class="def">When a unit leaves the country, the seller must <b>add that tonne back</b> to its own emissions books, so the buyer and seller do not both count it.</p>
+        <p class="quote">“penyesuaian akuntansi Unit Karbon di NDC untuk menghindari terjadinya <b>pencatatan ganda</b> setelah pemindahan Unit Karbon ke luar negeri.”</p>
+        <details>
+          <summary>Why this is the hinge of the whole architecture</summary>
+          <p>A corresponding adjustment makes an exported credit <b>expensive to the host country in NDC terms</b> — it sells a tonne and simultaneously makes its own target harder. That single fact drives host-country export restrictions, authorization gatekeeping, and the price gap between adjusted and unadjusted credits. Every Article 6 negotiation runs through it. Session 03.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Authorization</h3>
+          <span class="id-term">Otorisasi</span>
+          <span class="cite">Pasal 1(27) · p.5</span>
+        </div>
+        <p class="def">Ministerial approval to use a <i>Unit Karbon</i> toward <b>another country's NDC</b>, an international mitigation obligation, or other purposes. In effect, an export licence for carbon.</p>
+        <details>
+          <summary>Developer and owner implication</summary>
+          <p>Without authorization your credit cannot legitimately be sold to an Article 6 or <span class="tip" data-tip="CORSIA — Carbon Offsetting and Reduction Scheme for International Aviation. Run by ICAO (the UN aviation body), it obliges airlines to offset growth in international flight emissions above a baseline year, buying eligible credits from approved programmes. It is one of the few genuinely international compliance demand sources for carbon credits.">CORSIA</span>-type compliance buyer — it is domestic-use-only. Authorization status is therefore a <b>primary valuation variable</b>, not paperwork: two physically identical credits from the same project trade at materially different prices depending on it. For an asset owner, whether authorization is obtainable is a diligence question to answer before financial close, not after.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Reserve carbon</h3>
+          <span class="id-term">Karbon Cadangan</span>
+          <span class="cite">Pasal 1(17) · p.4</span>
+        </div>
+        <p class="def">Carbon set aside at national level as a <b>risk buffer</b> for meeting the NDC. A distinctly Indonesian design feature: the state holds back headroom rather than allocating everything out.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Carbon allocation</h3>
+          <span class="id-term">Alokasi Karbon</span>
+          <span class="cite">Pasal 1(2) · p.3</span>
+        </div>
+        <p class="def">The total CO₂e permitted nationally over a period, “sesuai kapasitas nasional”. It is set jointly by the forestry, environment, energy, industry, agriculture, finance and planning ministries (Pasal 4(1), p.8) and becomes the basis for the NDC itself (Pasal 6, p.9).</p>
+      </article>
+
+      <article class="term" id="itmo">
+        <div class="term-top">
+          <h3>ITMO — the term worth slowing down for</h3>
+          <span class="id-term">— no Indonesian legal equivalent in Pasal 1</span>
+          <span class="cite global">Paris Art. 6.2</span>
+        </div>
+        <p class="def"><b>I</b>nternationally <b>T</b>ransferred <b>M</b>itigation <b>O</b>utcome. Read the four words literally, because each one was fought over and each one carries meaning.</p>
+
+        <div class="tablewrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Word</th><th>What it rules in — and out</th></tr></thead>
+            <tbody>
+              <tr><td class="pair">Internationally</td><td>It only becomes an ITMO when it <b>crosses a border</b>. A reduction traded between two Indonesian companies is never an ITMO, however it was certified.</td></tr>
+              <tr><td class="pair">Transferred</td><td>Ownership moves from one country's account to another's. The moment of “<b>first transfer</b>” is what triggers the seller's <span class="tip" data-tip="The seller adds the transferred tonne back onto its own emissions ledger, so buyer and seller cannot both count it.">corresponding adjustment</span>.</td></tr>
+              <tr><td class="pair">Mitigation</td><td>It must be real mitigation counted against a <span class="tip" data-tip="Nationally Determined Contribution — a country's self-set Paris climate pledge, and the accounting boundary for all Article 6 transfers.">NDC</span> — not finance, not technology transfer, not a promise.</td></tr>
+              <tr><td class="pair"><b>Outcome</b></td><td>The load-bearing word. Deliberately <b>not</b> “credit”, “unit”, or “certificate” — because an ITMO need not come from a project at all.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:16px">That last word is the answer to your curiosity. Negotiators chose “<b>outcome</b>” so that a country could transfer <i>any</i> mitigation result it can measure and account for — a sectoral policy result, a programme-wide reduction, a fleet-level improvement — not only a project-generated credit. <span class="tip" data-tip="Clean Development Mechanism — the Kyoto Protocol's project-based crediting mechanism, which issued Certified Emission Reductions (CERs) from individual registered projects.">CDM</span> thinking was project-shaped; Article 6.2 was written to be bigger than projects.</p>
+
+        <details>
+          <summary>ITMO vs A6.4ER — the distinction that actually matters in a deal</summary>
+          <p><b>ITMO (Article 6.2)</b> is the <b>decentralised</b> route. Two countries sign a bilateral agreement, define their own methodologies and quality rules between themselves, and transfer. No UN body issues the unit — the UN only receives the reporting. Fast, flexible, and only as rigorous as the two parties choose to be.</p>
+          <p><b>A6.4ER (Article 6.4)</b> is the <b>centralised</b> route: a UN supervisory body approves the methodology, accredits the verifier, and issues the unit — the architecture <span class="tip" data-tip="Paris Agreement Crediting Mechanism — the operating name adopted for the Article 6.4 mechanism, the UN-governed successor to the CDM.">PACM</span> inherits from the CDM. Slower, more standardised, more portable.</p>
+          <p><b>The relationship:</b> an A6.4ER <i>becomes</i> an ITMO when it is authorised and transferred across a border. So they are not rival units — one is a unit type, the other is a status a unit acquires on export. Session 03 does this properly.</p>
+        </details>
+
+        <details>
+          <summary>Why Perpres 110 never uses the word</summary>
+          <p>Indonesian law reaches the same place by a different road. Rather than importing “ITMO” as a defined object, Perpres 110 regulates the two <b>acts</b> that constitute one: <i>Otorisasi</i> (Pasal 1(27), p.5) — the state's permission to send a unit abroad for another country's NDC — and <i>Corresponding Adjustment</i> (Pasal 1(28), p.5) — the accounting entry that follows. An Indonesian <i>Unit Karbon</i> that has been authorised and transferred <b>is</b> an ITMO in Paris terms, even though no Indonesian statute calls it that.</p>
+          <p>Practical consequence: when you read Indonesian regulation you will not find the word, and when you read a bilateral term sheet you will find nothing else. Same object, two vocabularies — you now hold both.</p>
+        </details>
+
+        <details>
+          <summary>What an ITMO deal looks like in practice</summary>
+          <p>The recognisable pattern is a buyer government with a hard NDC gap and money, and a host country with abatement potential: Switzerland has signed bilateral Article 6.2 agreements with several host countries, and Japan's <span class="tip" data-tip="Joint Crediting Mechanism — Japan's bilateral offset crediting scheme with partner countries, predating Paris and since being aligned to Article 6.2.">JCM</span> — which Indonesia joined in 2013 — is the longest-running bilateral crediting relationship of this type. <span class="q">[?]</span> <span style="font-size:14px;color:var(--ink-2)">— structure is well established; specific counterparties, volumes and current Article 6.2 alignment status to be cited to primary agreements in Session 03 rather than asserted here.</span></p>
+          <p>For Indonesia the strategic question is not “can we sell ITMOs” but “<b>should we</b>” — since every authorised export makes the domestic NDC harder (see the corresponding-adjustment card above). That tension is the heart of Session 03 and returns in Session 11's government lens.</p>
+        </details>
+
+        <p style="margin-top:14px"><a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/cooperative-implementation" target="_blank" rel="noopener">UNFCCC Article 6 cooperative implementation portal →</a></p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= E ================= -->
+  <section id="e">
+    <div class="sec-head"><span class="n">E</span><h2>Plumbing &amp; actors</h2></div>
+    <p class="sec-intro">Who records, who checks, who trades, who decides. These are the terms that turn a policy concept into an operating system.</p>
+
+    <div class="terms">
+
+      <article class="term">
+        <div class="term-top">
+          <h3>National climate registry</h3>
+          <span class="id-term">SRN PPI</span>
+          <span class="cite">Pasal 1(19) · p.4</span>
+        </div>
+        <p class="def">The national system holding data on mitigation and adaptation <b>actions and resources at NDC level</b>. Think of it as the country's action ledger.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Carbon unit registry</h3>
+          <span class="id-term">SRUK</span>
+          <span class="cite">Pasal 1(20) · p.4</span>
+        </div>
+        <p class="def">A <b>separate</b> registry for information on <i>Unit Karbon</i> themselves. Perpres 110/2025 splits the <b>action</b> ledger (SRN PPI) from the <b>unit</b> ledger (SRUK) — a structural change worth watching, since SPE-GRK is defined as being recorded in SRUK, not SRN PPI.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Perpres RI No. 110 Tahun 2025, Pasal 1 angka 19 &amp; 20, p. 4; SPE-GRK definition at angka 37, p. 6. Verified in file.">1</a></sup></p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Carbon exchange</h3>
+          <span class="id-term">Bursa Karbon</span>
+          <span class="cite">Pasal 1(29) · p.5</span>
+        </div>
+        <p class="def">The system that records carbon trades and <b>ownership status</b> of units. In Indonesia this is operationalised as IDXCarbon, launched September 2023. <span class="q">[?]</span> <span style="font-size:14px;color:var(--ink-2)">— launch date and operator widely reported; to be cited to OJK/IDX primary source in Session 09.</span></p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Validation &amp; verification body</h3>
+          <span class="id-term">LVV — <b>not defined in Pasal 1</b> <span class="q">[?]</span></span>
+          <span class="cite global">absent from this regulation</span>
+        </div>
+        <p class="def">The accredited independent third party that checks a project design (validation) and later its claimed reductions (verification) — the role the CDM called a <span class="tip" data-tip="Designated Operational Entity — under the Kyoto Protocol&rsquo;s CDM, an independent auditor accredited by the CDM Executive Board to validate project designs and verify emission reductions before credits could be issued.">DOE</span>.</p>
+        <p>Verified directly: <b>LVV appears nowhere among the 44 defined terms of Perpres 110/2025 Pasal 1</b> (pp. 2–7), which reaches the function only through the “V” in MRV.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Perpres RI No. 110 Tahun 2025, Pasal 1, pp. 2–7. Absence of &lsquo;Lembaga Validasi dan Verifikasi&rsquo; confirmed by reading all 44 definitions directly.">1</a></sup> Its accreditation regime therefore sits below Presidential-Regulation level — a ministerial regulation and national accreditation body. <span class="q">[?]</span> <span style="font-size:14px;color:var(--ink-2)">— exact accrediting authority to be confirmed from primary source in Session 09; do not quote me on KAN until then.</span></p>
+      </article>
+
+      <article class="term" id="dramdpp">
+        <div class="term-top">
+          <h3>DRAM and DPP — the fork disguised as paperwork</h3>
+          <span class="id-term">Dokumen Rancangan Aksi Mitigasi · Dokumen Perencanaan Proyek</span>
+          <span class="cite">Pasal 1(40),(41) · p.7</span>
+        </div>
+        <p class="def">Both are <b>project design documents</b>: they describe the project, prove it meets the applicable requirements, and set out in detail how much emission reduction or removal it will produce. They differ in <b>one</b> variable — <b>whose rulebook you are writing to</b> — and that single variable determines which market you end up in.</p>
+
+        <div class="tablewrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th></th><th>DRAM</th><th>DPP</th></tr></thead>
+            <tbody>
+              <tr><td class="pair">Full name</td><td><i>Dokumen Rancangan Aksi Mitigasi</i><br><span style="font-size:12.5px;color:var(--ink-2)">Mitigation Action Design Document</span></td><td><i>Dokumen Perencanaan Proyek</i><br><span style="font-size:12.5px;color:var(--ink-2)">Project Planning Document</span></td></tr>
+              <tr><td class="pair">Written to satisfy</td><td>requirements set by <b>the Government</b> (<i>ditetapkan oleh Pemerintah</i>)</td><td>requirements set by an <b>international standard</b> (<i>ditetapkan oleh standar internasional</i>)</td></tr>
+              <tr><td class="pair">Produces</td><td><b>SPE-GRK</b> — the domestic Indonesian certificate</td><td><b>non-SPE-GRK</b> units — e.g. <span class="tip" data-tip="The largest voluntary carbon standard, operator of the Verified Carbon Standard (VCS) programme; its credits are called VCUs.">Verra/VCS</span>, <span class="tip" data-tip="A voluntary carbon standard with a stronger sustainable-development co-benefit requirement.">Gold Standard</span>, or an Article 6 route</td></tr>
+              <tr><td class="pair">Natural buyer</td><td>domestic compliance, domestic voluntary, <span class="tip" data-tip="Bursa Karbon — the exchange system recording carbon trades and ownership, operationalised in Indonesia as IDXCarbon.">Bursa Karbon</span></td><td>international voluntary buyers, foreign compliance schemes, <span class="tip" data-tip="Carbon Offsetting and Reduction Scheme for International Aviation — ICAO&rsquo;s global scheme obliging airlines to offset growth in international aviation emissions above a baseline, using eligible credits from approved programmes.">CORSIA</span>, bilateral Article 6 partners</td></tr>
+              <tr><td class="pair">Registry path</td><td>SRUK, with a registry number (Pasal 1(37), p.6)</td><td>the international standard's own registry, plus Indonesian recording <span class="q">[?]</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin-top:16px">The reason this matters more than it looks: <b>Perpres 110 makes you declare your market at design stage.</b> The document type is chosen before validation, before construction, before a single tonne exists. Get it wrong and you are not filling in a different form later — you are re-baselining and re-validating the project against a different rulebook.</p>
+
+        <details>
+          <summary>How the three lenses see this differently</summary>
+          <p><b>Government</b> gets a sorting mechanism. By defining the fork in law, the state knows at design stage which pipeline a project is in, and therefore which units may later need <i>Otorisasi</i> and a corresponding adjustment. It is an early-warning system for NDC leakage, built into a definition.</p>
+          <p><b>Developer</b> faces a real cost-and-access trade-off. The domestic DRAM route is cheaper and administratively closer, but its demand depends on how ambitious the domestic cap becomes. The international DPP route reaches deeper-pocketed buyers but imports a foreign standard's methodology burden, fees and timelines.</p>
+          <p><b>Project owner / investor</b> should treat this as a <b>valuation input, not a compliance detail</b>. The document type constrains the exit routes for the credit stream, which constrains who can buy, which constrains price. Ask which document was filed before you underwrite the revenue line.</p>
+        </details>
+
+        <details>
+          <summary>What this does not tell you yet</summary>
+          <p>Pasal 1 defines the two documents but not their contents, approval steps, or whether a project can hold both. Those sit in implementing regulation — the same layer that holds additionality and LVV accreditation. Flagged as an open item for Session 08; I will not guess at the procedure before reading it.</p>
+        </details>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Who “the Minister” means</h3>
+          <span class="id-term">Menteri · Menteri Terkait · Pelaku Usaha</span>
+          <span class="cite">Pasal 1(42),(43),(44) · p.7</span>
+        </div>
+        <p class="def"><b>Menteri</b> = the environment minister (the NEK coordinator). <b>Menteri Terkait</b> = the sectoral ministers for each NDC sector. <b>Pelaku Usaha</b> = the regulated business actor. Every obligation in the regulation attaches to one of these three, so identifying which one is named tells you who actually holds the power in any given article.</p>
+      </article>
+
+      <article class="term">
+        <div class="term-top">
+          <h3>Sector &amp; sub-sector</h3>
+          <span class="id-term">Sektor · Sub Sektor</span>
+          <span class="cite">Pasal 1(38),(39) · p.7 · Pasal 9 · pp.11–12</span>
+        </div>
+        <p class="def">Defined explicitly as <b>NDC sectors, not administrative jurisdictions</b>. Pasal 9 lists them: energy, waste, <span class="tip" data-tip="Industrial Processes and Product Use — the IPCC inventory category for emissions from chemical or physical transformation in industry (e.g. CO₂ released when limestone is calcined to make cement), as distinct from emissions from burning fuel for energy.">IPPU</span>, agriculture, forestry, marine &amp; fisheries — with sub-sectors including <b>power generation</b> and <b>industry</b> (your energy focus), alongside forestry, peat &amp; mangrove, and blue carbon.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================= TRAPS ================= -->
+  <section id="traps">
+    <div class="sec-head"><span class="n">✕</span><h2>Confusion traps</h2></div>
+    <p class="sec-intro">Five pairs that sound interchangeable and are not. If you can hold these apart, you are past the hardest part of the vocabulary.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Pair</th><th>The distinction that matters</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Allowance<br>vs Credit</td><td>Allowance = <b>permission granted downward from a cap</b>. Credit = <b>reduction earned upward against a baseline</b>. Opposite directions of creation. In Indonesian law, however, <i>Unit Karbon</i> is the umbrella covering both.</td></tr>
+          <tr><td class="pair">Perdagangan Karbon<br>vs Perdagangan Emisi</td><td>The first is <b>all</b> carbon-unit trading; the second is <b>allowance</b> trading specifically. Nested, not synonymous.</td></tr>
+          <tr><td class="pair">SRN PPI<br>vs SRUK</td><td>Action ledger vs unit ledger. Perpres 110/2025 keeps them as two named systems; SPE-GRK is recorded in <b>SRUK</b>.</td></tr>
+          <tr><td class="pair">DRAM<br>vs DPP</td><td>Domestic-standard project document (→ SPE-GRK) vs international-standard project document (→ non-SPE-GRK). A market-strategy fork disguised as a form.</td></tr>
+          <tr><td class="pair">Reduction<br>vs Removal</td><td>Avoiding a tonne that would have been emitted vs pulling a tonne out of the air (<i>Serapan GRK</i>). Energy projects mostly do the first; forestry does the second. Different permanence risk, different buyer.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= GAPS ================= -->
+  <section id="gaps">
+    <div class="sec-head"><span class="n">!</span><h2>Two things I checked and did not find</h2></div>
+    <div class="callout">
+      <h3>Neither “additionality” nor “LVV” is a defined term in Perpres 110/2025</h3>
+      <p>I read all 44 definitions in Pasal 1 (pp. 2–7) and confirmed the absence of both. This is not a criticism of the regulation — a Presidential Regulation sets architecture, and these belong to implementing rules — but it is load-bearing for how you research from here.</p>
+      <p><b>What it means practically:</b> the two questions a project developer or asset owner cares about most — <i>will my project qualify as additional?</i> and <i>who is allowed to verify me?</i> — are answered <b>below</b> the Perpres, in ministerial regulations and methodology documents. So when we reach Session 08, reading Perpres 110 alone will not answer them; we will need the implementing layer, and I will say so explicitly rather than filling the gap from memory.</p>
+    </div>
+  </section>
+
+  <!-- ================= CHECK ================= -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <p class="sec-intro">Answer these in your own words before Session 01. If any one is uncomfortable, say so and we will re-cut that cluster rather than moving on.</p>
+    <div class="check">
+      <ol>
+        <li>A coal plant holds 500,000 <i>Kuota Emisi GRK</i> and buys 20,000 <i>SPE-GRK</i>. Which came from a cap and which came from a baseline — and are both <i>Unit Karbon</i>?</li>
+        <li>Why does exporting a credit make Indonesia's own NDC target <b>harder</b> to meet, even though the reduction physically happened in Indonesia?</li>
+        <li>A developer drafts a <b>DPP</b> rather than a <b>DRAM</b>. What have they just decided about their market — and what have they given up?</li>
+        <li>Your factory's emissions rise 12% while your emissions <b>per tonne of product</b> fall 8%. Under an absolute target vs an intensity target, in which are you compliant?</li>
+        <li>Why is “I bought an offset” three separate events, and where can integrity fail in each?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= NOTES ================= -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro">Page numbers refer to the printed page numbers on the regulation itself. Entries marked <span class="verified">verified in file</span> were read directly from the PDF in this session; <span class="verified byref">by reference</span> entries are cited to a primary source not yet opened, and any claim resting on one carries a <span class="q">[?]</span> in the text above.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>Peraturan Presiden Republik Indonesia Nomor 110 Tahun 2025</b>, <i>Penyelenggaraan Instrumen Nilai Ekonomi Karbon dan Pengendalian Emisi Gas Rumah Kaca Nasional</i>. Pasal 1 (44 definitions), pp. 2–7; Pasal 2 scope, p. 7; Pasal 3–6 <i>Alokasi Karbon</i>, pp. 8–9; Pasal 9 sectors and sub-sectors, pp. 11–12; Pasal 13(5) IPCC guidance, p. 15; Pasal 15 baseline scope, p. 15. Recitals (Menimbang, huruf c, p. 1) state that it replaces Perpres No. 98 Tahun 2021. <br><span class="src">File: All References/Perpres 110:2025 - NEK.pdf — pages 1–15 read this session.</span></li>
+      <li id="n2"><span class="verified byref">by reference</span> <b>Paris Agreement</b>, Article 6.2 (cooperative approaches / internationally transferred mitigation outcomes), 6.4 (mechanism), 6.8 (non-market approaches). Cited by article, the correct citation unit for treaty text. <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/cooperative-implementation" target="_blank" rel="noopener">UNFCCC cooperative implementation portal</a>. To be read in full for Session 03.</li>
+      <li id="n3"><span class="verified byref">by reference</span> Indonesian ETS intensity benchmarking and IDXCarbon operational details — flagged <span class="q">[?]</span> above pending citation to Ministry of Environment and OJK/IDX primary documents in Sessions 08–09.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

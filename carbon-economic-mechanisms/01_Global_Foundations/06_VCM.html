@@ -1,0 +1,491 @@
+<title>The Voluntary Market</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:16ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:940px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:660px; font-size:14.5px}
+th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); white-space:nowrap}
+tr.grp td{background:var(--surface-2); font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+blockquote{margin:12px 0; padding:12px 16px; background:var(--surface-2); border-left:2px solid var(--law); font-size:14px; color:var(--ink-2); font-style:italic; max-width:70ch}
+blockquote b{font-style:normal; color:var(--ink)}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 06 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>The Voluntary Market</h1>
+  <p class="standfirst">A market with no regulator, no obligation, and until recently no sovereign in the loop. That freedom is why it grew fast, why it broke in 2023, and why Article 6 has now split it in two. This session closes the global block — and the last section is the one that matters most for Indonesia.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>New sources</b> · ICVCM Core Carbon Principles · VCMI Claims Code · West et al. (2023)</span>
+    <span><b>Closes</b> · the global foundations block</span>
+    <span><b>Next</b> · 07 · Indonesia's climate policy stack</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#what"><span class="n">1</span>Demand without obligation</a>
+    <a href="#chain"><span class="n">2</span>Who does what</a>
+    <a href="#crisis"><span class="n">3</span>What broke in 2023</a>
+    <a href="#response"><span class="n">4</span>The integrity response</a>
+    <a href="#twotier"><span class="n">5</span>Article 6 split it in two</a>
+    <a href="#claims"><span class="n">6</span>What can you actually claim</a>
+    <a href="#indonesia"><span class="n">7</span>Indonesia's quiet advantage</a>
+    <a href="#lenses"><span class="n">8</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="what">
+    <div class="sec-head"><span class="n">1</span><h2>Demand without obligation</h2></div>
+    <p class="sec-intro">Session 05 defined a compliance instrument by legal obligation. The VCM is what you get when you remove exactly that and change nothing else.</p>
+
+    <p>Nobody is required to buy a voluntary credit. Demand comes from corporate net-zero commitments, product-level claims, supply-chain pressure, investor expectations and reputation. Which means the entire market rests on the buyer <b>continuing to want to</b> — a demand curve that can be revised by a press cycle.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Compliance market</th><th>Voluntary market</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Demand created by</td><td>Law</td><td>Choice</td></tr>
+          <tr><td class="pair">Rules set by</td><td>A government</td><td><b>Private standards bodies</b></td></tr>
+          <tr><td class="pair">Failure to comply</td><td>Legal breach</td><td>Nothing</td></tr>
+          <tr><td class="pair">Speed to establish</td><td>Years — legislation, MRV, registry, regulator</td><td>Months</td></tr>
+          <tr><td class="pair">Project types</td><td>Narrow — what the regulator recognises</td><td><b>Broad</b> — cookstoves, forests, soil, biochar, direct air capture</td></tr>
+          <tr><td class="pair">Chief vulnerability</td><td>A loose cap kills the price</td><td><b>A credibility shock kills the demand</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">The VCM's great virtue and its great weakness are the same property.</p>
+      <p>No sovereign in the loop means it can finance a cookstove programme in a country with no carbon law at all, years before any compliance system could reach it. It also means nobody with public accountability was ever checking the arithmetic.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="chain">
+    <div class="sec-head"><span class="n">2</span><h2>Who does what — and where the incentives bend</h2></div>
+    <p class="sec-intro">The value chain is not complicated. What matters is following the money through it.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 320" role="img" aria-label="The voluntary carbon market value chain: developer designs project, standard approves methodology, validator and verifier audit, registry issues credits, broker sells to buyer who retires them. Money flows from the developer to the verifier and to the standard, creating an incentive problem.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">THE VCM VALUE CHAIN — CREDITS FLOW RIGHT, FEES FLOW LEFT</text>
+
+        <g font-family="IBM Plex Sans, sans-serif">
+          <rect x="0" y="40" width="132" height="58" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="10" y="62" font-size="12.5" font-weight="600" fill="var(--ink)">Developer</text>
+          <text x="10" y="80" font-size="10.5" fill="var(--ink-2)">designs the project</text>
+
+          <rect x="152" y="40" width="132" height="58" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="162" y="62" font-size="12.5" font-weight="600" fill="var(--ink)">Standard</text>
+          <text x="162" y="80" font-size="10.5" fill="var(--ink-2)">owns the methodology</text>
+
+          <rect x="304" y="40" width="132" height="58" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="314" y="62" font-size="12.5" font-weight="600" fill="var(--ink)">Validator /</text>
+          <text x="314" y="78" font-size="12.5" font-weight="600" fill="var(--ink)">Verifier</text>
+          <text x="314" y="93" font-size="10.5" fill="var(--ink-2)">audits the claim</text>
+
+          <rect x="456" y="40" width="132" height="58" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="466" y="62" font-size="12.5" font-weight="600" fill="var(--ink)">Registry</text>
+          <text x="466" y="80" font-size="10.5" fill="var(--ink-2)">issues &amp; serialises</text>
+
+          <rect x="608" y="40" width="132" height="58" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="618" y="62" font-size="12.5" font-weight="600" fill="var(--ink)">Broker /</text>
+          <text x="618" y="78" font-size="12.5" font-weight="600" fill="var(--ink)">retailer</text>
+
+          <rect x="760" y="40" width="120" height="58" rx="2" fill="var(--warm-soft)" stroke="var(--warm)"/>
+          <text x="770" y="62" font-size="12.5" font-weight="600" fill="var(--ink)">Buyer</text>
+          <text x="770" y="80" font-size="10.5" fill="var(--ink-2)">retires, makes a claim</text>
+        </g>
+
+        <g stroke="var(--ink-3)" stroke-width="1.2" fill="none" marker-end="url(#m8)">
+          <path d="M132,69 L148,69"/><path d="M284,69 L300,69"/><path d="M436,69 L452,69"/><path d="M588,69 L604,69"/><path d="M740,69 L756,69"/>
+        </g>
+        <defs>
+          <marker id="m8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker>
+          <marker id="m9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--flag)"/></marker>
+        </defs>
+
+        <!-- money flows -->
+        <path d="M300,130 C240,130 200,112 190,102" stroke="var(--flag)" stroke-width="1.6" fill="none" marker-end="url(#m9)"/>
+        <path d="M340,130 C340,120 350,110 360,102" stroke="var(--flag)" stroke-width="1.6" fill="none" marker-end="url(#m9)"/>
+        <path d="M120,130 C120,120 110,112 90,102" stroke="var(--flag)" stroke-width="1.6" fill="none" marker-end="url(#m9)"/>
+
+        <rect x="0" y="136" width="440" height="70" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.4"/>
+        <text x="12" y="158" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">The developer pays the auditor.</text>
+        <text x="12" y="177" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">It selects and pays the validator and verifier, and pays the standard</text>
+        <text x="12" y="193" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">fees that scale with credits issued.</text>
+
+        <rect x="460" y="136" width="420" height="70" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="472" y="158" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">Standards compete for projects.</text>
+        <text x="472" y="177" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">A developer can take its project to a different standard. Standards</text>
+        <text x="472" y="193" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">that credit more generously attract more business.</text>
+
+        <rect x="0" y="230" width="880" height="72" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="14" y="254" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">Nobody in the issuance chain is paid to say no.</text>
+        <text x="14" y="275" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">Developer, standard, verifier, broker — every party's revenue rises with the number of credits issued. The only party with an interest in fewer,</text>
+        <text x="14" y="292" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">better credits is the buyer, who is furthest from the measurement and least equipped to check it. That geometry explains 2023.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 6.1 — The VCM value chain and its incentive geometry. Analytical, not sourced to a single document. Compare the compliance equivalent: under Perpres 110 the state issues, and under Article 6.4 a UN body issues.</p>
+    </div>
+
+    <details>
+      <summary>The main standards, and where to look them up</summary>
+      <p>The largest are <b>Verra</b> (the Verified Carbon Standard), <b>Gold Standard</b>, the <b>American Carbon Registry</b>, the <b>Climate Action Reserve</b>, <b>Plan Vivo</b>, and <b>ART</b> for jurisdictional-scale forest programmes. Each runs its own registry, approves its own methodologies, and accredits its own auditors.<sup class="fn"><a class="tip" href="#n4" data-tip="Note 4 — the major voluntary standards, named by reference. Their programme documents were not opened this session; use each registry directly for methodology and issuance data.">4</a></sup></p>
+      <p>For project-level and issuance data across all of them, the <b>Berkeley Carbon Trading Project's Voluntary Registry Offsets Database</b> is the standard research-grade aggregation — a university source rather than a market participant, which matters when the market participants are the ones being assessed.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="crisis">
+    <div class="sec-head"><span class="n">3</span><h2>What actually broke in 2023</h2></div>
+    <p class="sec-intro">The crisis is usually described in headlines. The underlying finding is more specific, and more useful, than the headlines were.</p>
+
+    <p>The most-cited peer-reviewed result is <b>West et al. (2023)</b> in <i>Science</i>, which examined REDD+ project sites and compared claimed avoided deforestation against independent counterfactual estimates.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — West, T.A.P. et al. (2023), &lsquo;Action needed to make carbon offsets from forest conservation work for climate change mitigation&rsquo;, Science 381:873–877, DOI 10.1126/science.ade3535.">1</a></sup></p>
+
+    <blockquote>The evaluated projects claimed <b>an aggregate 10.7 times more avoided deforestation</b> than independent estimates justified. The discrepancy was <b>not</b> driven by the choice of forest-cover data, but by <b>selection bias in the projects' control areas and in modelling approaches</b>. The study covered 26 REDD+ project sites, of which 18 had sufficient public information on baselines.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — West et al. (2023), Science 381:873–877. Findings as reported; the paper itself is paywalled and was not opened in full this session.">1</a></sup></blockquote>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Read the mechanism, not the number: the failure was in the counterfactual, exactly where Session 00 said it would be.</p>
+      <p>Nothing was miscounted. The forests were measured correctly. What was wrong was <b>the comparison</b> — the estimate of what would have happened otherwise. Baseline construction is where the discretion lives, so it is where the error concentrates. This is the same point the Article 6.4 rulebook is built around when it demands baselines be “conservative… below business as usual” and confines them to three approved approaches (Session 04, ¶33 and ¶36).</p>
+    </div>
+
+    <details>
+      <summary>Being fair to the evidence — the picture is now more nuanced than 2023</summary>
+      <p>The 2023 finding was contested by the standards concerned, and the literature has since moved. A subsequent <i>Science</i> paper is titled <b>“Tropical forest carbon offsets deliver partial gains amid persistent over-crediting”</b> — a framing that concedes real gains alongside persistent over-issuance rather than dismissing the category outright.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — Science, DOI 10.1126/science.adw4094. The paper is paywalled and returned HTTP 403; only its title is relied on here, not its detailed findings.">2</a></sup> <span class="q">[?]</span> <span style="color:var(--ink-2)">— that paper is paywalled and I could not open it, so I rely only on its title and assert none of its specific findings.</span></p>
+      <p>The honest summary for your purposes: <b>the direction of the finding is robust and repeatedly replicated — avoided-deforestation crediting has systematically over-issued — while the magnitude is contested and methodology-dependent.</b> Anyone who tells you either “offsets are worthless” or “the critiques were debunked” is overstating what the evidence supports.</p>
+    </details>
+  </section>
+
+  <!-- 4 -->
+  <section id="response">
+    <div class="sec-head"><span class="n">4</span><h2>The integrity response — two bodies, two sides</h2></div>
+    <p class="sec-intro">The market's answer was to build governance it had deliberately done without. Note the structure: one body polices what is sold, another polices what is said about it.</p>
+
+    <div class="card">
+      <h3>Supply side — ICVCM and the Core Carbon Principles</h3>
+      <p>The <b>Integrity Council for the Voluntary Carbon Market</b> describes itself as “an independent, non-profit governance body for the VCM, which aims to maximise its potential to finance climate solutions.” Its assessment framework evaluates <b>both crediting programmes and categories of credits</b>, and approved categories may carry the <b>CCP label</b>.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — ICVCM, Core Carbon Principles page. Fetched and read this session; the ten principles and their groupings are quoted from that page.">3</a></sup></p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>The ten Core Carbon Principles</th><th>What it requires</th></tr></thead>
+        <tbody>
+          <tr class="grp"><td colspan="3">A · Governance</td></tr>
+          <tr><td class="n">1</td><td class="pair">Effective governance</td><td>Transparency, accountability, continuous improvement, overall credit quality</td></tr>
+          <tr><td class="n">2</td><td class="pair">Tracking</td><td>Uniquely identify, record and track activities and credits issued</td></tr>
+          <tr><td class="n">3</td><td class="pair">Transparency</td><td>Comprehensive information on all credited activities, publicly available</td></tr>
+          <tr><td class="n">4</td><td class="pair">Independent validation<br>and verification</td><td>Robust independent third-party validation and verification</td></tr>
+          <tr class="grp"><td colspan="3">B · Emissions impact</td></tr>
+          <tr><td class="n">5</td><td class="pair">Additionality</td><td>Reductions “would not have occurred in the absence of the incentive created by carbon credit revenues”</td></tr>
+          <tr><td class="n">6</td><td class="pair">Permanence</td><td>Permanent, or measures in place to address reversal risk</td></tr>
+          <tr><td class="n">7</td><td class="pair">Robust quantification</td><td>“Conservative approaches, completeness and scientific methods”</td></tr>
+          <tr><td class="n">8</td><td class="pair">No double-counting</td><td>Counted once only toward any mitigation target or goal</td></tr>
+          <tr class="grp"><td colspan="3">C · Sustainable development</td></tr>
+          <tr><td class="n">9</td><td class="pair">SD benefits and safeguards</td><td>Conform with or exceed established industry best practice</td></tr>
+          <tr><td class="n">10</td><td class="pair">Contribution toward<br>net zero transition</td><td>Avoid locking in emissions levels incompatible with net zero by mid-century</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px">Read principles 5, 7 and 10 against Session 04 and the convergence is unmistakable — additionality as counterfactual, conservative quantification, and explicit lock-in avoidance are <b>the same three tests</b> the Article 6.4 rulebook imposes at ¶¶33, 36 and 38. <b>The private and treaty systems are converging on one quality standard</b>, from opposite directions.</p>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Demand side — VCMI and what a company may say</h3>
+      <p>The <b>Voluntary Carbon Markets Integrity Initiative</b> governs the <i>claim</i> rather than the credit. Its Claims Code of Practice recognises three tiers — <b>“Silver, Gold, and Platinum Carbon Integrity Claims recognize increasing levels of climate action”</b> — each requiring “the purchase and retirement of high-quality carbon credits proportionate to its remaining emissions once a company has met, or demonstrated progress towards meeting, its near-term emission reduction targets.”<sup class="fn"><a class="tip" href="#n5" data-tip="Note 5 — VCMI, Claims Code of Practice page. Fetched and read this session; tier names and foundational criteria quoted from that page.">5</a></sup></p>
+      <p>Before any claim, foundational criteria apply: emissions accounting using national inventory methodologies or the GHG Protocol; near-term targets consistent with net zero by 2050 set through a credible science-aligned framework; and credits sourced <b>“from outside the value chain of the company”</b>.</p>
+      <p><b>The load-bearing sequencing:</b> credits supplement internal reductions, they do not substitute for them. A company must set science-based near-term targets <b>before</b> using credits against residual emissions. This is Session 05's mitigation hierarchy, transplanted from compliance law into a voluntary code.</p>
+    </div>
+
+    <details>
+      <summary>The irony worth noticing</summary>
+      <p>The remedy for a voluntary market's integrity problem was <b>more voluntary institutions</b>. ICVCM and VCMI have no legal authority; a developer may ignore the CCP label and a company may ignore the Claims Code. They work only insofar as buyers demand them.</p>
+      <p>That is not necessarily a weakness — a label that buyers actually price is a real constraint. But it does mean the VCM's integrity architecture rests on the same foundation as its demand: <b>continued voluntary participation.</b> Which brings us to the one development that put a sovereign into the loop after all.</p>
+    </details>
+  </section>
+
+  <!-- 5 -->
+  <section id="twotier">
+    <div class="sec-head"><span class="n">5</span><h2>Article 6 split the VCM in two</h2></div>
+    <p class="sec-intro">This is the most commercially important thing in the session. The same project, the same tonne, can now produce two legally different assets — and which one you hold is decided by a ministry.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 340" role="img" aria-label="One project produces two grades of credit. Authorized credits carry a corresponding adjustment, the host gives up the tonne, and the buyer can make an offsetting claim. Unauthorized credits carry no adjustment, the host keeps the tonne in its NDC, and the buyer can make a contribution claim.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">ONE PROJECT · ONE TONNE · TWO ASSETS</text>
+
+        <rect x="330" y="32" width="220" height="46" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="440" y="52" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)" text-anchor="middle">A verified reduction</text>
+        <text x="440" y="69" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)" text-anchor="middle">physically identical either way</text>
+
+        <line x1="400" y1="78" x2="250" y2="106" stroke="var(--ink-3)" stroke-width="1.2"/>
+        <line x1="480" y1="78" x2="630" y2="106" stroke="var(--ink-3)" stroke-width="1.2"/>
+        <text x="270" y="98" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--law)">AUTHORIZED</text>
+        <text x="560" y="98" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--accent)">NOT AUTHORIZED</text>
+
+        <!-- left -->
+        <rect x="0" y="112" width="420" height="176" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1.4"/>
+        <text x="16" y="136" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">Host grants Otorisasi · applies a CA</text>
+        <text x="16" y="162" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· The tonne <tspan font-weight="600" fill="var(--ink)">leaves</tspan> the host's NDC books</text>
+        <text x="16" y="182" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· Usable toward another country's NDC</text>
+        <text x="16" y="202" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· Eligible for CORSIA-type compliance demand</text>
+        <text x="16" y="222" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· Buyer can defensibly say <tspan font-weight="600" fill="var(--ink)">"offset"</tspan></text>
+        <rect x="16" y="238" width="388" height="36" rx="2" fill="var(--surface)" stroke="var(--law)" stroke-dasharray="3 2"/>
+        <text x="28" y="261" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">Costs the host country real NDC headroom → <tspan font-weight="600">higher price</tspan></text>
+
+        <!-- right -->
+        <rect x="460" y="112" width="420" height="176" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="476" y="136" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">No authorization · no CA</text>
+        <text x="476" y="162" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· The tonne <tspan font-weight="600" fill="var(--ink)">stays</tspan> in the host's NDC</text>
+        <text x="476" y="182" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· Cannot count toward any state's target</text>
+        <text x="476" y="202" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· Ineligible for compliance demand</text>
+        <text x="476" y="222" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">· Buyer can honestly say <tspan font-weight="600" fill="var(--ink)">"contribution"</tspan></text>
+        <rect x="476" y="238" width="388" height="36" rx="2" fill="var(--surface)" stroke="var(--accent)" stroke-dasharray="3 2"/>
+        <text x="488" y="261" font-family="IBM Plex Sans" font-size="12" fill="var(--ink)">Costs the host nothing → <tspan font-weight="600">lower price, but it keeps the tonne</tspan></text>
+
+        <text x="0" y="312" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">The price gap between the two is not a quality difference. It is the market pricing a sovereign accounting decision — the same one Perpres 110</text>
+        <text x="0" y="330" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">Pasal 68 sorts by asking whether the unit is being used to meet an obligation.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 6.2 — The post-Article 6 bifurcation. Legal basis: Decision -/CMA.3 annex ¶43 (units usable toward NDCs only if authorized) and Perpres 110/2025 Pasal 68(1), pp.47–48.<sup class="fn"><a class="tip tr" href="#n6" data-tip="Note 6 — Decision -/CMA.3 annex ¶43 (Session 04) and Perpres 110/2025 Pasal 68(1) huruf a and b, pp.47–48 (Session 03). Both verified in file.">6</a></sup></p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="claims">
+    <div class="sec-head"><span class="n">6</span><h2>What can a buyer actually claim?</h2></div>
+    <p class="sec-intro">The question the bifurcation forces, and the one most corporate communications still get wrong.</p>
+
+    <p>Follow the accounting. A German company buys an <b>unauthorised</b> credit from an Indonesian project. No corresponding adjustment is applied. Under Perpres 110 Pasal 56(2) the Minister <b>still counts that reduction toward Indonesia's NDC</b>, because no CA has been issued.<sup class="fn"><a class="tip" href="#n6" data-tip="Note 6 — Perpres 110/2025 Pasal 56(2), p.42: the Minister must count offset reductions toward the NDC &lsquo;sepanjang belum diterbitkan Corresponding Adjustment&rsquo;. Verified in file, Session 03.">6</a></sup> So the tonne is counted once — by <b>Indonesia</b>.</p>
+
+    <div class="keyline">
+      <p class="lead">The German company's money paid for a reduction that counts toward Indonesia's target, not Germany's.</p>
+      <p>That is not a scandal and not a scam. It is <b>climate finance</b> — a private transfer that helped a developing country meet its own commitment. It is a genuinely good thing. What it is <b>not</b> is the neutralisation of the buyer's own emissions, and describing it that way is a category error rather than a marketing flourish.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Claim type</th><th>What it asserts</th><th>Which credit supports it</th></tr></thead>
+        <tbody>
+          <tr><td class="pair"><b>Offsetting</b></td><td>“This tonne of mine is cancelled out by that tonne over there”</td><td>Authorised, with a corresponding adjustment — otherwise the host is also counting it</td></tr>
+          <tr><td class="pair"><b>Contribution</b></td><td>“I financed a tonne of mitigation somewhere in the world”</td><td>Either. Always defensible, because it claims only what actually happened</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px">The market is moving toward contribution-style language for unauthorised credits — and it is the honest framing. It is also, for a host country, <b>the more attractive one</b>, for the reason in the next section.</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="indonesia">
+    <div class="sec-head"><span class="n">7</span><h2>Indonesia's quiet advantage</h2></div>
+    <p class="sec-intro">Put Pasal 68(1)(b) and Pasal 56(2) together and Indonesia has legislated something rather clever.</p>
+
+    <div class="card id">
+      <h3>Sell the credit, keep the tonne</h3>
+      <p><b>Pasal 68(1) huruf b</b> permits cross-border offset trading <b>without</b> <i>Otorisasi</i> or a corresponding adjustment, provided the units are not used for any NDC or other international obligation. <b>Pasal 56(2)</b> then keeps those reductions inside Indonesia's own NDC accounting.<sup class="fn"><a class="tip" href="#n6" data-tip="Note 6 — Perpres 110/2025, Pasal 68(1) huruf b, p.48 and Pasal 56(2), p.42. Both verified in file, Session 03.">6</a></sup></p>
+      <p>The combined effect: Indonesia can host voluntary-market projects, let foreign money finance them, permit the credits to be sold abroad — and <b>still count every tonne toward its own NDC</b>. Foreign capital, domestic target progress, no headroom surrendered.</p>
+      <p>The price is that those credits are the lower-value tier and support only a contribution claim. So the policy question is a genuine trade, not a free lunch: <b>authorise and earn more per tonne while losing headroom, or withhold authorisation and earn less while keeping the tonne.</b> Perpres 110 gives the Minister that dial, per transaction, on sectoral recommendation.</p>
+    </div>
+
+    <details>
+      <summary>Why forestry dominates Indonesian voluntary issuance — and energy does not</summary>
+      <p>Three reinforcing reasons, all of which have now been established from primary text rather than assumed:</p>
+      <p><b>1 — Instrument fit.</b> Session 01's table: forestry produces removals with reversal risk, dispersed counterparties and land-rights questions. That suits project-based voluntary crediting and results-based payment far better than an allowance market. Energy produces metered avoidance at a handful of large regulated installations — which is what an ETS is built for.</p>
+      <p><b>2 — Where the obligation already sits.</b> Indonesian power and industry are heading into <i>Perdagangan Emisi GRK</i> under Pasal 62, with caps set from <i>Alokasi Karbon</i>. Once an installation is regulated, its abatement is largely <b>inside</b> the compliance system, and Session 04's ¶38 regulatory-surplus test bites: mitigation required by law cannot be credited.</p>
+      <p><b>3 — Buyer preference.</b> Voluntary buyers have historically favoured nature-based credits for their story and co-benefits. Which is also why the integrity crisis landed hardest exactly there.</p>
+      <p>Session 10 tests all three against what Indonesia has actually issued.</p>
+    </details>
+  </section>
+
+  <!-- 8 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">8</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>You hold a per-transaction dial, not a policy switch. <b>Authorise and earn more per tonne but surrender headroom; withhold and earn less but keep the tonne.</b> The right answer differs by sector and by how tight your NDC is — which makes it a portfolio decision that ought to be governed by the trading roadmap under Pasal 58(3)(a), not case by case.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>The VCM is the only route open to you if you sit outside a regulated installation and no sectoral offset limit has been set. Expect CCP-aligned methodology scrutiny regardless of standard — the private and treaty rulebooks have converged. And <b>settle the authorisation question before you sign an offtake</b>: it determines which tier you are selling into.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>“Verified voluntary credit” names two assets at different prices. Before underwriting, ask three things: <b>which standard, is it CCP-labelled, and is it authorised?</b> A model priced on authorised-tier assumptions with an unauthorised asset is out by the whole spread — and for avoided-deforestation vintages, also carries the over-crediting risk the literature has repeatedly found.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check — and the end of the global block</h2></div>
+    <p class="sec-intro">These five draw on all six sessions. If they come easily, the foundations are laid and Indonesia is next.</p>
+    <div class="check">
+      <ol>
+        <li>Every party in the VCM issuance chain earns more when more credits are issued, except one. Name the exception, and explain why that party is least able to police quality.</li>
+        <li>West et al. found roughly 10.7× over-claiming. Where in the credit-making machine did the error sit — and which two paragraphs of the Article 6.4 rulebook are designed to prevent exactly that?</li>
+        <li>A company buys an unauthorised Indonesian credit and says it has “offset” its emissions. Explain precisely what is wrong, and what it could honestly say instead.</li>
+        <li>Explain how Indonesia can sell a voluntary credit abroad and still count the tonne toward its own NDC. Cite the two articles that make it work.</li>
+        <li>ICVCM Principles 5, 7 and 10 map onto three requirements in the Article 6.4 rulebook. Name them — and say what it means that a private body and a UN treaty converged on the same tests.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly this session. <span class="verified byref">by reference</span> named but not opened. <span class="q">[?]</span> marks what I decline to assert — including one paper I could not access.</p>
+    <ol>
+      <li id="n1"><span class="verified byref">by reference</span> <b>West, T.A.P. et al. (2023)</b>, “Action needed to make carbon offsets from forest conservation work for climate change mitigation”, <i>Science</i> 381:873–877, DOI <a class="ext" href="https://www.science.org/doi/10.1126/science.ade3535" target="_blank" rel="noopener">10.1126/science.ade3535</a>. Findings used above — aggregate 10.7× over-claiming; discrepancy driven by selection bias in control areas and modelling rather than forest-cover data; 26 project sites of which 18 had sufficient baseline information — are as reported in secondary summaries of the paper. <b>The paper itself is paywalled and was not opened in full</b>; treat the figures as the published headline result, and read the paper before quoting it in a deliverable.</li>
+      <li id="n2"><span class="verified byref">by reference</span> <b>“Tropical forest carbon offsets deliver partial gains amid persistent over-crediting”</b>, <i>Science</i>, DOI <a class="ext" href="https://www.science.org/doi/10.1126/science.adw4094" target="_blank" rel="noopener">10.1126/science.adw4094</a>. Attempted this session; the publisher returned HTTP 403. <b>Only the title is relied on</b> — no finding from this paper is asserted. Flagged <span class="q">[?]</span>.</li>
+      <li id="n3"><span class="verified">verified in file</span> <b>Integrity Council for the Voluntary Carbon Market (ICVCM), Core Carbon Principles.</b> Fetched and read this session. Used above: ICVCM's self-description as “an independent, non-profit governance body for the VCM”; the ten Core Carbon Principles in their three groups (Governance; Emissions Impact; Sustainable Development) with the wording quoted for principles 5, 7 and 10; and the assessment framework covering both programmes and categories of credits, with a CCP label applied to approved categories. <a class="ext" href="https://icvcm.org/core-carbon-principles/" target="_blank" rel="noopener">icvcm.org →</a></li>
+      <li id="n4"><span class="verified byref">by reference</span> <b>Major voluntary standards</b> — Verra (Verified Carbon Standard), Gold Standard, American Carbon Registry, Climate Action Reserve, Plan Vivo, ART. Named only; no programme document was opened and no issuance figure is asserted. For research-grade cross-registry project and issuance data, the <b>Berkeley Carbon Trading Project Voluntary Registry Offsets Database</b> (University of California, Berkeley) is the standard reference.</li>
+      <li id="n5"><span class="verified">verified in file</span> <b>Voluntary Carbon Markets Integrity Initiative (VCMI), Claims Code of Practice.</b> Fetched and read this session. Used above: the three tiers (“Silver, Gold, and Platinum Carbon Integrity Claims recognize increasing levels of climate action”); the requirement to purchase and retire high-quality credits proportionate to remaining emissions once near-term targets are met or progressed; and the foundational criteria on emissions accounting (national inventory methodologies or the GHG Protocol), near-term science-aligned targets consistent with net zero by 2050, long-term commitment, and sourcing credits from outside the company's value chain. <b>The page read did not compare VCMI to ICVCM</b>; the supply-side/demand-side framing above is my analysis, not a quotation. <a class="ext" href="https://vcmintegrity.org/vcmi-claims-code-of-practice/" target="_blank" rel="noopener">vcmintegrity.org →</a></li>
+      <li id="n6"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b> and <b>Decision -/CMA.3</b>. Cited above: Perpres Pasal 56(2) p.42 (Minister counts offset reductions toward the NDC until a CA is issued); Pasal 58(3)(a) p.43 (national carbon trading roadmap); Pasal 62 p.45 (emissions trading steps); Pasal 68(1) huruf a and b, pp.47–48 (which cross-border trades require <i>Otorisasi</i> and a corresponding adjustment, and which do not). Decision -/CMA.3 annex ¶43 (A6.4ERs usable toward NDCs only if authorized), ¶33, ¶36, ¶38 (baseline quality, baseline approaches, additionality). Read in Sessions 00, 03 and 04.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

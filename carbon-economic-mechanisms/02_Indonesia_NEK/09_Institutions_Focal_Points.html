@@ -1,0 +1,477 @@
+<title>Who Holds the Levers</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:16ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+.keyline.warn{border-left-color:var(--flag); background:var(--flag-soft)}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:760px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:1000px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:680px; font-size:14.5px}
+th,td{text-align:left; padding:12px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.art{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--law); white-space:nowrap}
+tr.total td{background:var(--surface-2); font-weight:600}
+tr.hi td{background:var(--accent-soft)}
+
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:16px}
+.stat{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); border-radius:3px; padding:16px 18px; box-shadow:var(--shadow)}
+.stat .v{font-family:"IBM Plex Mono",monospace; font-size:1.6rem; font-weight:500; color:var(--accent-ink); line-height:1.1; font-variant-numeric:tabular-nums}
+.stat .l{font-size:12.5px; color:var(--ink-2); margin-top:7px; line-height:1.45}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+blockquote{margin:12px 0; padding:12px 16px; background:var(--surface-2); border-left:2px solid var(--law); font-size:14px; color:var(--ink-2); font-style:italic; max-width:70ch}
+blockquote b{font-style:normal; color:var(--ink)}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 09 · Indonesia <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>Who Holds the Levers</h1>
+  <p class="standfirst">Every decision in this curriculum belongs to a named institution. This session assembles the map — who sets the cap, who grants export permission, who accredits the auditor, who runs the exchange, and who collects the money. The last flags from Session 00 close here.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>Flags closed</b> · IDXCarbon · OJK · KAN</span>
+    <span><b>New sources</b> · POJK 14/2023 · OJK press release · IDXCarbon</span>
+    <span><b>Next</b> · 10 · Energy vs forestry</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#map"><span class="n">1</span>The map</a>
+    <a href="#four"><span class="n">2</span>Four ministries</a>
+    <a href="#registries"><span class="n">3</span>Two registries</a>
+    <a href="#lvv"><span class="n">4</span>Verification &amp; KAN</a>
+    <a href="#exchange"><span class="n">!</span>Flag closed — IDXCarbon</a>
+    <a href="#money"><span class="n">5</span>Follow the money</a>
+    <a href="#sovereignty"><span class="n">6</span>The sovereignty frame</a>
+    <a href="#gap"><span class="n">7</span>What is still missing</a>
+    <a href="#lenses"><span class="n">8</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="map">
+    <div class="sec-head"><span class="n">1</span><h2>The map</h2></div>
+    <p class="sec-intro">One diagram to keep. Every box is named in primary text, with the article beside it.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 480" role="img" aria-label="Institutional map of Indonesia's carbon economic value system: a steering committee chaired by the Coordinating Minister for Food; the Ministry of Environment as focal point and issuer; sectoral ministries running emissions trading; the Ministry of Finance on levies and funds; OJK supervising the carbon exchange; KAN accrediting validators; and the SRN-PPI and SRUK registries.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">PERPRES 110/2025 · WHO DECIDES WHAT</text>
+
+        <!-- steering committee -->
+        <rect x="0" y="30" width="880" height="54" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.6"/>
+        <text x="14" y="50" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">KOMITE PENGARAH — chaired by Menko Bidang Pangan; vice-chairs Menko Perekonomian and Menko Infrastruktur</text>
+        <text x="14" y="68" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">17 members incl. Menteri LH, Kehutanan, Keuangan, ESDM, Perindustrian, Bappenas, KKP, Dalam Negeri — plus <tspan font-weight="600" fill="var(--ink)">Ketua DK OJK</tspan> and <tspan font-weight="600" fill="var(--ink)">Kepala BMKG</tspan></text>
+        <text x="600" y="79" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Pasal 96 · pp.64–66</text>
+
+        <!-- four pillars -->
+        <rect x="0" y="98" width="212" height="150" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="12" y="118" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">MENTERI</text>
+        <text x="12" y="133" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">Lingkungan Hidup</text>
+        <text x="12" y="155" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· UNFCCC focal point</text>
+        <text x="12" y="171" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· sets baselines &amp; targets</text>
+        <text x="12" y="187" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· issues <tspan font-weight="600">SPE-GRK</tspan></text>
+        <text x="12" y="203" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· grants <tspan font-weight="600">Otorisasi</tspan></text>
+        <text x="12" y="219" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· waste sector coordinator</text>
+        <text x="12" y="240" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 65(5), 68(2)</text>
+
+        <rect x="224" y="98" width="212" height="150" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1.6"/>
+        <text x="236" y="118" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">MENTERI TERKAIT</text>
+        <text x="236" y="133" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">ESDM · Perindustrian ·</text>
+        <text x="236" y="147" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">Kehutanan · Pertanian · KKP</text>
+        <text x="236" y="169" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· runs the <tspan font-weight="600">ETS</tspan> per sector</text>
+        <text x="236" y="185" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· sets <tspan font-weight="600">Batas Atas Emisi</tspan></text>
+        <text x="236" y="201" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· sets the <tspan font-weight="600" fill="var(--flag)">offset limit</tspan></text>
+        <text x="236" y="217" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· recommends Otorisasi</text>
+        <text x="236" y="240" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 62, 65(6), 68(2)</text>
+
+        <rect x="448" y="98" width="212" height="150" rx="2" fill="var(--warm-soft)" stroke="var(--warm)" stroke-width="1.6"/>
+        <text x="460" y="118" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">MENTERI KEUANGAN</text>
+        <text x="460" y="133" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">fiscal field chair</text>
+        <text x="460" y="155" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· formulates the</text>
+        <text x="460" y="169" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">  <tspan font-weight="600">Pungutan Atas Karbon</tspan></text>
+        <text x="460" y="185" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· carbon tax under UU HPP</text>
+        <text x="460" y="201" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· revenue as <tspan font-weight="600">PNBP</tspan></text>
+        <text x="460" y="240" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 73(3), 74 · pp.50–51</text>
+
+        <rect x="672" y="98" width="208" height="150" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.6"/>
+        <text x="684" y="118" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">OJK</text>
+        <text x="684" y="133" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">financial services authority</text>
+        <text x="684" y="155" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· licenses the</text>
+        <text x="684" y="169" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">  <tspan font-weight="600">Bursa Karbon</tspan> operator</text>
+        <text x="684" y="185" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· supervises the market</text>
+        <text x="684" y="201" font-family="IBM Plex Sans" font-size="11" fill="var(--ink)">· sits on the committee</text>
+        <text x="684" y="240" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">POJK 14/2023</text>
+
+        <!-- infrastructure row -->
+        <text x="0" y="278" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--ink-3)" letter-spacing="1.2">THE INFRASTRUCTURE THEY OPERATE THROUGH</text>
+
+        <rect x="0" y="290" width="212" height="86" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="12" y="310" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">SRN PPI</text>
+        <text x="12" y="328" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">the <tspan font-weight="600" fill="var(--ink)">action</tspan> ledger —</text>
+        <text x="12" y="343" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">mitigation &amp; adaptation</text>
+        <text x="12" y="358" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">actions at NDC level</text>
+        <text x="12" y="371" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 1(19), 87 · p.59</text>
+
+        <rect x="224" y="290" width="212" height="86" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="236" y="310" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">SRUK</text>
+        <text x="236" y="328" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">the <tspan font-weight="600" fill="var(--ink)">unit</tspan> ledger —</text>
+        <text x="236" y="343" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">decentralised, real-time,</text>
+        <text x="236" y="358" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">every trade recorded</text>
+        <text x="236" y="371" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 1(20), 59, 65(8)</text>
+
+        <rect x="448" y="290" width="212" height="86" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="460" y="310" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">KAN</text>
+        <text x="460" y="328" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">accredits <tspan font-weight="600" fill="var(--ink)">LVV</tspan> for the</text>
+        <text x="460" y="343" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">SRUK scheme; sets</text>
+        <text x="460" y="358" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">competence standards</text>
+        <text x="460" y="371" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 85(1)c, 85(2) · p.58</text>
+
+        <rect x="672" y="290" width="208" height="86" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="684" y="310" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">IDXCarbon</text>
+        <text x="684" y="328" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">the licensed exchange,</text>
+        <text x="684" y="343" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">operated by IDX under</text>
+        <text x="684" y="358" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">OJK supervision</text>
+        <text x="684" y="371" font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--law)">Ps 1(29), 58(2)</text>
+
+        <!-- subnational -->
+        <rect x="0" y="396" width="880" height="46" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="14" y="416" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">SUBNATIONAL — gubernur and bupati/wali kota</text>
+        <text x="14" y="433" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">Provincial baseline within 3 months of the national one; provincial targets and action plans; inventories — coordinated by Menteri Dalam Negeri · Pasal 19–21, 26, 30</text>
+
+        <text x="0" y="468" font-family="IBM Plex Sans" font-size="12.5" font-style="italic" fill="var(--ink-2)">Note what is split: the ministry that <tspan font-weight="600" fill="var(--ink)">issues</tspan> the credit is not the ministry that <tspan font-weight="600" fill="var(--ink)">sets the cap</tspan>, and neither one supervises the exchange it trades on.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 9.1 — Institutional map. Perpres articles verified in Sessions 00, 03 and 08; POJK 14/2023 and the exchange verified this session.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Perpres 110/2025: Pasal 1(19),(20),(29); 19–21; 26; 30; 58(2); 59; 62; 65(5),(6),(8); 68(2); 73(3); 74; 85; 87; 96. All verified in file.">1</a></sup></p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="four">
+    <div class="sec-head"><span class="n">2</span><h2>Four ministries, four different powers</h2></div>
+    <p class="sec-intro">The commonest misconception is that “the environment ministry runs Indonesian carbon policy.” It does not. Power is deliberately split.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Institution</th><th>What it alone can do</th><th class="art">Basis</th></tr></thead>
+        <tbody>
+          <tr class="hi"><td class="pair"><b>Menteri</b><br>Lingkungan Hidup</td><td>Set national and sector <b>baselines</b> and the national <b>target</b>; <b>issue SPE-GRK</b>; <b>grant <i>Otorisasi</i></b> for export. Serves as UNFCCC national focal point.</td><td class="art">Ps 17(4), 23(3),<br>65(5), 68(2)</td></tr>
+          <tr class="hi"><td class="pair"><b>Menteri Terkait</b><br>sectoral</td><td>Operate the <b>ETS</b> in its sector: designate regulated installations, set the <b>cap</b> from <i>Alokasi Karbon</i>, set quotas, and set <b>how much of the cap may be met with offsets</b>. Recommends issuance and authorisation.</td><td class="art">Ps 62(1)a–e,<br>65(6), 68(2)</td></tr>
+          <tr><td class="pair"><b>Menteri Keuangan</b></td><td>Formulate the <b>carbon levy</b> policy and strategy; chair the fiscal and financing field of the steering committee. Levy revenue flows as <b>non-tax state revenue</b>.</td><td class="art">Ps 73(3), 74(2),<br>96(4)e.4</td></tr>
+          <tr><td class="pair"><b>OJK</b></td><td>Licence and supervise the <b>carbon exchange operator</b> — a capital-markets function entirely outside the environment ministry's remit.</td><td class="art">POJK 14/2023<br>Ps 96(4)d.16</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">The two decisions that most determine a project's economics belong to <em>different</em> ministries.</p>
+      <p>Whether your credit can be exported at the higher authorised price is the <b>environment minister's</b> call under Pasal 68(2). Whether there is any domestic compliance demand for it at all — the offset limit under Pasal 62(1)(d) — is the <b>sectoral minister's</b>. A developer who engages only one has engaged half the system.</p>
+    </div>
+
+    <details>
+      <summary>Why a Coordinating Minister for Food chairs it</summary>
+      <p>The steering committee is chaired by the <i>Menteri Koordinator Bidang Pangan</i>, with the Coordinating Ministers for Economic Affairs and for Infrastructure as deputies (Pasal 96(4), pp.64–65). Placing carbon governance under the food portfolio rather than the economic one is a structural choice worth registering: it groups carbon with land, forestry and agriculture rather than with markets and finance.</p>
+      <p>Two members are easy to overlook and both are telling. <b>Ketua Dewan Komisioner OJK</b> sits on the committee — with Pasal 96(5) expressly preserving OJK's independence — which acknowledges that carbon units are financial instruments. And <b>Kepala BMKG</b>, the meteorology, climatology and geophysics agency, brings the physical-science function into a body otherwise composed of ministries.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="registries">
+    <div class="sec-head"><span class="n">3</span><h2>Two registries, and why the split matters</h2></div>
+    <p class="sec-intro">Session 00 flagged this as a structural change in Perpres 110. Here is what each one is for.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>SRN PPI</th><th>SRUK</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Records</td><td><b>Actions</b> — mitigation and adaptation activity and resources at NDC level</td><td><b>Units</b> — information on <i>Unit Karbon</i></td></tr>
+          <tr><td class="pair">Who must record</td><td>Anyone responsible for a mitigation or adaptation action (Pasal 87(1))</td><td>Every carbon trade must be recorded (Pasal 59(1))</td></tr>
+          <tr><td class="pair">Used for</td><td>Government recognition of NDC contribution; avoiding double counting; <b>tracing transfers</b> (Pasal 87(3)d–e)</td><td>Basis for SPE-GRK issuance and for verification of NEK implementation (Pasal 88(3), 84(3))</td></tr>
+          <tr><td class="pair">Design</td><td>National data and information system</td><td><b>Decentralised network</b> — transparent, traceable, real-time, permanent, interoperable with other registries (Pasal 65(8))</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px">The division is the same one Session 00 drew in Fig. 0.1: <b>what you did</b> versus <b>what you hold</b>. An action can exist in SRN PPI without ever producing a tradable unit — a results-based payment project, for instance, which under Pasal 70(3) transfers no ownership at all. A unit cannot exist without an action behind it.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="lvv">
+    <div class="sec-head"><span class="n">4</span><h2>Verification — and the two accreditation routes</h2></div>
+    <p class="sec-intro">Resolved in Session 03 from Pasal 85. Restated here because it is the cleanest illustration of how the whole system bifurcates.</p>
+
+    <div class="card">
+      <h3>One function, two accreditors — split by which market you are in</h3>
+      <p>An <b>LVV</b> must be a legal entity, hold sector-competent validators and verifiers, and be accredited by <b>either</b>:<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Perpres 110/2025 Pasal 85(1) huruf a–c and 85(2), p.58; Pasal 84(2)–(3), p.57. Verified in file, Session 03.">1</a></sup></p>
+      <p style="padding-left:18px; border-left:2px solid var(--accent);"><b>KAN</b> — Komite Akreditasi Nasional — for the <b>SRUK</b> carbon-unit issuance scheme;<br><b>and/or</b> an <b>internationally valid accreditation body</b>, for units issued under an international carbon registration scheme.</p>
+      <p>Validator and verifier <b>competence standards are set by a KAN regulation</b> (Pasal 85(2)); procedures by a <i>Peraturan Menteri Terkait</i> (Pasal 86).</p>
+      <p>Notice the pattern repeating down the stack. <b>DRAM → domestic → KAN. DPP → international standard → international accreditation.</b> The fork chosen at project design in Session 00 propagates all the way to who is allowed to audit you.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="exchange">
+    <div class="sec-head"><span class="n">!</span><h2>Flag closed — IDXCarbon and the exchange regime</h2></div>
+    <p class="sec-intro">Marked <span class="q">[?]</span> since Session 00. Now sourced to OJK's own regulation and press release.</p>
+
+    <div class="tablewrap">
+      <table>
+        <tbody>
+          <tr><td class="pair">Governing regulation</td><td><b>POJK No. 14 Tahun 2023</b>, <i>Perdagangan Karbon Melalui Bursa Karbon</i>, with implementing guidance in <b>SEOJK No. 12/SEOJK.04/2023</b></td></tr>
+          <tr class="hi"><td class="pair">Trading start</td><td><b>26 September 2023</b> — confirmed in OJK's press release</td></tr>
+          <tr><td class="pair">Operator</td><td><b>IDXCarbon</b>, operated by the Indonesia Stock Exchange (Bursa Efek Indonesia), under OJK supervision</td></tr>
+          <tr><td class="pair">Licence</td><td>Carbon Exchange Operator business licence issued <b>18 September 2023</b> <span class="q">[?]</span> <span style="color:var(--ink-2)">— date from secondary reporting; the OJK release I read does not name the licensee or licence number</span></td></tr>
+          <tr class="hi"><td class="pair"><b>Legal character</b></td><td>Carbon units traded through the exchange are <b>Securities (<i>Efek</i>)</b>, and must first be registered in the national registry <b>and</b> with the exchange operator</td></tr>
+          <tr><td class="pair">Capital</td><td>Exchange operator minimum capital <b>Rp100 billion</b>, and it may not come from loans</td></tr>
+          <tr><td class="pair">Units traded</td><td><b>Kuota Emisi GRK</b> (allowance market) and <b>SPE-GRK</b> (offset market)</td></tr>
+          <tr><td class="pair">Mechanisms</td><td>Auction · Regular Trading · Negotiated Trading · Marketplace</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="v">1.9m+</div><div class="l">tCO₂e traded</div></div>
+      <div class="stat"><div class="v">Rp93.8bn+</div><div class="l">cumulative trading value</div></div>
+      <div class="stat"><div class="v">10</div><div class="l">SPE-GRK projects listed</div></div>
+      <div class="stat"><div class="v">159</div><div class="l">registered participants</div></div>
+    </div>
+    <p style="margin-top:12px; font-size:13.5px; color:var(--ink-2)">Figures as displayed on the IDXCarbon site when I read it. <span class="q">[?]</span> <b>The site did not state an as-of date</b>, so treat these as indicative rather than a dated series — pull them fresh from IDXCarbon before using them anywhere.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — IDXCarbon website, read this session. Volume, value, project count and participant count as displayed; no as-of date given on the page.">2</a></sup></p>
+
+    <div class="keyline warn" style="margin-top:18px">
+      <p class="lead">Carbon units are legally <em>securities</em> in Indonesia. That is a bigger fact than it sounds.</p>
+      <p>It brings the entire capital-markets apparatus with it — licensing, market conduct supervision, settlement, governance, risk management and consumer protection all sit with OJK. It also means a carbon transaction is a <b>securities transaction</b>, with the disclosure and intermediation obligations that implies. Anyone modelling an Indonesian credit as a simple commodity offtake is missing a regulatory layer.</p>
+    </div>
+
+    <details>
+      <summary>A timing problem worth watching — POJK 14/2023 predates Perpres 110</summary>
+      <p>POJK 14/2023 was issued under the <b>Perpres 98/2021</b> regime and refers to registration in <b>SRN-PPI</b>. Perpres 110/2025 revoked Perpres 98 (Pasal 101) and routes unit recording to <b>SRUK</b> (Pasal 59(1)), a registry SRN-PPI's own definition does not cover.</p>
+      <p>Under Pasal 100 the older implementing rules remain in force <i>insofar as they do not conflict and have not been replaced</i>. So POJK 14/2023 is presumably still operative — but its registry reference now points at an architecture the parent regulation has restructured. <b>This is exactly the Session 08 problem, in the wild:</b> a live financial-markets regulation whose plumbing references have moved beneath it. Whether OJK has updated it is <span class="q">[?]</span> — I have not verified, and it is worth checking before relying on the registration pathway.</p>
+    </details>
+  </section>
+
+  <!-- 5b -->
+  <section id="money">
+    <div class="sec-head"><span class="n">5</span><h2>Follow the money</h2></div>
+    <p class="sec-intro">Three revenue channels, three destinations, and one fund manager.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Channel</th><th>Who collects</th><th>Where it goes</th><th class="art">Basis</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Carbon trading proceeds</td><td>Market participants; state revenue where the state sells</td><td>Use of state revenue from carbon trading is separately regulated</td><td class="art">Ps 58(3)c · p.43</td></tr>
+          <tr><td class="pair"><b>Pungutan Atas Karbon</b></td><td>Ministry of Finance — as taxation, customs and excise, or other state levies</td><td><b>Non-tax state revenue (PNBP)</b>, managed by the environmental fund body or an appointed institution</td><td class="art">Ps 73(1), 74(2)<br>pp.50–51</td></tr>
+          <tr><td class="pair">Results-based payment</td><td>Government or provincial government, from international or national payers</td><td>Benefit-sharing by authority, reduction performance, and effort — <b>no transfer of carbon ownership</b></td><td class="art">Ps 70(2)–(3),<br>72(3) · pp.49–50</td></tr>
+          <tr class="total"><td class="pair">Fund management</td><td colspan="2">Fund management and benefit-sharing across all three may run through the <b>environmental fund management body</b> or an appointed institution (Pasal 74(1))</td><td class="art">Ps 74 · p.51</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:18px">Note the asymmetry that Session 06 identified, now visible in the institutional design: <b>results-based payment brings money in without giving the tonne away</b>, while trading brings money in and — where authorised — surrenders it. The same ministry does not control both channels, which is why the steering committee has a dedicated fiscal field chaired by the finance minister.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="sovereignty">
+    <div class="sec-head"><span class="n">6</span><h2>The frame Indonesia uses for all of this</h2></div>
+    <p class="sec-intro">Worth knowing, because it explains design choices that otherwise look merely bureaucratic.</p>
+    <p>The Ministry of Forestry presents Perpres 110 as <b>strengthening state sovereignty over carbon</b>, grounding it in <b>Article 33 of the 1945 Constitution</b> — natural resources are controlled by the state for the greatest prosperity of the people — and stating that carbon economic value management sits under the full control of the Government of Indonesia. The stated ambition is Indonesian carbon credits that are world-class, high-integrity and globally recognised, without setting aside national development priorities.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Ministry of Forestry (kehutanan.go.id) commentary on Perpres 110/2025, as returned in search results this session. A government communication about the regulation, not the regulation text; the page itself was not fetched in full.">3</a></sup></p>
+
+    <div class="keyline" style="margin-top:16px">
+      <p class="lead">Read the authorisation architecture as sovereignty, not bureaucracy, and it stops looking like friction.</p>
+      <p>Every gate this curriculum has catalogued — <i>Otorisasi</i> at Pasal 68(2), Menteri Terkait approval even on the international-standard route at Pasal 65(6), mandatory SRUK recording at Pasal 59(1) — is an expression of the same constitutional claim: <b>carbon is a national resource, and the state decides the terms on which it leaves.</b> A developer who reads these as permitting hurdles will keep being surprised. A developer who reads them as a sovereign asserting control over an export will anticipate them.</p>
+      <p style="margin-top:10px"><span class="q">[?]</span> <span style="color:var(--ink-2)">This is a government framing of its own regulation, sourced to a ministry communication rather than to the Perpres text. The regulation's own recitals, read in Session 00, cite climate and sustainable development grounds rather than Article 33 — so treat the sovereignty framing as authoritative about intent, not as operative law.</span></p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="gap">
+    <div class="sec-head"><span class="n">7</span><h2>What is still missing</h2></div>
+    <p class="sec-intro">An honest inventory, one month before the Pasal 102 deadline.</p>
+    <div class="card">
+      <h3>I searched for implementing regulations under Perpres 110 and did not find them</h3>
+      <p>Session 08 established that <b>all implementing regulations are due by 10 October 2026</b> (Pasal 102), and that additionality, MRV procedure, methodology detail and the sectoral offset limits all live in that layer. A search this session returned the Perpres itself, government commentary and legal-practice notes — <b>but no ministerial regulation issued under it</b>.</p>
+      <p><b>That is not proof of absence.</b> Indonesian ministerial regulations are often published on ministry JDIH portals that a general search reaches poorly, and my search was in one language against one index. What it does mean is that I cannot tell you these rules exist, and neither should anyone who has not shown you the document.</p>
+      <p>Concretely, these remain unanswerable from what I hold: <b>what additionality test applies; what the sectoral offset limits are; which installations are <i>Instalasi yang Diatur</i>; what the <i>Batas Atas Emisi</i> is for power or industry; whether POJK 14/2023 has been aligned to SRUK; and whether pre-existing international agreements have been adjusted under Pasal 99.</b></p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">8</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>The split of powers is deliberate and it has a cost: the ministry that issues credits does not set the demand for them, and the body that supervises the market answers to neither. The steering committee is the only place those threads meet — which makes <b>its secretariat, and the Menko Pangan regulation defining it (Pasal 96(8)), unusually consequential</b> for a piece of machinery nobody watches.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>Map your approvals to institutions, not to a process. You need the <b>sectoral ministry</b> for recording, recommendation and demand; the <b>Ministry of Environment</b> for issuance and authorisation; a <b>KAN- or internationally accredited LVV</b> depending on your route; <b>SRUK</b> registration; and if you intend to trade on exchange, <b>OJK-regulated</b> intermediation for what is legally a security.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>Two diligence points specific to this session. First, an Indonesian carbon unit traded on exchange is a <b>security</b> — check the intermediation and disclosure chain, not just the offtake. Second, <b>the offset limit that creates your domestic demand has probably not been set yet</b>; if a model shows compliance-market revenue, ask which ministerial regulation it relies on.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Name the two ministries whose separate decisions determine, respectively, whether your credit can be exported and whether anyone in Indonesia must buy it.</li>
+        <li>An action is recorded in SRN PPI but no unit ever appears in SRUK. Give a lawful scenario where that is exactly what should happen.</li>
+        <li>Why does the LVV accreditation rule have two limbs, and how does it mirror a choice made much earlier in a project's life?</li>
+        <li>Carbon units traded on IDXCarbon are legally securities. Name two consequences that follow for a buyer which would not follow if they were commodities.</li>
+        <li>POJK 14/2023 requires registration in SRN-PPI; Perpres 110 routes unit recording to SRUK. Explain the legal position under Pasal 100, and what you would check before relying on either.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly. <span class="verified byref">by reference</span> named but not opened. <span class="q">[?]</span> marks what I decline to assert.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cited above: Pasal 1(19),(20),(29) pp.4–5; Pasal 17(4) p.18; Pasal 19–21 pp.19–21; Pasal 23(3) p.22; Pasal 26 p.24; Pasal 30 p.28; Pasal 58(2)–(3) p.43; Pasal 59(1) p.44; Pasal 62(1) p.45; Pasal 65(5),(6),(8) pp.46–47; Pasal 68(2) p.48; Pasal 70(2)–(3) p.49; Pasal 72(3) p.50; Pasal 73(1),(3) p.50; Pasal 74(1)–(2) p.51; Pasal 84(2)–(3) p.57; Pasal 85(1)–(2) p.58; Pasal 87(1),(3) p.59; Pasal 88(3) pp.59–60; Pasal 96(4)–(8) pp.64–66; Pasal 100–101 p.67. Read across Sessions 00, 03 and 08.</li>
+      <li id="n2"><span class="verified">verified in file</span> <b>OJK press release, “Perdagangan Karbon Melalui Bursa Karbon Dimulai 26 September”</b>, and the <b>IDXCarbon website</b>. Both fetched and read this session. From OJK: the <b>26 September 2023</b> start date; <b>POJK No. 14 Tahun 2023</b> as the governing regulation with <b>SEOJK No. 12/SEOJK.04/2023</b> as implementing guidance; and OJK's supervisory scope over exchange operators, market infrastructure, users, settlement, governance, risk management and consumer protection. From IDXCarbon: operation by the Indonesia Stock Exchange under OJK supervision; units traded (Kuota Emisi GRK and SPE-GRK); the four trading mechanisms; and the volume, value, project-count and participant figures reproduced above <b>without an as-of date</b>. <a class="ext" href="https://ojk.go.id/id/berita-dan-kegiatan/siaran-pers/Pages/Perdagangan-Karbon-Melalui-Bursa-Karbon-Dimulai-26-September.aspx" target="_blank" rel="noopener">OJK press release →</a> · <a class="ext" href="https://www.ojk.go.id/id/regulasi/Documents/Pages/Perdagangan-Karbon-Melalui-Bursa-Karbon/POJK%2014%20Tahun%202023%20-%20PERDAGANGAN%20KARBON%20MELALUI%20BURSA%20KARBON.pdf" target="_blank" rel="noopener">POJK 14/2023 (PDF) →</a> · <a class="ext" href="https://www.idxcarbon.co.id/" target="_blank" rel="noopener">IDXCarbon →</a></li>
+      <li id="n3"><span class="verified byref">by reference</span> <b>POJK 14/2023 detail</b> — that carbon units traded on the exchange are <b>Securities (<i>Efek</i>)</b>, must first be registered in the national registry and with the exchange operator, and that exchange operators require an OJK licence with minimum capital of Rp100 billion not sourced from loans. <b>Taken from reporting on the regulation, not from the regulation text, which I did not open</b>; the POJK PDF is linked above and should be read before relying on these details. The 18 September 2023 licence date is likewise secondary and flagged <span class="q">[?]</span>.</li>
+      <li id="n4"><span class="verified byref">by reference</span> <b>Ministry of Forestry commentary on Perpres 110/2025</b> — the sovereignty framing and the Article 33 UUD 1945 grounding cited in §6. A government communication <i>about</i> the regulation; the page was not fetched in full and the framing does not appear in the regulation's own recitals. Flagged <span class="q">[?]</span>.</li>
+      <li id="n5"><span class="verified byref">by reference</span> <b>Search for implementing regulations under Perpres 110/2025</b> — conducted this session; returned the Perpres, government commentary and legal-practice notes, <b>no ministerial regulation issued under it</b>. Recorded as a negative search result, <b>not</b> as evidence that none exists. Ministry JDIH portals should be checked directly.</li>
+      <li id="n6"><span class="verified">verified in file</span> <b>Second NDC of Indonesia (2025)</b>, p.20 — the DG Climate Change focal-point mandate and its transfer to the Ministry of Environment, and the BAPPENAS / Ministry of Finance coordination set. Read in Session 07.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

@@ -1,0 +1,513 @@
+<title>Compliance Beyond the ETS</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:17ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:940px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:660px; font-size:14.5px}
+th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+tr.total td{background:var(--surface-2); font-weight:600}
+
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-top:16px}
+.stat{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.stat .v{font-family:"IBM Plex Mono",monospace; font-size:1.9rem; font-weight:500; color:var(--accent-ink); line-height:1.1; font-variant-numeric:tabular-nums}
+.stat .l{font-size:13px; color:var(--ink-2); margin-top:8px; line-height:1.45}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 05 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>Compliance Beyond the ETS</h1>
+  <p class="standfirst">“Compliance market” is not a synonym for “emissions trading”. It is a family of instruments whose only common feature is a <b>legal obligation</b> — and the ETS is one member. This session maps the family, opens the single most consequential design choice inside an ETS, and finally settles the “compliance vs market priority” phrase you brought to Session 01.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>Flag closed</b> · World Bank carbon-pricing coverage figures</span>
+    <span><b>Indonesian anchor</b> · Perpres 110 Pasal 55, 62–63, 73</span>
+    <span><b>Next</b> · 06 · Voluntary carbon market</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#test"><span class="n">1</span>What makes it compliance</a>
+    <a href="#family"><span class="n">2</span>The family, mapped</a>
+    <a href="#allocation"><span class="n">3</span>Allocation — the real fight</a>
+    <a href="#eu"><span class="n">4</span>The EU as reference case</a>
+    <a href="#landscape"><span class="n">!</span>Flag closed — the landscape</a>
+    <a href="#priority"><span class="n">5</span>Compliance vs market priority</a>
+    <a href="#stack"><span class="n">6</span>The obligation stack</a>
+    <a href="#leakage"><span class="n">7</span>Leakage and the border</a>
+    <a href="#lenses"><span class="n">8</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="test">
+    <div class="sec-head"><span class="n">1</span><h2>What makes an instrument “compliance”</h2></div>
+    <p class="sec-intro">One test, and it has nothing to do with trading.</p>
+
+    <div class="keyline">
+      <p class="lead">A compliance instrument is one where failing to comply is a breach of law.</p>
+      <p>Not a broken promise, not a reputational problem — a legal violation with a legal consequence. Everything else about the instrument (whether anything is traded, whether a price or a quantity is fixed, whether a unit even exists) is design detail layered on top of that single fact.</p>
+    </div>
+
+    <p style="margin-top:20px">This is why the ETS-shaped mental model misleads. An ETS happens to combine three things — a legal obligation, a quantity cap, and a tradable unit. Strip out the tradable unit and you have a carbon tax. Strip out the cap and you have a baseline-and-credit scheme. Strip out both and you have a performance standard. <b>All four are compliance.</b> Only one is an ETS.</p>
+  </section>
+
+  <!-- 2 -->
+  <section id="family">
+    <div class="sec-head"><span class="n">2</span><h2>The family, mapped</h2></div>
+    <p class="sec-intro">Seven instrument types that all create legal obligations. Note how few of them fix a quantity.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 330" role="img" aria-label="Map of compliance instruments arranged by what the state fixes: technology and performance standards fix the method; baseline-and-credit and cap-and-trade fix quantity; carbon tax fixes price; border adjustment and sectoral schemes sit at the boundary.">
+        <text x="0" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">ORDERED BY WHAT THE STATE FIXES — AND THEREFORE WHAT IT CANNOT CONTROL</text>
+
+        <line x1="0" y1="60" x2="880" y2="60" stroke="var(--rule)" stroke-width="1"/>
+        <text x="0" y="50" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--law)">FIXES THE METHOD</text>
+        <text x="300" y="50" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent)">FIXES THE QUANTITY</text>
+        <text x="600" y="50" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--warm)">FIXES THE PRICE</text>
+
+        <!-- method -->
+        <rect x="0" y="76" width="140" height="80" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="12" y="98" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Technology</text>
+        <text x="12" y="114" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">mandate</text>
+        <text x="12" y="134" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">install X by date Y</text>
+        <text x="12" y="148" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">nothing traded</text>
+
+        <rect x="150" y="76" width="140" height="80" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="162" y="98" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Performance</text>
+        <text x="162" y="114" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">standard</text>
+        <text x="162" y="134" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">max g/kWh, min efficiency</text>
+        <text x="162" y="148" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">sometimes tradable</text>
+
+        <!-- quantity -->
+        <rect x="300" y="76" width="140" height="80" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="312" y="98" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Certificate</text>
+        <text x="312" y="114" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">obligation</text>
+        <text x="312" y="134" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">renewable / efficiency</text>
+        <text x="312" y="148" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">quota, certificates traded</text>
+
+        <rect x="450" y="76" width="140" height="80" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="462" y="98" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Cap-and-trade</text>
+        <text x="462" y="114" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">(ETS)</text>
+        <text x="462" y="134" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">absolute cap, allowances</text>
+        <text x="462" y="148" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">the one everyone means</text>
+
+        <rect x="450" y="166" width="140" height="80" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="462" y="188" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Baseline-</text>
+        <text x="462" y="204" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">and-credit</text>
+        <text x="462" y="224" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">per-facility baseline</text>
+        <text x="462" y="238" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">credits, no fixed total</text>
+
+        <!-- price -->
+        <rect x="600" y="76" width="140" height="80" rx="2" fill="var(--warm-soft)" stroke="var(--warm)"/>
+        <text x="612" y="98" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Carbon tax</text>
+        <text x="612" y="114" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">or levy</text>
+        <text x="612" y="134" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">rate per tCO₂e</text>
+        <text x="612" y="148" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">nothing traded</text>
+
+        <!-- boundary -->
+        <rect x="750" y="76" width="130" height="80" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="762" y="98" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Border</text>
+        <text x="762" y="114" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">adjustment</text>
+        <text x="762" y="134" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">obligation lands on</text>
+        <text x="762" y="148" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">the <tspan font-weight="600">importer</tspan></text>
+
+        <rect x="750" y="166" width="130" height="80" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="762" y="188" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Sectoral</text>
+        <text x="762" y="204" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">international</text>
+        <text x="762" y="224" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">CORSIA — obligation</text>
+        <text x="762" y="238" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">from a treaty body</text>
+
+        <rect x="0" y="270" width="880" height="52" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="14" y="291" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">Only two of the seven fix an absolute quantity.</text>
+        <text x="14" y="311" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">Which means most compliance carbon policy in the world does <tspan font-style="italic">not</tspan> guarantee a tonnage outcome — it changes the economics and lets the tonnage follow. Session 01's price-versus-quantity trade, in the wild.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 5.1 — The compliance family. To look up which instruments a specific jurisdiction actually operates, the canonical reference is the World Bank Carbon Pricing Dashboard, linked in the sources.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Instrument</th><th>What creates the obligation</th><th>What is traded</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Cap-and-trade / ETS</td><td>You must surrender allowances equal to your emissions</td><td>Allowances, created from a cap</td></tr>
+          <tr><td class="pair">Baseline-and-credit</td><td>You must keep emissions under a facility-level baseline</td><td>Credits earned by beating your own baseline</td></tr>
+          <tr><td class="pair">Carbon tax / levy</td><td>You must pay a rate per tonne</td><td>Nothing</td></tr>
+          <tr><td class="pair">Certificate obligation</td><td>You must retire certificates equal to a quota of your sales</td><td>Renewable or energy-efficiency certificates</td></tr>
+          <tr><td class="pair">Performance standard</td><td>You must not exceed an intensity limit</td><td>Sometimes credits for over-performance</td></tr>
+          <tr><td class="pair">Border adjustment</td><td>You must buy certificates to import embedded carbon</td><td>Border certificates, priced off the domestic market</td></tr>
+          <tr><td class="pair">Sectoral international</td><td>A treaty body obliges operators to offset growth</td><td>Eligible credits from approved programmes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details>
+      <summary>Why baseline-and-credit keeps being chosen over cap-and-trade</summary>
+      <p>A cap forces the government to decide, in advance and in public, the total tonnage the economy may emit — and then to allocate it, which means choosing winners. A facility-level baseline avoids both. Each installation gets its own line, obligations are calibrated to what that installation can plausibly do, and no aggregate number ever has to be defended in parliament.</p>
+      <p>The cost is exactly what Session 01 predicted: <b>you lose the tonnage guarantee</b>. If output grows, total emissions can grow while every facility complies. It is the intensity-versus-absolute trade, embedded in the choice of instrument rather than in the target.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="allocation">
+    <div class="sec-head"><span class="n">3</span><h2>Allocation — where the real money is decided</h2></div>
+    <p class="sec-intro">Everyone argues about the cap. The cap decides the environmental outcome. <b>Allocation decides who gets paid</b>, and it is worth far more money than the cap is worth argument.</p>
+
+    <p>A cap makes the right to emit scarce. Scarcity creates value — a <span class="tip" data-tip="The economic value created purely by an artificial restriction on supply. Here: the market value of the total allowances, which exists only because the state limited how many there are.">scarcity rent</span>. That value has to go somewhere, and the allocation method is nothing more than the decision about who receives it.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 300" role="img" aria-label="A cap creates scarcity rent. Free allocation gives that value to incumbent emitters. Auctioning gives it to the state as revenue. Output-based allocation gives it back in proportion to production, acting as a production subsidy.">
+        <rect x="0" y="26" width="220" height="82" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="14" y="50" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">The cap creates scarcity</text>
+        <text x="14" y="70" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">Total allowances × price =</text>
+        <text x="14" y="88" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">a very large pot of value</text>
+        <text x="14" y="102" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-3)">that did not exist before the cap</text>
+
+        <g stroke="var(--ink-3)" stroke-width="1.2" fill="none" marker-end="url(#m7)">
+          <path d="M220,50 C250,50 250,44 274,44"/>
+          <path d="M220,67 C250,67 250,128 274,128"/>
+          <path d="M220,84 C252,84 252,212 274,212"/>
+        </g>
+        <defs><marker id="m7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+
+        <rect x="278" y="18" width="602" height="52" rx="2" fill="var(--warm-soft)" stroke="var(--warm)"/>
+        <text x="292" y="38" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">FREE ALLOCATION — grandfathering or benchmarking</text>
+        <text x="292" y="58" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">The rent goes to <tspan font-weight="600" fill="var(--ink)">incumbent emitters</tspan>. They still face the carbon price at the margin, so behaviour changes — but they were handed the asset.</text>
+
+        <rect x="278" y="102" width="602" height="52" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="292" y="122" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">AUCTIONING</text>
+        <text x="292" y="142" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">The rent goes to <tspan font-weight="600" fill="var(--ink)">the state</tspan> as revenue — which can then be recycled, spent on transition, or returned to households.</text>
+
+        <rect x="278" y="186" width="602" height="52" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="292" y="206" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">OUTPUT-BASED ALLOCATION — allowances scale with production</text>
+        <text x="292" y="226" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">The rent goes to <tspan font-weight="600" fill="var(--ink)">whoever produces more</tspan>. It preserves the marginal price signal but acts as a <tspan font-style="italic">production subsidy</tspan> — the intensity logic, inside a cap.</text>
+
+        <rect x="0" y="256" width="880" height="40" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="14" y="281" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">All three deliver the <tspan font-weight="600" fill="var(--ink)">same environmental outcome</tspan> — the cap is identical. They differ only in who is enriched. That is why allocation, not ambition, is what industry lobbies on.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 5.2 — Allocation methods and the destination of the scarcity rent. Schematic.</p>
+    </div>
+
+    <details>
+      <summary>Grandfathering vs benchmarking — and why the difference is moral as well as technical</summary>
+      <p><b>Grandfathering</b> allocates in proportion to <i>historical emissions</i>. The dirtier you were, the more you receive. It is administratively trivial and perverse: it rewards the firms that did least, and penalises anyone who cut emissions before the baseline year.</p>
+      <p><b>Benchmarking</b> allocates in proportion to <i>output</i> at a performance standard — typically the average of the best performers in the sector, which is the same construction the Article 6.4 rulebook uses for an ambitious baseline (Session 04, ¶36(a)(ii)). Efficient producers receive more allowances than they need and can sell; laggards must buy. It rewards the right behaviour and it is much harder to compute.</p>
+      <p>The practical consequence for you: <b>when an Indonesian sectoral benchmark is proposed, the question to ask is not “how tight?” but “benchmarked on what, against whom?”</b> That single choice determines which firms in the sector are net buyers and which are net sellers — before a single tonne is abated.</p>
+    </details>
+  </section>
+
+  <!-- 4 -->
+  <section id="eu">
+    <div class="sec-head"><span class="n">4</span><h2>The EU as reference case — what it actually teaches</h2></div>
+    <p class="sec-intro">Not because Indonesia should copy it, but because it is the only system with twenty years of mistakes on the public record.</p>
+
+    <div class="card">
+      <h3>What it is</h3>
+      <p>Established in <b>2005</b>, the first international emissions trading system, now in its <b>fourth phase (2021–2030)</b>. It covers around <b>10,000 installations</b> in the energy sector and manufacturing industry, plus aviation and maritime operators, across all Member States together with Iceland, Liechtenstein and Norway.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — European Commission, EU Emissions Trading System pages. Fetched and read this session; details below come from the Commission's own scope page.">2</a></sup></p>
+      <p>Gases and sources are more specific than “carbon”: <b>CO₂</b> from electricity and heat generation and energy-intensive manufacturing such as steel and cement; <b>N₂O</b> from production of nitric, adipic and glyoxylic acids; and <b>perfluorocarbons</b> from aluminium production. Aviation covers flights within the European Economic Area and departing flights to Switzerland and the United Kingdom. <b>From 2024 the system also covers maritime transport</b> — 100% of emissions on voyages between EU ports and 50% on voyages starting or ending outside the EU.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — European Commission, &lsquo;Scope of the EU ETS&rsquo;. Sectors, gases, installation count and maritime coverage verified from that page this session.">2</a></sup></p>
+      <p><span class="q">[?]</span> <span style="color:var(--ink-2)">Commonly cited additional figures — the share of EU emissions covered, the linear reduction factor, the Market Stability Reserve start date, the ETS2 launch for buildings and road transport, and the CBAM free-allocation phase-out schedule — are <b>not</b> stated on the Commission pages I read, and I am not asserting them from memory. The Commission also notes its ETS pages are being updated following a July 2026 proposal, so anything time-sensitive should be checked against the current text.</span></p>
+    </div>
+
+    <div class="card">
+      <h3>The three lessons worth importing</h3>
+      <p><b>1 — An over-allocated cap is worse than no cap.</b> The EU's first phase issued more allowances than there were emissions to cover. The price collapsed, no abatement was induced, and the system spent a decade rebuilding credibility. A loose cap does not fail gracefully; it produces a functioning market that changes nothing while appearing to work.</p>
+      <p><b>2 — Surplus is structural, so quantity systems need a quantity valve.</b> Recessions, cheap gas and overlapping renewable policies all cut emissions without cutting the cap, and the surplus persists for years because allowances bank. The EU's answer was the <span class="tip" data-tip="Market Stability Reserve — a rules-based mechanism that withdraws allowances from auction into a reserve when the accumulated surplus is too high, and releases them when it is too low. A quantity-side stabiliser rather than a price floor.">Market Stability Reserve</span>: a quantity-side stabiliser. Session 01's hybrids, made necessary by experience rather than theory.</p>
+      <p><b>3 — Free allocation is easy to start and very hard to stop.</b> It was introduced to protect trade-exposed industry from leakage; twenty years later, removing it required inventing an entirely new instrument at the border. Whatever Indonesia grants freely at the start of Phase 2 will be extraordinarily difficult to withdraw later. <b>Design the exit before you grant the entry.</b></p>
+    </div>
+  </section>
+
+  <!-- LANDSCAPE -->
+  <section id="landscape">
+    <div class="sec-head"><span class="n">!</span><h2>Flag closed — how much of the world is actually covered</h2></div>
+    <p class="sec-intro">Session 01 pointed at the World Bank series and deliberately quoted nothing from it. Here are the figures, from the World Bank's own reporting on <i>State and Trends of Carbon Pricing 2025</i>.</p>
+
+    <div class="stats">
+      <div class="stat"><div class="v">80</div><div class="l">carbon pricing instruments in operation worldwide — a net increase of five over the previous year</div></div>
+      <div class="stat"><div class="v">~28%</div><div class="l">of global greenhouse gas emissions covered by a carbon price</div></div>
+      <div class="stat"><div class="v">~⅔</div><div class="l">of global economic output lies in the economies that operate them</div></div>
+      <div class="stat"><div class="v">&gt;$100bn</div><div class="l">carbon pricing revenue in 2024; over half earmarked for environment, infrastructure and development</div></div>
+    </div>
+    <p style="margin-top:16px">Coverage includes <b>around half of global emissions from the power and industrial sectors</b> — precisely your sector focus — and the World Bank states that <b>“all large middle-income economies have now either implemented or are considering direct carbon pricing.”</b><sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — World Bank, State and Trends of Carbon Pricing 2025, as reported in the World Bank press release of 10 June 2025. Fetched and read this session.">1</a></sup></p>
+    <p><span class="q">[?]</span> <span style="color:var(--ink-2)">A split of the 80 instruments into carbon taxes and ETSs circulates widely (commonly 43 and 37). The World Bank release I read does <b>not</b> state that split, so I am not asserting it — take it from the Dashboard, which is the authoritative per-instrument register, rather than from me.</span></p>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Read the 28% the other way round: nearly three quarters of global emissions still face no carbon price at all.</p>
+      <p>That is the honest state of the field after three decades. It is also why Article 6 matters commercially — with most of the world uncovered, the cheapest abatement is overwhelmingly located outside the jurisdictions that have obligations, and the whole architecture of Sessions 03 and 04 exists to move value across that gap.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="priority">
+    <div class="sec-head"><span class="n">5</span><h2>“Compliance vs market priority”, settled</h2></div>
+    <p class="sec-intro">Session 01 split this phrase into two debates and deferred both. Both can now be answered properly.</p>
+
+    <div class="card">
+      <h3>Reading A — the mitigation hierarchy, and how it is enforced</h3>
+      <p>The principle is <b>cut your own emissions first, offset only the residual</b>. The enforcement is not exhortation — it is a <b>quantitative cap on offset use</b> inside the compliance obligation.</p>
+      <p>Indonesia has exactly this, and Session 03 located it: <b>Pasal 62(1) huruf d, p.45</b> makes “setting the portion of the emission cap that may be compensated with GHG Offset” one of the enumerated steps by which a sectoral minister operates emissions trading.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 62(1) huruf d, p.45. Verified in file in Session 03.">3</a></sup> The hierarchy is a dial, set per sector, by the sectoral ministry.</p>
+      <p><b>Why the limit exists:</b> offsets are usually cheaper than deep sectoral abatement. Uncapped, a rational regulated sector would buy the cheapest tonnes indefinitely and never rebuild its capital stock. The cap would be met on paper while the transition never happened. The offset limit is what forces the expensive, structural abatement to occur.</p>
+    </div>
+
+    <div class="card">
+      <h3>Reading B — which market a country builds first</h3>
+      <p><b>Compliance-first</b> creates guaranteed demand but needs legislation, MRV, a registry, a regulator and a fight with industry — years of work. <b>Voluntary-first</b> can be stood up quickly, but demand is discretionary, thin, and collapses when integrity is questioned.</p>
+      <p>The sequencing trap in voluntary-first: projects get financed against a demand curve that can evaporate, and the price expectations formed in the voluntary phase are inherited by the compliance system that follows.</p>
+      <p><b>Indonesia's answer is to refuse the sequence.</b> Pasal 55(2), p.42 defines carbon trading, results-based payment and the carbon levy as <b>one instrument family</b>, not a phased programme; Pasal 58(1), p.43 states that carbon trading proceeds <i>“tanpa menunggu tercapainya target NDC”</i> — without waiting for the NDC target to be achieved.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 55(2) p.42 and Pasal 58(1) p.43. Verified in file in Session 03.">3</a></sup></p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="stack">
+    <div class="sec-head"><span class="n">6</span><h2>The obligation stack — Indonesia's, specifically</h2></div>
+
+    <div style="background:var(--flag-soft); border:1.5px solid var(--flag); border-radius:3px; padding:20px 22px; margin-bottom:22px;">
+      <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--flag); font-weight:500; display:block; margin-bottom:10px;">Corrected in Session 08 — please read this first</span>
+      <p style="margin:0 0 10px; font-size:15px;"><b>The “price ceiling” conclusion below is wrong.</b> I wrote it before reading UU HPP, reasoning from the standard hybrid-instrument model in which a backstop tax has a fixed rate.</p>
+      <p style="margin:0 0 10px; font-size:15px;">The Directorate General of Taxes states that under <b>UU HPP Pasal 13</b> the carbon tax rate is set <b>equal to or higher than the carbon market price</b> per kg CO₂e, with Rp30,00/kg as a <b>floor</b> where the market price is lower. So the rate <b>tracks the market upward</b> rather than capping it: paying the tax is never cheaper than complying.</p>
+      <p style="margin:0; font-size:15px;">Correct reading: the carbon tax is a <b>floor under compliance</b>, not a ceiling on price — which makes Indonesia's design <b>stronger</b> than described below, not weaker. The stack diagram itself is accurate; only the ceiling inference is not. <a class="ext" href="#" onclick="return false;" style="cursor:default;border:none;color:var(--ink-2)">Full correction and sourcing in Session 08.</a></p>
+    </div>
+
+    <p class="sec-intro">Perpres 110 Pasal 63 sets out the compliance options in order. Drawn as a stack, it is the clearest picture of how the pieces fit.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 320" role="img" aria-label="The compliance stack under Perpres 110 Pasal 63: a regulated installation meets its cap through its own mitigation, buying quota from other installations, or buying offsets up to a sectoral limit — and if it still exceeds the cap it must pay carbon tax, which acts as a price ceiling.">
+        <text x="0" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">PERPRES 110/2025 · PASAL 62–63 · HOW A REGULATED INSTALLATION COMPLIES</text>
+
+        <rect x="0" y="34" width="880" height="38" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="14" y="58" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">Obligation — emissions must not exceed Batas Atas Emisi GRK in the period · Pasal 63(1)</text>
+
+        <rect x="0" y="86" width="880" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="14" y="103" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">OPTION 1 · PASAL 63(2)a</text>
+        <text x="200" y="103" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Do your own mitigation</text>
+        <text x="200" y="120" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">the structural abatement the policy exists to cause</text>
+
+        <rect x="0" y="136" width="880" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="14" y="153" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--accent-ink)">OPTION 2 · PASAL 63(2)b</text>
+        <text x="200" y="153" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Buy Kuota Emisi from another installation</text>
+        <text x="200" y="170" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">the trade — cheapest abatement happens first, wherever it sits</text>
+
+        <rect x="0" y="186" width="880" height="42" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="14" y="203" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--law)">OPTION 3 · PASAL 63(2)c</text>
+        <text x="200" y="203" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Buy Offset Emisi GRK — <tspan fill="var(--flag)">but only up to the sectoral limit</tspan></text>
+        <text x="200" y="220" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">the dial set under Pasal 62(1)d — this is the mitigation hierarchy, made numeric</text>
+
+        <rect x="0" y="242" width="880" height="46" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.6"/>
+        <text x="14" y="260" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--flag)">BACKSTOP · PASAL 63(3)</text>
+        <text x="200" y="260" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">Still over the cap? You are obliged to pay carbon tax</text>
+        <text x="200" y="278" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">not a fine — the tax. Which means the tax rate is the most any rational firm will pay for a quota.</text>
+
+        <text x="0" y="310" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">Because UU HPP pegs the tax rate at or above the market price, this backstop makes non-compliance <tspan font-weight="600" fill="var(--ink)">never the cheap option</tspan> — a floor under compliance, not a ceiling on price.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 5.3 — Perpres 110/2025, Pasal 62(1)(d) and Pasal 63(1)–(4), p.45. Verified in file in Session 03.<sup class="fn"><a class="tip tr" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 62–63, p.45. Verified in file.">3</a></sup> The carbon tax rate itself sits in UU HPP and is an open reading item for Session 08.</p>
+    </div>
+
+    <p style="margin-top:18px"><s style="color:var(--ink-3)">This is a genuinely elegant design and also a genuinely constrained one. Using the tax as the compliance backstop means Indonesia never needs a separate penalty regime, and firms always have a known worst case. The cost is that the ETS cannot discover a price above the tax rate — so if the tax is set low, the cap can be as tight as you like and the market will still not signal scarcity above that level.</s></p>
+    <p><b>Replaces the struck text:</b> using the tax as the compliance backstop means Indonesia never needs a separate penalty regime. And because UU HPP Pasal 13 pegs the rate at or above the prevailing carbon market price, the backstop does <b>not</b> cap what the market can discover — it guarantees that non-compliance is never the cheap option. The Rp30,00/kg floor binds only when the market is weaker still. <b>The cap can therefore bind as hard as the government chooses to set it.</b></p>
+  </section>
+
+  <!-- 7 -->
+  <section id="leakage">
+    <div class="sec-head"><span class="n">7</span><h2>Leakage, and why the border became an instrument</h2></div>
+    <p class="sec-intro">The one problem that forces every compliance system to compromise — and the reason a seventh instrument type exists at all.</p>
+    <p><b>Carbon leakage</b> is the migration of emissions rather than their reduction: a carbon price raises costs for domestic producers of internationally traded goods, production shifts to an unpriced jurisdiction, and global emissions are unchanged or worse while the pricing jurisdiction loses the industry. It is the argument behind every free-allocation concession ever granted.</p>
+    <p>There are only three answers, and every system uses some mix: <b>exempt or freely allocate</b> to exposed sectors (protects competitiveness, surrenders the rent and weakens the signal); <b>price imports at the border</b> so domestic and imported goods face the same carbon cost; or <b>get everyone else to price carbon too</b>, which returns you to the 28% figure above and to Article 6.</p>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Why this is an Indonesian issue, not a European one</h3>
+      <p>A border adjustment operates on the <b>embedded carbon of imports</b>. For an exporter of carbon-intensive goods, that converts another jurisdiction's climate policy into a direct cost on your own production — and it does so whether or not you have a domestic carbon price.</p>
+      <p>The strategic consequence is counter-intuitive and important: <b>a domestic carbon price stops being purely a cost and starts being a way of keeping revenue at home.</b> If the carbon cost of an exported tonne will be collected somewhere regardless, the live question becomes which treasury collects it. That reframing — carbon pricing as revenue retention rather than as burden — is one of the strongest arguments available to a finance ministry, and it changes the political economy of Session 01's instrument choice considerably.</p>
+      <p><span class="q">[?]</span> <span style="color:var(--ink-2)">The specific scope, covered goods and timeline of the EU's CBAM are not asserted here — I did not open the CBAM regulation. Anyone acting on this needs the regulation itself, and the July 2026 proposal the Commission flags as pending.</span></p>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">8</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>You have seven instruments, not one, and they combine. Two decisions dominate everything else: <b>the allocation method</b>, which decides who is enriched, and <b>the offset limit</b>, which decides whether structural abatement actually happens. Both are set below Presidential-Regulation level — which means they will be decided in rooms with fewer people watching.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>Your domestic demand is created by <b>Pasal 62(1)(d)</b> — the sectoral offset limit — and capped by it. Before modelling volumes for the Indonesian compliance market, find out whether that dial has been set for your sector, and at what. If it is unset, your compliance demand is currently zero.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>The <b>offset limit</b> caps your volume — that constraint stands. On price, see the correction above: the carbon tax does <b>not</b> cap the market, since UU HPP pegs the rate at or above it. So the binding question for revenue is the <b>tightness of the cap</b>, not the tax rate. Ask what <i>Batas Atas Emisi</i> has been set for the sector.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Name three compliance instruments that are not emissions trading, and say what creates the legal obligation in each.</li>
+        <li>Two governments set identical caps. One allocates allowances free by benchmark, the other auctions all of them. What is different about the environmental outcome — and what is different about everything else?</li>
+        <li>Why does an unlimited right to use offsets defeat the purpose of a cap, even though every offset represents a real tonne?</li>
+        <li>UU HPP pegs the carbon tax rate at or above the carbon market price. Explain why that makes the Pasal 63(3) backstop <b>strengthen</b> the cap, where a fixed tax rate would have weakened it.</li>
+        <li>A finance ministry says a domestic carbon price would hurt exporters. Give the counter-argument that a border adjustment in the destination market makes available.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly this session. <span class="verified byref">by reference</span> named but not opened. <span class="q">[?]</span> marks figures I decline to assert — including several widely circulated ones.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>World Bank, <i>State and Trends of Carbon Pricing 2025</i></b>, as reported in the World Bank press release “Carbon pricing revenues exceeded $100 billion in 2024”, 10 June 2025. Fetched and read this session. Figures used above: 80 instruments in operation (net increase of five); ~28% of global GHG emissions covered; economies representing nearly two-thirds of global economic output; ~half of global power and industrial sector emissions; revenue exceeding USD 100 billion in 2024 with over half earmarked for environment, infrastructure and development; and the quoted statement on large middle-income economies. The tax/ETS split of the 80 is <b>not</b> in this release and is flagged <span class="q">[?]</span>. <a class="ext" href="https://www.worldbank.org/en/news/press-release/2025/06/10/global-carbon-pricing-mobilizes-over-100-billion-for-public-budgets" target="_blank" rel="noopener">Press release →</a> · <a class="ext" href="https://carbonpricingdashboard.worldbank.org/" target="_blank" rel="noopener">Carbon Pricing Dashboard — the per-jurisdiction register →</a></li>
+      <li id="n2"><span class="verified">verified in file</span> <b>European Commission</b>, EU Emissions Trading System pages, including “Scope of the EU ETS”. Fetched and read this session. Used above: established 2005, first international ETS, currently in phase four (2021–2030); ~10,000 installations in energy and manufacturing plus aviation and maritime operators; coverage of CO₂ from electricity and heat generation and energy-intensive manufacturing, N₂O from nitric, adipic and glyoxylic acid production, and PFCs from aluminium; geographic scope across Member States plus Iceland, Liechtenstein and Norway; aviation within the EEA and departing flights to Switzerland and the UK; maritime from 2024 at 100% intra-EU and 50% extra-EU voyages. The Commission notes these pages are being updated following a July 2026 proposal. <a class="ext" href="https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en" target="_blank" rel="noopener">EU ETS →</a></li>
+      <li id="n3"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cited above: Pasal 55(2) p.42 (NEK instruments as one family); Pasal 58(1) p.43 (trading does not wait for the NDC); Pasal 62(1) huruf a–e p.45 (ETS steps, including the offset-use limit at huruf d); Pasal 63(1)–(4) p.45 (cap compliance options and the carbon tax backstop); Pasal 73 p.50 (carbon levy). Read directly in Sessions 00 and 03.</li>
+      <li id="n4"><span class="verified byref">by reference</span> <b>Decision -/CMA.3</b>, annex ¶36(a)(ii) — the “ambitious benchmark” baseline construction referenced in §3 as the same logic used for ETS benchmarking. Read in full in Session 04.</li>
+      <li id="n5"><span class="verified">verified in file</span> <b>UU No. 7 Tahun 2021 (UU HPP) Pasal 13</b> — the legal basis for Indonesia's <i>pajak karbon</i>. <b>Resolved in Session 08</b> via the Directorate General of Taxes: the rate is set equal to or higher than the carbon market price per kg CO₂e, with Rp30,00/kg as a floor. This <b>corrects</b> the price-ceiling inference originally made in §6 of this session — see the correction banner there. The statute text itself was not opened; DJP's description is a government source about the statute.</li>
+      <li id="n6"><span class="verified byref">by reference</span> <b>EU Carbon Border Adjustment Mechanism regulation</b> — named in §7 as the archetype of a border instrument. Not opened; scope, covered goods and timeline deliberately not asserted.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

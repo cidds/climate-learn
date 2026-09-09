@@ -1,0 +1,478 @@
+<title>Reading Perpres 110</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:16ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+.rail a.corr .n{color:var(--flag)}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+
+.correction{background:var(--flag-soft); border:1.5px solid var(--flag); border-radius:3px; padding:22px 24px;}
+.correction .tag{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--flag); font-weight:500; display:block; margin-bottom:10px}
+.correction h3{font-family:"IBM Plex Serif",serif; font-size:1.14rem; margin:0 0 10px; font-weight:600;}
+.correction p{margin:0 0 10px; font-size:15px} .correction p:last-child{margin-bottom:0}
+.wrongright{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin:14px 0}
+.wrongright > div{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:14px 16px}
+.wrongright h4{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 8px; font-weight:500}
+.wrongright .w h4{color:var(--flag)} .wrongright .r h4{color:var(--accent)}
+.wrongright p{font-size:14px; margin:0; color:var(--ink-2)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:1000px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:660px; font-size:14.5px}
+th,td{text-align:left; padding:12px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.art{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--law); white-space:nowrap}
+tr.total td{background:var(--surface-2); font-weight:600}
+tr.hi td{background:var(--accent-soft)}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+blockquote{margin:12px 0; padding:12px 16px; background:var(--surface-2); border-left:2px solid var(--law); font-size:14px; color:var(--ink-2); font-style:italic; max-width:70ch}
+blockquote b{font-style:normal; color:var(--ink)}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 08 · Indonesia <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>Reading Perpres 110</h1>
+  <p class="standfirst">The deep read. I have now worked through <b>pp. 1–32, 38–53 and 56–68</b> — the whole operative regulation. Two standing open items close here, and one earlier session gets corrected: reading the statute showed that something I told you in Session 05 was <b>backwards</b>.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>Promulgated</b> · 10 October 2025 · LN 2025 No. 172</span>
+    <span><b>Implementing regulations due</b> · 10 October 2026</span>
+    <span><b>Next</b> · 09 · Institutions and focal points</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#correction" class="corr"><span class="n">✕</span>Correction to Session 05</a>
+    <a href="#identity"><span class="n">1</span>What the document is</a>
+    <a href="#cascade"><span class="n">2</span>The number cascade</a>
+    <a href="#who"><span class="n">3</span>Who coordinates what</a>
+    <a href="#additionality"><span class="n">!</span>Additionality — absent</a>
+    <a href="#transition"><span class="n">4</span>Transitional provisions</a>
+    <a href="#clock"><span class="n">5</span>The clock</a>
+    <a href="#lenses"><span class="n">6</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- CORRECTION -->
+  <section id="correction">
+    <div class="sec-head"><span class="n" style="color:var(--flag)">✕</span><h2>Correction — the carbon tax is not a price ceiling</h2></div>
+
+    <div class="correction">
+      <span class="tag">Correcting Session 05, §6 and Fig. 5.3</span>
+      <h3>I said the carbon tax rate caps Indonesia's allowance price. The statute says the opposite.</h3>
+      <p>In Session 05 I reasoned that because Perpres 110 <b>Pasal 63(3)</b> makes exceeding your cap trigger an obligation to pay carbon tax, no rational firm would ever pay more than the tax rate for a quota — so the tax rate is an effective price ceiling. That is the standard hybrid design, and I applied it without reading <b>UU HPP Pasal 13</b>. I should have read it first.</p>
+      <p>The Directorate General of Taxes states the rule: the carbon tax rate is set <b>equal to or higher than the carbon market price</b> per kilogram CO₂e, and where the market price falls below Rp30,00 per kg CO₂e, the rate is set at <b>a minimum of Rp30,00</b>.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — Directorate General of Taxes (DJP), &lsquo;Pajak Pigouvian pada UU HPP&rsquo;, on UU No. 7 Tahun 2021 Pasal 13. Fetched and read this session.">2</a></sup></p>
+
+      <div class="wrongright">
+        <div class="w">
+          <h4>What I said</h4>
+          <p>Tax rate is fixed → paying tax is cheaper than a quota above that level → the tax <b>caps</b> the market price.</p>
+        </div>
+        <div class="r">
+          <h4>What the law provides</h4>
+          <p>Tax rate <b>tracks the market upward</b> and never sits below it → paying tax is <b>never cheaper</b> than complying → the tax is a <b>floor under compliance</b>, not a ceiling on price.</p>
+        </div>
+      </div>
+
+      <p><b>Why it matters, and why the error was substantive rather than cosmetic:</b> a price ceiling weakens a cap — it caps the abatement signal. A rate pegged at or above the market does the reverse: it removes the option of buying your way out cheaply, so the cap can bind as hard as the government sets it. <b>Indonesia's design is stronger than I described, not weaker.</b></p>
+      <p>The Rp30,00/kg floor is <b>Rp30,000 per tonne CO₂e</b> — low by international standards <span class="q">[?]</span> <span style="color:var(--ink-2)">(I am not converting to dollars; the rate depends on an exchange rate I have not fixed to a source)</span>. But it is a <b>floor</b>, and it only binds when the market is weaker still.</p>
+    </div>
+
+    <details style="margin-top:16px">
+      <summary>The lesson to take from this, not just the fix</summary>
+      <p>I reached the wrong answer by reasoning correctly from a generic model of hybrid instruments instead of reading the specific statute. That is exactly the failure mode this curriculum's sourcing discipline exists to catch — and it is the failure mode you should expect from any adviser, consultant or briefing note that describes Indonesia's system by analogy to the EU's.</p>
+      <p>Session 05's own source note flagged UU HPP as “not opened; the rate is an explicit reading item for Session 08.” The flag was right; the surrounding analysis went further than the flag permitted. <b>When a source is flagged unread, the conclusions built on it should be flagged too.</b> I will hold that line more carefully.</p>
+    </details>
+  </section>
+
+  <!-- 1 -->
+  <section id="identity">
+    <div class="sec-head"><span class="n">1</span><h2>What the document actually is</h2></div>
+    <p class="sec-intro">Basic bibliographic facts that turn out to carry analytical weight.</p>
+
+    <div class="tablewrap">
+      <table>
+        <tbody>
+          <tr><td class="pair">Full title</td><td>Peraturan Presiden RI No. 110 Tahun 2025, <i>Penyelenggaraan Instrumen Nilai Ekonomi Karbon dan Pengendalian Emisi Gas Rumah Kaca Nasional</i></td></tr>
+          <tr><td class="pair">Established &amp; promulgated</td><td><b>Jakarta, 10 October 2025</b> — signed <b>Prabowo Subianto</b>; promulgated by Menteri Sekretaris Negara Prasetyo Hadi</td></tr>
+          <tr><td class="pair">Gazette</td><td><b>Lembaran Negara RI Tahun 2025 Nomor 172</b></td></tr>
+          <tr><td class="pair">Structure</td><td>9 chapters (BAB I–IX), <b>103 articles</b>, ending at printed p.68</td></tr>
+          <tr class="hi"><td class="pair">In force</td><td>On promulgation — <b>Pasal 103</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Perpres 110 was promulgated 10 October 2025. The Second NDC was submitted 27 October 2025 — seventeen days later.</p>
+      <p>That sequencing is not coincidence. Session 07 found the NDC citing Perpres 110 by name as “a legal framework to implement NDC.” Indonesia put the domestic legal machinery in place <b>first</b>, then submitted an international pledge that points at it. Read together, the two documents are a single act: the pledge and the apparatus to deliver it, filed a fortnight apart.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="cascade">
+    <div class="sec-head"><span class="n">2</span><h2>The number cascade</h2></div>
+    <p class="sec-intro">Chapter II is one long derivation. Every number in the system descends from <i>Alokasi Karbon</i>, and each step names who decides.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 340" role="img" aria-label="Cascade from Carbon Allocation through baselines and targets to the NDC document, mitigation action plans, and the emissions trading cap. Each stage is labelled with its article and decision-maker.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">BAB II–III · WHO SETS WHICH NUMBER</text>
+
+        <g font-family="IBM Plex Sans, sans-serif">
+          <rect x="0" y="32" width="880" height="42" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+          <text x="14" y="50" font-size="13" font-weight="600" fill="var(--ink)">ALOKASI KARBON — national CO₂e permitted, set jointly by 7 ministries, with Karbon Cadangan held back</text>
+          <text x="14" y="67" font-size="11" fill="var(--ink-2)">Pasal 3–5, pp.8–9 · joint decision of Menteri Terkait after coordinating with the steering committee</text>
+
+          <rect x="0" y="86" width="430" height="52" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="14" y="105" font-size="12.5" font-weight="600" fill="var(--ink)">BASELINE EMISI GRK — national &amp; Sector</text>
+          <text x="14" y="122" font-size="11" fill="var(--ink-2)">Pasal 15–18, pp.15–19 · <tspan font-weight="600" fill="var(--ink)">set by the Menteri</tspan></text>
+
+          <rect x="450" y="86" width="430" height="52" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="464" y="105" font-size="12.5" font-weight="600" fill="var(--ink)">BASELINE — provincial</text>
+          <text x="464" y="122" font-size="11" fill="var(--ink-2)">Pasal 19–21, pp.19–21 · governor, <tspan font-weight="600" fill="var(--ink)">within 3 months</tspan> of the national baseline</text>
+
+          <rect x="0" y="150" width="430" height="52" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="14" y="169" font-size="12.5" font-weight="600" fill="var(--ink)">TARGET MITIGASI — national &amp; Sector</text>
+          <text x="14" y="186" font-size="11" fill="var(--ink-2)">Pasal 22–24, pp.21–23 · stated <tspan font-weight="600" fill="var(--ink)">in tonnes CO₂e</tspan> · considers Alokasi Karbon</text>
+
+          <rect x="450" y="150" width="430" height="52" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="464" y="169" font-size="12.5" font-weight="600" fill="var(--ink)">TARGET — provincial</text>
+          <text x="464" y="186" font-size="11" fill="var(--ink-2)">Pasal 26, p.24 · governor, from national and Sector targets</text>
+
+          <rect x="0" y="214" width="430" height="46" rx="2" fill="var(--warm-soft)" stroke="var(--warm)" stroke-width="1.6"/>
+          <text x="14" y="233" font-size="12.5" font-weight="600" fill="var(--ink)">THE NDC DOCUMENT</text>
+          <text x="14" y="250" font-size="11" fill="var(--ink-2)">Pasal 23(3), p.22 — the national target is “dituangkan dalam dokumen NDC”</text>
+
+          <rect x="450" y="214" width="430" height="46" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="464" y="233" font-size="12.5" font-weight="600" fill="var(--ink)">RENCANA AKSI MITIGASI</text>
+          <text x="464" y="250" font-size="11" fill="var(--ink-2)">Pasal 28–30, pp.26–29 · national and provincial action plans</text>
+
+          <rect x="0" y="272" width="880" height="46" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.6"/>
+          <text x="14" y="291" font-size="12.5" font-weight="600" fill="var(--ink)">BATAS ATAS EMISI GRK — the ETS cap, set from Alokasi Karbon · Pasal 62(1)b, p.45</text>
+          <text x="14" y="308" font-size="11" fill="var(--ink-2)">Where the whole cascade lands on an individual installation — and where the offset limit is dialled, Pasal 62(1)d</text>
+        </g>
+
+        <g stroke="var(--ink-3)" stroke-width="1.2" fill="none" marker-end="url(#ma)">
+          <path d="M215,74 L215,82"/><path d="M665,74 L665,82"/>
+          <path d="M215,138 L215,146"/><path d="M665,138 L665,146"/>
+          <path d="M215,202 L215,210"/><path d="M665,202 L665,210"/>
+          <path d="M215,260 L215,268"/>
+        </g>
+        <defs><marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 8.1 — The derivation chain, with articles and page numbers as printed.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Perpres 110/2025: Pasal 3–5 pp.8–9; Pasal 15–18 pp.15–19; Pasal 19–21 pp.19–21; Pasal 22–26 pp.21–24; Pasal 28–30 pp.26–29; Pasal 62 p.45. All verified in file.">1</a></sup></p>
+    </div>
+
+    <p style="margin-top:18px">Two features are worth naming. First, <b>Pasal 22(2) requires every mitigation target — national, sector and provincial — to be expressed as GHG emission reduction in tonnes CO₂e.</b> The regulation forces an absolute-tonnage statement at every level of government, which is exactly the translation problem Session 01 predicted if installation-level obligations turn out to be intensity-based.</p>
+    <p>Second, <b>Pasal 23(3)</b> makes the relationship with Session 07 explicit rather than inferential: the national mitigation target, once set by the Minister, is <i>“dituangkan dalam dokumen NDC”</i> — poured into the NDC document. The NDC is the output of this cascade, not an external constraint on it.</p>
+
+    <details>
+      <summary>The baseline can move — and the conditions are enumerated</summary>
+      <p>Pasal 18 (pp.18–19) permits the national or sector baseline to change on four grounds: a change in national development policy relating to climate; the addition of new <i>Data Aktivitas</i>; a change in <i>Faktor Emisi</i>; or a methodological change materially affecting the calculation. The same four grounds appear for <i>Alokasi Karbon</i> at Pasal 5 (p.9) and, with provincial variants, at Pasal 21 (p.21).</p>
+      <p><b>Why a developer should care:</b> your project's creditable volume is measured against a baseline that the state may lawfully revise mid-stream, through a defined procedure, on grounds including “better data”. Combined with the Article 6.4 renewal reassessment from Session 04 (¶57), that is <b>two independent mechanisms</b> by which a credit stream can legitimately shrink without anything going wrong at the project.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="who">
+    <div class="sec-head"><span class="n">3</span><h2>Who coordinates what — the map for your sectors</h2></div>
+    <p class="sec-intro">Pasal 17(1) and Pasal 24(2) name the coordinating ministry for every sector and sub-sector. For an energy-focused reader this is the most immediately usable page in the regulation.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Sub-sector</th><th>Coordinating ministry</th><th class="art">Article</th></tr></thead>
+        <tbody>
+          <tr class="hi"><td class="pair"><b>Pembangkit</b> (power generation), <b>minyak dan gas</b>, <b>transportasi</b>, <b>bangunan</b></td><td><b>Menteri ESDM</b> — energy and mineral resources</td><td class="art">24(2)a · p.22</td></tr>
+          <tr class="hi"><td class="pair"><b>Industri</b></td><td><b>Menteri Perindustrian</b> — industry</td><td class="art">24(2)b · p.23</td></tr>
+          <tr><td class="pair">Limbah padat, limbah cair, sampah</td><td><b>Menteri</b> (environment) — also Sector coordinator for waste</td><td class="art">24(2)c · p.23</td></tr>
+          <tr><td class="pair">Persawahan, peternakan, perkebunan</td><td>Menteri Pertanian — agriculture</td><td class="art">24(2)d · p.23</td></tr>
+          <tr><td class="pair">Kehutanan, pengelolaan gambut dan mangrove</td><td><b>Menteri Kehutanan</b> — forestry, now a separate ministry</td><td class="art">24(2)e · p.23</td></tr>
+          <tr><td class="pair">Pengelolaan karbon biru (blue carbon)</td><td>Menteri Kelautan dan Perikanan — marine affairs and fisheries</td><td class="art">24(2)f · p.23</td></tr>
+          <tr class="total"><td class="pair">Sector coordinators</td><td colspan="2">Energy → ESDM · Waste → <b>Menteri</b> · IPPU → Perindustrian · Agriculture → Pertanian · Forestry → Kehutanan (Pasal 17(1), p.17)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Three consequences for an energy practitioner</h3>
+      <p><b>1 — ESDM is your counterparty for four sub-sectors, not one.</b> Power generation, oil and gas, transport <i>and buildings</i> all sit under the same coordinator. If you work across generation and industrial energy use, note the split: <b>industrial process and energy use falls to Perindustrian</b>, not ESDM.</p>
+      <p><b>2 — The offset limit is set by the sectoral minister, not the environment ministry.</b> Session 03 located that dial at Pasal 62(1)(d); Pasal 62(1) assigns the whole ETS operation to <i>Menteri Terkait</i>. So <b>how much offsetting your sector may use will be decided by ESDM or Perindustrian</b> — which is where a developer's engagement should be directed.</p>
+      <p><b>3 — Forestry and environment are now different ministries.</b> Session 07 found the UNFCCC focal point moved to the Ministry of Environment; here, <i>Menteri Kehutanan</i> appears as a distinct sector coordinator and as a distinct member of the steering committee. Anyone still writing “KLHK” is describing a body that has been split.</p>
+    </div>
+  </section>
+
+  <!-- ADDITIONALITY -->
+  <section id="additionality">
+    <div class="sec-head"><span class="n">!</span><h2>Additionality — the finding is definitive, and negative</h2></div>
+    <p class="sec-intro">Session 00 flagged it. Session 03 could not find it. Having now read the operative regulation end to end, I can state it plainly.</p>
+
+    <div class="card">
+      <h3><i>Adisionalitas</i> appears nowhere in Perpres 110/2025</h3>
+      <p>Not in the 44 definitions of Pasal 1 (pp.2–7). Not in the mitigation planning chapter, Pasal 8–34 (pp.11–31). Not in the NEK implementation chapter, Pasal 55–74 (pp.42–51). Not in the validation and verification provisions, Pasal 83–86 (pp.56–58), nor in SPE-GRK issuance at Pasal 88–89 (pp.59–60).</p>
+      <p>The regulation reaches the function only obliquely: <b>Pasal 65(3)(c), p.46</b> requires a DRAM or DPP to state its “application of national, UNFCCC, and other international methodology and standards.” Additionality therefore enters Indonesian practice <b>through whichever methodology a project adopts</b> — which for an international-standard route means the Article 6.4 test at ¶38, read in Session 04, or a voluntary standard's equivalent.</p>
+      <p>Where it will be written down domestically is signposted twice: <b>Pasal 34, p.31</b> sends the detailed mitigation procedures to a <i>Peraturan Menteri</i>, and <b>Pasal 102, p.67</b> requires all implementing regulations to be established within one year.</p>
+    </div>
+
+    <div class="keyline" style="margin-top:16px">
+      <p class="lead">The single most consequential test for whether a project earns credits is not in the Presidential Regulation. It is in ministerial rules that were not yet published when this regulation took effect.</p>
+      <p>That is not unusual drafting — a Perpres sets architecture. But it does mean that anyone telling you today what qualifies as additional in Indonesia is either citing a ministerial regulation you should ask to see, or is extrapolating. <b>Ask which.</b></p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="transition">
+    <div class="sec-head"><span class="n">4</span><h2>Transitional provisions — the ones with your name on them</h2></div>
+    <p class="sec-intro">BAB VIII is three short articles, all with the same one-year deadline, and each one binds a different kind of party.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th class="art">Article</th><th>Who it binds</th><th>What must happen</th></tr></thead>
+        <tbody>
+          <tr><td class="art">Pasal 97<br>p.66</td><td>Government — national and regional</td><td>National and Regional Action Plans on GHG emission reduction still in force must be <b>adjusted to this Perpres within 1 year</b></td></tr>
+          <tr class="hi"><td class="art">Pasal 98<br>p.66</td><td><b>Business actors already holding Unit Karbon</b> who have not yet transacted carbon trading or results-based payment</td><td>Must <b>comply with the NEK implementation provisions within 1 year</b></td></tr>
+          <tr class="hi"><td class="art">Pasal 99<br>p.66</td><td><b>International agreements</b> on NEK already approved by the Government before this Perpres</td><td>Must be <b>adjusted within 1 year</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:18px"><b>Pasal 99 is the one to notice.</b> Any bilateral carbon arrangement Indonesia had agreed before 10 October 2025 — the kind of cooperation Session 03 discussed under Article 6.2 — is required to be brought into conformity with this regulation, including its <i>Otorisasi</i> and corresponding-adjustment architecture. <span class="q">[?]</span> <span style="color:var(--ink-2)">Which specific agreements that captures, and what conformity has been achieved, is not something this regulation tells you and I have not verified it.</span></p>
+
+    <div class="card" style="margin-top:16px">
+      <h3>The closing provisions do something subtle</h3>
+      <p><b>Pasal 101, p.67:</b> Perpres 98/2021 is <b>“dicabut dan dinyatakan tidak berlaku”</b> — revoked and declared no longer in force.</p>
+      <p><b>Pasal 100, p.67:</b> but the <b>implementing regulations</b> of Perpres 98/2021 — together with those of Perpres 61/2011 (RAN-GRK) and Perpres 71/2011 (national GHG inventory) — <b>“dinyatakan tetap berlaku”</b>, remain in force, insofar as they do not conflict with this Perpres or have not yet been replaced under it.</p>
+      <p>So the parent regulation is dead and its children live on. Practically: <b>the ministerial regulations you would consult today were mostly written under a regulation that no longer exists</b>, and they remain valid only to the extent they do not contradict Perpres 110. Reading any Permen from the 98/2021 era therefore requires checking it clause by clause against the new architecture — which is precisely the kind of work that produces confident-sounding but wrong advice.</p>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="clock">
+    <div class="sec-head"><span class="n">5</span><h2>The clock — and where we are on it</h2></div>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 200" role="img" aria-label="Timeline: Perpres 110 promulgated 10 October 2025, Second NDC submitted 27 October 2025, present day September 2026, and the deadline of 10 October 2026 for all implementing regulations and transitional compliance.">
+        <line x1="40" y1="110" x2="840" y2="110" stroke="var(--ink-3)" stroke-width="1.5"/>
+
+        <g>
+          <circle cx="90" cy="110" r="6" fill="var(--law)"/>
+          <line x1="90" y1="110" x2="90" y2="66" stroke="var(--law)" stroke-width="1.2"/>
+          <rect x="40" y="26" width="180" height="40" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="50" y="43" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">10 Oct 2025</text>
+          <text x="50" y="59" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">Perpres 110 promulgated</text>
+        </g>
+        <g>
+          <circle cx="150" cy="110" r="5" fill="var(--warm)"/>
+          <line x1="150" y1="110" x2="150" y2="154" stroke="var(--warm)" stroke-width="1.2"/>
+          <rect x="100" y="156" width="180" height="40" rx="2" fill="var(--warm-soft)" stroke="var(--warm)"/>
+          <text x="110" y="173" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">27 Oct 2025</text>
+          <text x="110" y="189" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">Second NDC submitted</text>
+        </g>
+        <g>
+          <circle cx="690" cy="110" r="7" fill="var(--accent)"/>
+          <line x1="690" y1="110" x2="690" y2="66" stroke="var(--accent)" stroke-width="1.4"/>
+          <rect x="600" y="26" width="180" height="40" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+          <text x="610" y="43" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">Now — Sept 2026</text>
+          <text x="610" y="59" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">about one month to go</text>
+        </g>
+        <g>
+          <circle cx="800" cy="110" r="7" fill="var(--flag)"/>
+          <line x1="800" y1="110" x2="800" y2="154" stroke="var(--flag)" stroke-width="1.4"/>
+          <rect x="640" y="156" width="240" height="40" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.4"/>
+          <text x="650" y="173" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">10 Oct 2026 — Pasal 102</text>
+          <text x="650" y="189" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">all implementing regulations due</text>
+        </g>
+
+        <rect x="90" y="103" width="710" height="14" fill="var(--accent-soft)" opacity="0.5"/>
+        <text x="330" y="99" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--ink-3)" letter-spacing="1.2">ONE-YEAR WINDOW — PASAL 97, 98, 99 AND 102 ALL EXPIRE TOGETHER</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 8.2 — Pasal 102, p.67: implementing regulations “ditetapkan paling lambat 1 (satu) tahun sejak Peraturan Presiden ini diundangkan.” Promulgation date from p.68.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Perpres 110/2025, Pasal 97–99 p.66, Pasal 100–103 p.67, promulgation details p.68. Verified in file this session.">1</a></sup></p>
+    </div>
+
+    <p style="margin-top:18px">Everything converges on <b>10 October 2026</b>: the implementing regulations that will contain additionality, methodology, MRV procedure and the sectoral offset limits; the deadline for existing unit-holders to come into compliance; the deadline for adjusting pre-existing international agreements; and the deadline for realigning national and regional action plans.</p>
+    <p><b>This is the most decision-relevant fact in the session.</b> The rules that determine whether an Indonesian project is creditable, and on what terms, are due within weeks of now. <span class="q">[?]</span> <span style="color:var(--ink-2)">Whether they have been issued, and what they say, is beyond what I can verify from the documents I hold — it is the first thing to check before acting on anything in this curriculum.</span></p>
+  </section>
+
+  <!-- 6 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">6</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>The cascade concentrates real discretion in two places: the joint ministerial decision on <b>Alokasi Karbon</b>, and each sectoral minister's <b>offset limit and cap</b>. The steering committee under a Coordinating Minister exists to hold those together. Note also that <b>Pasal 22(2) forces tonnage statements at every level</b> — there is no hiding an intensity target inside the cascade.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p><b>Pasal 98</b> may already bind you: if you hold Unit Karbon and have not transacted, you had one year from 10 October 2025 to conform. And your creditability rests on ministerial rules due 10 October 2026 — so the honest position today is that <b>the test you must pass is not yet fully published</b>.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>Two revision risks to price, not one: the <b>baseline may be lawfully revised</b> under Pasal 18, and an Article 6.4 crediting period is <b>reassessed at renewal</b> (¶57). Add the Pasal 100 problem — advice resting on Perpres 98-era ministerial regulations may be citing rules that survive only conditionally.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Why does a carbon tax rate pegged at or above the market price strengthen a cap-and-trade system, where a fixed rate would weaken it?</li>
+        <li>Trace the derivation from <i>Alokasi Karbon</i> to the cap on a single power plant. Name each intermediate number and who sets it.</li>
+        <li>Perpres 98/2021 is revoked but its implementing regulations remain in force. What practical problem does that create for anyone advising on Indonesian carbon rules today?</li>
+        <li>Your client is an industrial energy-efficiency developer. Which ministry sets the offset limit that determines their compliance-market demand — and why is it not the environment ministry?</li>
+        <li>Additionality is absent from Perpres 110. Where does it enter Indonesian practice in the meantime, and what should you ask anyone who states an Indonesian additionality rule today?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly. Page numbers are the regulation's own printed pages.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cumulative reading across Sessions 00, 03 and 08 now covers <b>pp. 1–32, 38–53 and 56–68</b> — the entire operative text other than the adaptation chapter (pp. 33–37) and pp. 54–55. New in this session: Pasal 17(1) sector coordinators p.17; Pasal 17(2)–(4) sector baseline basis and use pp.17–18; Pasal 18 baseline revision grounds pp.18–19; Pasal 19–21 provincial baseline pp.19–21; Pasal 22 targets in tonnes CO₂e p.21; Pasal 23 national target and <b>Pasal 23(3) “dituangkan dalam dokumen NDC”</b> pp.21–22; Pasal 24(2) sub-sector coordinators pp.22–23; Pasal 25–26 target revision and provincial target pp.23–24; Pasal 28–30 mitigation action plans pp.26–29; Pasal 31–33 implementation and monitoring pp.29–31; <b>Pasal 34 further provisions to Peraturan Menteri p.31</b>; Pasal 35–38 adaptation opening pp.31–32; Pasal 96(4)–(8) steering committee composition and chairs pp.64–66; <b>Pasal 97–99 transitional provisions p.66</b>; <b>Pasal 100–103 closing provisions p.67</b>; promulgation details, signature and gazette number <b>p.68</b>.</li>
+      <li id="n2"><span class="verified">verified in file</span> <b>Directorate General of Taxes (DJP), Ministry of Finance — “Pajak Pigouvian pada UU HPP”</b>, on <b>UU No. 7 Tahun 2021 (UU HPP) Pasal 13</b>. Fetched and read this session. Used above: the taxable subject (“orang pribadi atau badan yang membeli barang yang mengandung karbon dan/atau melakukan aktivitas yang menghasilkan emisi karbon”); and the rate rule — set equal to or higher than the carbon market price per kg CO₂e, with Rp30,00 per kg CO₂e as a <b>floor</b> where the market price is lower. <b>This is a government source describing the statute, not the statute text itself</b>; the UU HPP text was not opened, so the exact statutory wording of Pasal 13 remains a further reading item. <a class="ext" href="https://www.pajak.go.id/index.php/en/node/71822" target="_blank" rel="noopener">pajak.go.id →</a> · <a class="ext" href="https://jdih.kemenkeu.go.id/dok/uu-7-tahun-2021/view" target="_blank" rel="noopener">UU 7/2021 on JDIH Kemenkeu →</a></li>
+      <li id="n3"><span class="verified byref">by reference</span> DJP's stated implementation sequence — carbon trading development from 2021 with power-sector piloting, a tax mechanism applied to coal-fired power plants over 2022–2025, and fuller carbon trading with sector expansion from 2025. <b>This is the intended roadmap as described by DJP, not evidence of what occurred</b>; flagged <span class="q">[?]</span> and not relied on above.</li>
+      <li id="n4"><span class="verified">verified in file</span> <b>Second NDC of Indonesia (2025)</b>, p.4 — cited in §1 for the NDC's own description of Perpres 110 as the legal framework implementing the NDC. Read in Session 07.</li>
+      <li id="n5"><span class="verified">verified in file</span> <b>Decision -/CMA.3</b>, annex ¶38 (additionality) and ¶57 (renewal reassessment) — cross-referenced in §4 and §6. Read in Session 04.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

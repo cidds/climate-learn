@@ -1,0 +1,543 @@
+<title>Carbon Research Source Ledger</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1040px; margin:0 auto; padding:56px 24px 96px}
+.eyebrow{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent);
+}
+h1{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+  font-size:clamp(1.9rem,3.6vw,2.6rem); line-height:1.1; letter-spacing:-.02em;
+  margin:14px 0 0; text-wrap:balance;
+}
+.standfirst{margin:16px 0 0; max-width:64ch; color:var(--ink-2); font-size:16px}
+h2{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.3rem;
+  margin:44px 0 6px; letter-spacing:-.01em;
+}
+.legend{
+  display:flex; gap:10px 20px; flex-wrap:wrap; margin:26px 0 0; padding:16px 18px;
+  background:var(--surface); border:1px solid var(--rule); border-radius:3px;
+  font-size:13.5px; color:var(--ink-2); box-shadow:var(--shadow);
+}
+.tag{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em;
+  text-transform:uppercase; padding:1px 5px; border-radius:2px; white-space:nowrap;
+  border:1px solid var(--accent); color:var(--accent); margin-right:6px;
+}
+.tag.byref{color:var(--ink-3); border-color:var(--rule)}
+.tag.flagged{color:var(--flag); border-color:var(--flag); background:var(--flag-soft)}
+.tablewrap{
+  overflow-x:auto; border:1px solid var(--rule); border-radius:3px;
+  background:var(--surface); box-shadow:var(--shadow); margin-top:14px;
+}
+table{border-collapse:collapse; width:100%; min-width:820px; font-size:14px}
+th,td{text-align:left; padding:12px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);
+}
+tr:last-child td{border-bottom:none}
+td.loc{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--law); white-space:nowrap}
+td.sess{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-3); white-space:nowrap}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+.docblock{
+  background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--law);
+  border-radius:3px; padding:18px 20px; margin-top:14px; box-shadow:var(--shadow);
+}
+.docblock h3{font-family:"IBM Plex Serif",serif; font-size:1.02rem; margin:0 0 6px; font-weight:600}
+.docblock p{margin:0; font-size:14px; color:var(--ink-2); max-width:74ch}
+.docblock .path{
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);
+  margin-top:8px; word-break:break-all;
+}
+.pending{color:var(--flag); font-weight:600}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+  <div class="eyebrow">Running ledger · Carbon Economic Mechanisms</div>
+  <h1>Source Ledger</h1>
+  <p class="standfirst">Every factual claim made across the session briefs traces to a row here: document, page, and where applicable article or figure. Updated at the close of each session. <b>Curriculum complete — eleven sessions plus one update.</b> <b>00–06</b> global foundations · <b>07–09</b> Indonesia · <b>10</b> sector application · <b>11</b> synthesis · <b>12</b> JDIH portal check. <b>One correction issued:</b> Session 05's carbon-tax price-ceiling claim was wrong and is superseded — see the Session 08 rows. <b>Longest-standing flag closed in Update 12:</b> additionality is defined in the forestry implementing regulation.</p>
+
+  <div class="legend">
+    <span><span class="tag">verified in file</span> read directly from the document, page confirmed</span>
+    <span><span class="tag byref">by reference</span> cited to a primary source not yet opened</span>
+    <span><span class="tag flagged">[?] flagged</span> uncertain or non-primary — marked pink in the brief</span>
+    <span><span class="tag byref">illustrative</span> schematic diagram — asserts no data</span>
+  </div>
+
+  <h2>Documents held</h2>
+
+  <div class="docblock">
+    <h3>Perpres 110/2025 — Penyelenggaraan Instrumen Nilai Ekonomi Karbon dan Pengendalian Emisi GRK Nasional</h3>
+    <p>Presidential Regulation of the Republic of Indonesia No. 110 of 2025. Replaces Perpres No. 98 of 2021 (stated in the recitals, Menimbang huruf c, p. 1). The governing NEK instrument, <b>204 pages</b>. Read so far: <b>pp. 1–15</b> (Session 00 — Pasal 1 definitions, NDC planning, inventory), <b>pp. 38–53</b> (Session 03 — BAB III trading architecture, Pasal 55–78), <b>pp. 56–64</b> (Session 03 — validation/verification, registries, SPE-GRK, steering committee). Remaining pages and full structural read scheduled for Session 08.</p>
+    <p class="path">All References/Perpres 110:2025 - NEK.pdf</p>
+  </div>
+
+  <div class="docblock">
+    <h3>Decision -/CMA.3 — Rules, modalities and procedures for the Article 6.4 mechanism</h3>
+    <p>UNFCCC, Glasgow 2021 (advance unedited version). The Article 6.4 / PACM rulebook. <b>Read in Session 04</b>: decision paras 1–17 and annex paras 26–75, covering host Party participation, activity design, methodologies, baselines, additionality, the activity cycle, the mechanism registry, share of proceeds, OMGE, corresponding adjustments, CDM transition and CER use.</p>
+    <p class="path">https://unfccc.int/sites/default/files/resource/cma3_auv_12b_PA_6.4.pdf</p>
+  </div>
+
+  <div class="docblock">
+    <h3>UNFCCC Convention text (1992) — Annex I and Annex II</h3>
+    <p>The Convention as adopted at New York, 9 May 1992. <b>Read in Session 04, added to Session 02</b>: Annex I (p.32, 36 entries with 11 marked as economies in transition) and Annex II (p.33, 25 entries). The authoritative source for the Annex classification — the lists are annexes to the treaty itself, not a separate publication.</p>
+    <p class="path">https://unfccc.int/files/essential_background/background_publications_htmlpdf/application/pdf/conveng.pdf</p>
+  </div>
+
+  <div class="docblock">
+    <h3>Second Nationally Determined Contribution, Republic of Indonesia (2025)</h3>
+    <p>Submitted to the UNFCCC <b>27 October 2025</b>; 56 pages. Supersedes the Enhanced NDC (2022). <b>Read in Session 07</b>: pp. 1–15 (national context, LTS-LCCR, mitigation, energy and sectoral policy, adaptation) and pp. 18–23 (reference point, scenarios, scope and coverage, planning processes, assumptions, and Table 1 — the full sectoral projection). Names Perpres 110/2025 as the legal framework implementing the NDC.</p>
+    <p class="path">https://unfccc.int/sites/default/files/2025-10/Indonesia_Second%20NDC_2025.10.24.pdf</p>
+  </div>
+
+  <h2>Claims logged — Session 00</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Perpres 110/2025 replaces Perpres 98/2021</td><td class="loc">Menimbang huruf c · p.1</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>NDC definition</td><td class="loc">Pasal 1(1) · p.2</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Alokasi Karbon</i> = national CO₂e allowed per period</td><td class="loc">Pasal 1(2) · p.3</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>NEK</i>, <i>GRK</i>, <i>Emisi GRK</i>, <i>Mitigasi</i>, <i>Aksi Mitigasi</i> definitions</td><td class="loc">Pasal 1(3)–(8) · p.3</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Baseline</i> = BAU projection without policy/tech intervention</td><td class="loc">Pasal 1(9) · p.3</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Batas Atas Emisi GRK</i> = cap, set from Alokasi Karbon</td><td class="loc">Pasal 1(14) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Kuota Emisi GRK</i> = allowance for a regulated installation</td><td class="loc">Pasal 1(15) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Instalasi yang Diatur</i> = installation obliged to join emissions trading</td><td class="loc">Pasal 1(16) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Karbon Cadangan</i> = national reserve buffer for NDC risk</td><td class="loc">Pasal 1(17) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Unit Karbon</i> umbrella <b>includes</b> Kuota Emisi GRK</td><td class="loc">Pasal 1(18) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>SRN PPI = action/resource registry at NDC level</td><td class="loc">Pasal 1(19) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>SRUK = separate carbon-unit registry</td><td class="loc">Pasal 1(20) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Perdagangan Karbon</i> (umbrella) vs <i>Perdagangan Emisi GRK</i> (allowances)</td><td class="loc">Pasal 1(22),(23) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Offset Emisi GRK</i> = compensating emissions made elsewhere</td><td class="loc">Pasal 1(24) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>Results-based payment extends to validated non-carbon benefits</td><td class="loc">Pasal 1(25) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>MRV covers both mitigation and adaptation actions</td><td class="loc">Pasal 1(26) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Otorisasi</i> = Ministerial approval to use units for another country's NDC</td><td class="loc">Pasal 1(27) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>Corresponding Adjustment retained in English in the Indonesian text</td><td class="loc">Pasal 1(28) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Bursa Karbon</i> = system recording trades and ownership status</td><td class="loc">Pasal 1(29) · p.5</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Pungutan Atas Karbon</i> = state levy, central or regional</td><td class="loc">Pasal 1(30) · p.6</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Serapan GRK</i>, <i>Data Aktivitas</i>, <i>Faktor Emisi GRK</i></td><td class="loc">Pasal 1(34)–(36) · p.6</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>SPE-GRK requires MRV and recording in SRUK with registry number</td><td class="loc">Pasal 1(37) · p.6</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>Sektor/Sub Sektor are NDC categories, not administrative bodies</td><td class="loc">Pasal 1(38),(39) · p.7</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>DRAM → SPE-GRK units; DPP → non-SPE-GRK (international standard)</td><td class="loc">Pasal 1(40),(41) · p.7</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><i>Menteri</i> = environment minister; <i>Menteri Terkait</i> = sectoral ministers</td><td class="loc">Pasal 1(42),(43) · p.7</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><b>“Additionality” absent</b> from all 44 Pasal 1 definitions</td><td class="loc">Pasal 1 · pp.2–7</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td><b>“LVV” absent</b> from all 44 Pasal 1 definitions</td><td class="loc">Pasal 1 · pp.2–7</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>Alokasi Karbon set jointly by 7 ministries; basis for the NDC</td><td class="loc">Pasal 4(1) p.8 · Pasal 6 p.9</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>NDC sectors incl. energy; sub-sectors incl. power generation, industry, blue carbon</td><td class="loc">Pasal 9(2),(3) · pp.11–12</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>IPCC guidelines mandated for GHG calculation</td><td class="loc">Pasal 13(5) · p.15</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>Baselines set at national, sector and provincial scope</td><td class="loc">Pasal 15 · p.15</td><td><span class="tag">verified in file</span></td><td class="sess">00</td></tr>
+        <tr><td>Paris Agreement Art. 6.2 / 6.4 / 6.8 structure; ITMO concept</td><td class="loc">Paris Agreement, Art. 6 · <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement/cooperative-implementation" target="_blank" rel="noopener">UNFCCC</a></td><td><span class="tag byref">by reference</span></td><td class="sess">00 → 03</td></tr>
+        <tr><td>Indonesian power-sector ETS uses intensity benchmarking</td><td class="loc"><span class="pending">pending — ministerial regulation</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">00 → 08</td></tr>
+        <tr><td>IDXCarbon launched Sept 2023; operator and OJK oversight</td><td class="loc"><span class="pending">pending — OJK / IDX primary</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">00 → 09</td></tr>
+        <tr><td>LVV accreditation authority (KAN assumed, unconfirmed)</td><td class="loc"><span class="pending">pending — ministerial regulation</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">00 → 09</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 01</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Corrective tax on a negative externality (Pigouvian logic)</td><td class="loc">Pigou (1920), <i>The Economics of Welfare</i></td><td><span class="tag byref">by reference</span></td><td class="sess">01</td></tr>
+        <tr><td>Property rights + bargaining as route to efficient outcome; basis of tradable permits</td><td class="loc">Coase (1960), <i>J. Law &amp; Econ.</i> 3:1–44</td><td><span class="tag byref">by reference</span></td><td class="sess">01</td></tr>
+        <tr><td>Least-cost abatement requires equal <i>marginal</i> cost across sources</td><td class="loc">Baumol &amp; Oates, <i>Theory of Environmental Policy</i></td><td><span class="tag byref">by reference</span></td><td class="sess">01</td></tr>
+        <tr><td>Price vs quantity choice turns on relative slopes under uncertainty</td><td class="loc">Weitzman (1974), <i>Rev. Econ. Stud.</i> 41(4):477–491</td><td><span class="tag byref">by reference</span></td><td class="sess">01</td></tr>
+        <tr><td>First full proposal of transferable pollution rights</td><td class="loc">Dales (1968), <i>Pollution, Property and Prices</i></td><td><span class="tag byref">by reference</span></td><td class="sess">01</td></tr>
+        <tr><td><i>Alokasi Karbon</i> is an <b>absolute</b> CO₂e quantity, and the basis for the NDC</td><td class="loc">Pasal 1(2) p.3 · Pasal 6 p.9</td><td><span class="tag">verified in file</span></td><td class="sess">00, 01</td></tr>
+        <tr><td><i>Karbon Cadangan</i> justified as NDC <b>risk control</b>, not market price stabilisation</td><td class="loc">Pasal 1(17) p.4 · Pasal 3(3) p.8</td><td><span class="tag">verified in file</span></td><td class="sess">01</td></tr>
+        <tr><td>Levy, allowance trading, offset and RBP defined as one instrument family</td><td class="loc">Pasal 1(22)–(25),(30) · pp.5–6</td><td><span class="tag">verified in file</span></td><td class="sess">01</td></tr>
+        <tr><td>MACC ordering of energy measures (Fig. 1.1)</td><td class="loc"><b>schematic — no data claimed</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">01 → 10</td></tr>
+        <tr><td>Absolute vs intensity index paths (Fig. 1.2)</td><td class="loc"><b>schematic — no data claimed</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">01</td></tr>
+        <tr><td>Global carbon-pricing coverage statistics</td><td class="loc"><span class="pending">not quoted — report not opened</span></td><td><span class="tag byref">by reference</span></td><td class="sess">01 → 05</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 02</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>UNFCCC objective: stabilise GHG concentrations preventing dangerous interference</td><td class="loc">UNFCCC (1992), Art. 2</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>CBDR-RC principle; Annex I / non-Annex I split</td><td class="loc">UNFCCC (1992), Art. 3 · Annex I</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>UNFCCC adopted 1992, in force 21 Mar 1994</td><td class="loc">UNFCCC (1992)</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Kyoto flexible mechanisms: JI, CDM, international emissions trading</td><td class="loc">Kyoto Protocol (1997), Arts. 6, 12, 17</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Kyoto adopted 1997, in force 16 Feb 2005; binding targets for Annex I only</td><td class="loc">Kyoto Protocol (1997)</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Paris temperature goal (well below 2°C, pursue 1.5°C)</td><td class="loc">Paris Agreement (2015), Art. 2</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>NDCs universal, five-year cycle, duty of progression</td><td class="loc">Paris Agreement (2015), Art. 4</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Enhanced Transparency Framework; Global Stocktake; facilitative non-punitive compliance</td><td class="loc">Paris Agreement, Arts. 13, 14, 15</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Paris adopted Dec 2015, in force 4 Nov 2016</td><td class="loc">Paris Agreement (2015)</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td><b>Structural argument:</b> universal NDC coverage is what makes corresponding adjustment necessary (Fig. 2.2)</td><td class="loc">derived from Kyoto Art. 12 vs Paris Arts. 4 &amp; 6</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Article 6 rules are <b>CMA</b> decisions, not COP decisions</td><td class="loc">UNFCCC decision series convention</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+        <tr><td>Specific CMA decision numbers for the Article 6 rulebook</td><td class="loc"><span class="pending">deliberately not asserted — Session 03</span></td><td><span class="tag byref">by reference</span></td><td class="sess">02 → 03</td></tr>
+        <tr><td>COP30 (Belém, Nov 2025) outcomes</td><td class="loc"><span class="pending">beyond verifiable range this session</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">02 → 03</td></tr>
+        <tr><td>Indonesia Enhanced NDC: 31.89% unconditional / 43.20% conditional vs BAU by 2030</td><td class="loc"><span class="pending">NDC document not opened</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">02 → 07</td></tr>
+        <tr><td>Indonesia non-Annex I under Kyoto; CDM host country</td><td class="loc">UNFCCC Annex I (by omission)</td><td><span class="tag byref">by reference</span></td><td class="sess">02</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 03</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Article 6 paragraph structure 6.1–6.9; 6.5 treaty-level ban on double use; 6.6 share of proceeds</td><td class="loc">Paris Agreement, Art. 6.1–6.9</td><td><span class="tag byref">by reference</span></td><td class="sess">03</td></tr>
+        <tr><td>6.3: ITMO use is voluntary and requires authorization by participating Parties</td><td class="loc">Paris Agreement, Art. 6.3</td><td><span class="tag byref">by reference</span></td><td class="sess">03</td></tr>
+        <tr><td>6.4 aims incl. overall mitigation in global emissions (OMGE)</td><td class="loc">Paris Agreement, Art. 6.4(a)–(d)</td><td><span class="tag byref">by reference</span></td><td class="sess">03</td></tr>
+        <tr><td>6.4 share of proceeds 5% adaptation / 2% OMGE cancellation</td><td class="loc"><span class="pending">CMA decision text not opened</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">03 → 04</td></tr>
+        <tr><td>CDM→6.4 transition eligibility cut-offs and deadlines</td><td class="loc"><span class="pending">deliberately not paraphrased</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">03 → 04</td></tr>
+        <tr><td>NEK instruments: carbon trading, RBP, carbon levy, other</td><td class="loc">Pasal 55(2) · p.42</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>Minister must count offset reductions toward NDC "sepanjang belum diterbitkan Corresponding Adjustment"</b></td><td class="loc">Pasal 56(1)–(2) · p.42</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Carbon trading proceeds without waiting for NDC target achievement</td><td class="loc">Pasal 58(1) · p.43</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Trading via Bursa Karbon and/or direct trading; roadmap, exchange, revenue rules, transaction admin</td><td class="loc">Pasal 58(2)–(3) · p.43</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Every carbon trade must be recorded in SRUK; may also be in Bursa Karbon</td><td class="loc">Pasal 59(1)–(2) · p.44</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Carbon trading split: dalam negeri / luar negeri; domestic = ETS + offset</td><td class="loc">Pasal 60 · Pasal 61 · p.44</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>Offset-use limit:</b> sectoral minister sets portion of cap compensable with offset</td><td class="loc">Pasal 62(1) huruf d · p.45</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Batas Atas Emisi set based on Alokasi Karbon; ETS run by Menteri Terkait per sector</td><td class="loc">Pasal 62(1) huruf a–e · p.45</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>Exceeding the cap → obliged to pay carbon tax</b> (tax as ETS backstop / de facto price ceiling)</td><td class="loc">Pasal 63(1)–(4) · p.45</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Offset route: DRAM/DPP → validation → implementation → verification → report</td><td class="loc">Pasal 65(2) · p.46</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>SPE-GRK issued by Menteri on Menteri Terkait recommendation; non-SPE-GRK by international standard with Menteri Terkait approval</td><td class="loc">Pasal 65(5)–(6) · p.46</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>SRUK is a decentralised network: transparent, traceable, real-time, permanent, interoperable</td><td class="loc">Pasal 65(8) · p.47</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>Pasal 68(1)a: Otorisasi + CA required</b> for internationally linked ETS, Art. 6.2/6.4 offset trading, and voluntary offset used for other international obligations</td><td class="loc">Pasal 68(1) huruf a · pp.47–48</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>Pasal 68(1)b: no Otorisasi/CA</b> where offset not used for any NDC or international obligation</td><td class="loc">Pasal 68(1) huruf b · p.48</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Otorisasi granted by Menteri on recommendation of Menteri Terkait</td><td class="loc">Pasal 68(2) · p.48</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Domestic carbon trading may be linked to international carbon markets</td><td class="loc">Pasal 69(2) · p.48</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>RBP causes no transfer of carbon ownership</b>; achievements stay in Indonesia's NDC</td><td class="loc">Pasal 70(3)–(4) · p.49</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Carbon levy via taxation, customs/excise and other state levies; finance minister formulates policy</td><td class="loc">Pasal 73(1),(3) · p.50</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Transparency framework = MRV, SRN PPI, SRUK, SPE-GRK, non-SPE-GRK</td><td class="loc">Pasal 75 · p.51</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Mitigation achievement = Baseline − actual emissions</td><td class="loc">Pasal 78 · p.53</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>RESOLVED:</b> LVV accredited by <b>KAN</b> (SRUK scheme) and/or an internationally valid accreditation body (international scheme)</td><td class="loc">Pasal 85(1) huruf c · p.58</td><td><span class="tag">verified in file</span></td><td class="sess">00 → 03 ✓</td></tr>
+        <tr><td>LVV must be a legal entity with sector-competent validators/verifiers; competence standards set by KAN regulation</td><td class="loc">Pasal 85(1),(2) · p.58</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Validation/verification for carbon trading and RBP done by independent LVV</td><td class="loc">Pasal 84(2) · p.57</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>SRN PPI recording used to avoid double counting and trace transfers</td><td class="loc">Pasal 87(3) huruf d–e · p.59</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td><b>SPE-GRK cannot be issued from leftover Kuota Emisi GRK</b></td><td class="loc">Pasal 88(4) · p.60</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>SPE-GRK uses incl. carbon trading, RBP, emission compensation, green bond/sukuk performance evidence</td><td class="loc">Pasal 88(2) · Pasal 89(1) · pp.59–60</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+        <tr><td>Steering committee chaired by Menko Pangan; vice-chairs Menko Perekonomian and Menko Infrastruktur</td><td class="loc">Pasal 96(4) · p.64</td><td><span class="tag">verified in file</span></td><td class="sess">03</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 04 <span style="font-family:'IBM Plex Sans';font-size:14px;font-weight:400;color:var(--ink-2)">(and the Annex I reference added to Session 02)</span></h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Methodology exists to set baseline, prove additionality, monitor, calculate reductions</td><td class="loc">CMA.3 annex ¶32</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Activity must be additional and not lead to an increase in global emissions</td><td class="loc">CMA.3 annex ¶31(a)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Methodologies must be "real, transparent, conservative, credible, <b>below business as usual</b>"</td><td class="loc">CMA.3 annex ¶33</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Three permitted baseline approaches: performance-based, ambitious benchmark, historical adjusted downwards</td><td class="loc">CMA.3 annex ¶36(a)(i)–(iii)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Host Party may set a more ambitious baseline at its discretion</td><td class="loc">CMA.3 annex ¶36</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Standardized baselines at highest possible level of aggregation</td><td class="loc">CMA.3 annex ¶37</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td><b>Additionality definition</b> — counterfactual, exceeds law/regulation, avoids lock-in</td><td class="loc">CMA.3 annex ¶38</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Simplified additionality available to LDCs/SIDS on request</td><td class="loc">CMA.3 annex ¶39</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Crediting periods: 5yr renewable twice or 10yr no renewal; <b>removals 15yr renewable twice</b>; none before 2021</td><td class="loc">CMA.3 annex ¶31(f)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Non-permanence minimised over multiple NDC periods; reversals "addressed in full"; reversals monitored</td><td class="loc">CMA.3 annex ¶31(d)(ii) · ¶50</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Validation and verification by a <b>designated operational entity</b> (CDM term retained)</td><td class="loc">CMA.3 annex ¶46 · ¶51</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Renewal requires DOE reassessment of baseline, additionality and quantification</td><td class="loc">CMA.3 annex ¶57</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>A6.4ERs usable toward NDCs/international mitigation purposes <b>only if authorized</b></td><td class="loc">CMA.3 annex ¶43</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td><b>RESOLVED: 5% of issued A6.4ERs to the Adaptation Fund at issuance</b></td><td class="loc">CMA.3 annex ¶58 · ¶66 · ¶67(a)</td><td><span class="tag">verified in file</span></td><td class="sess">03 → 04 ✓</td></tr>
+        <tr><td><b>RESOLVED: "a minimum of 2 per cent" cancelled for OMGE</b> — a floor, not a fixed rate; cancelled units unusable for any purpose</td><td class="loc">CMA.3 annex ¶59 · ¶69(a)–(b)</td><td><span class="tag">verified in file</span></td><td class="sess">03 → 04 ✓</td></tr>
+        <tr><td><b>Host applies corresponding adjustment on 100% of issued units</b>, including those levied for SoP and cancelled for OMGE — but is paid for ≤93%</td><td class="loc">CMA.3 annex ¶43</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>SoP and OMGE percentage to be reviewed no later than 2026 and every 5 years</td><td class="loc">CMA.3 decision ¶8 · ¶9</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Outcome of that 2026 review</td><td class="loc"><span class="pending">beyond verifiable range</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">04</td></tr>
+        <tr><td><b>RESOLVED: CDM transition deadlines</b> — request 31 Dec 2023; host approval 31 Dec 2025; CDM methodology usable until earlier of crediting-period end or 31 Dec 2025</td><td class="loc">CMA.3 annex ¶73(a),(b),(d)</td><td><span class="tag">verified in file</span></td><td class="sess">03 → 04 ✓</td></tr>
+        <tr><td>Expedited transition for small-scale CDM activities and PoAs</td><td class="loc">CMA.3 annex ¶74</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td><b>RESOLVED: CER use toward NDC</b> — registered on/after 1 Jan 2013; pre-2021 vintage; first NDC only; tCERs/lCERs excluded</td><td class="loc">CMA.3 annex ¶75(a),(b),(c),(f)</td><td><span class="tag">verified in file</span></td><td class="sess">03 → 04 ✓</td></tr>
+        <tr><td>Transitioned CERs: host <b>not</b> required to apply a corresponding adjustment and <b>not</b> subject to share of proceeds</td><td class="loc">CMA.3 annex ¶75(d)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Whether later CMA decisions amended the chapter XI transition deadlines</td><td class="loc"><span class="pending">not checked</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">04</td></tr>
+        <tr><td>Host Party entry conditions incl. <b>designated national authority</b>, public statement on SD and activity types</td><td class="loc">CMA.3 annex ¶26(a)–(e)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>Host Party may pre-specify baseline approaches, additionality requirements and crediting periods</td><td class="loc">CMA.3 annex ¶27(a)–(b)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td>SB to review CDM baseline/monitoring methodologies for application with revisions</td><td class="loc">CMA.3 decision ¶5(b)(i)</td><td><span class="tag">verified in file</span></td><td class="sess">04</td></tr>
+        <tr><td><b>UNFCCC Annex I list — 36 entries, 11 marked as economies in transition</b></td><td class="loc">UNFCCC (1992) Annex I · p.32</td><td><span class="tag">verified in file</span></td><td class="sess">02 ✓</td></tr>
+        <tr><td>Footnote a/ "Countries that are undergoing the process of transition to a market economy"</td><td class="loc">UNFCCC (1992) Annex I · p.32</td><td><span class="tag">verified in file</span></td><td class="sess">02 ✓</td></tr>
+        <tr><td><b>UNFCCC Annex II list — 25 entries = Annex I minus the 11 EITs</b> (arithmetic verified by reading both lists)</td><td class="loc">UNFCCC (1992) Annex II · p.33</td><td><span class="tag">verified in file</span></td><td class="sess">02 ✓</td></tr>
+        <tr><td>Post-1992 amendments to Annex I/II membership</td><td class="loc"><span class="pending">not verified</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">02</td></tr>
+        <tr><td>Kyoto Annex B vs UNFCCC Annex I divergences (Turkey, Belarus)</td><td class="loc"><span class="pending">Kyoto annex not opened</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">02</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 05</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>RESOLVED: 80 carbon pricing instruments in operation</b>, net increase of five over the previous year</td><td class="loc">World Bank S&amp;T 2025 · press release 10 Jun 2025</td><td><span class="tag">verified in file</span></td><td class="sess">01 → 05 ✓</td></tr>
+        <tr><td><b>~28% of global GHG emissions covered by a carbon price</b>; economies representing nearly two-thirds of global economic output</td><td class="loc">World Bank S&amp;T 2025 · press release</td><td><span class="tag">verified in file</span></td><td class="sess">01 → 05 ✓</td></tr>
+        <tr><td>~half of global power and industrial sector emissions covered</td><td class="loc">World Bank S&amp;T 2025 · press release</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>Carbon pricing revenue exceeded USD 100bn in 2024; over half earmarked for environment, infrastructure, development</td><td class="loc">World Bank S&amp;T 2025 · press release</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>"All large middle-income economies have now either implemented or are considering direct carbon pricing"</td><td class="loc">World Bank S&amp;T 2025 · press release</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>Split of the 80 instruments into carbon taxes vs ETSs (commonly cited 43/37)</td><td class="loc"><span class="pending">not in the release read</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">05</td></tr>
+        <tr><td>EU ETS established 2005, first international ETS, phase four 2021–2030</td><td class="loc">European Commission · EU ETS pages</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>~10,000 installations in energy and manufacturing, plus aviation and maritime operators</td><td class="loc">European Commission · Scope of the EU ETS</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>Gases: CO₂ power/heat + energy-intensive manufacturing; N₂O from nitric, adipic, glyoxylic acids; PFCs from aluminium</td><td class="loc">European Commission · Scope of the EU ETS</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>Maritime covered from 2024 — 100% intra-EU voyages, 50% voyages starting/ending outside the EU</td><td class="loc">European Commission · Scope of the EU ETS</td><td><span class="tag">verified in file</span></td><td class="sess">05</td></tr>
+        <tr><td>EU ETS share of EU emissions; linear reduction factor; MSR start date; ETS2 launch; CBAM phase-out schedule</td><td class="loc"><span class="pending">not stated on pages read</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">05</td></tr>
+        <tr><td>Allocation methods and destination of scarcity rent (free / auction / output-based)</td><td class="loc"><b>analytical — derived, not sourced</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">05</td></tr>
+        <tr><td>Offset-use limit as the enforcement of the mitigation hierarchy</td><td class="loc">Pasal 62(1) huruf d · p.45</td><td><span class="tag">verified in file</span></td><td class="sess">03, 05</td></tr>
+        <tr><td>Carbon tax as ETS backstop ⇒ effective price ceiling on allowances</td><td class="loc">Pasal 63(3) · p.45</td><td><span class="tag">verified in file</span></td><td class="sess">03, 05</td></tr>
+        <tr><td>NEK instruments defined as one family, not a sequence</td><td class="loc">Pasal 55(2) · p.42</td><td><span class="tag">verified in file</span></td><td class="sess">03, 05</td></tr>
+        <tr><td>Indonesian carbon tax <b>rate</b></td><td class="loc"><span class="pending">UU HPP not opened</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">05 → 08</td></tr>
+        <tr><td>EU CBAM scope, covered goods and timeline</td><td class="loc"><span class="pending">regulation not opened</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">05</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 06</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>REDD+ projects claimed aggregate <b>10.7×</b> more avoided deforestation than independent estimates justified</td><td class="loc">West et al. (2023), <i>Science</i> 381:873–877</td><td><span class="tag byref">by reference</span></td><td class="sess">06</td></tr>
+        <tr><td>Discrepancy driven by <b>selection bias in control areas and modelling</b>, not forest-cover data choice; 26 sites, 18 with baseline data</td><td class="loc">West et al. (2023) · DOI 10.1126/science.ade3535</td><td><span class="tag byref">by reference</span></td><td class="sess">06</td></tr>
+        <tr><td>Follow-up paper title: "Tropical forest carbon offsets deliver partial gains amid persistent over-crediting"</td><td class="loc"><i>Science</i> DOI 10.1126/science.adw4094 — <span class="pending">HTTP 403, title only</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">06</td></tr>
+        <tr><td>ICVCM is "an independent, non-profit governance body for the VCM"</td><td class="loc">ICVCM · Core Carbon Principles page</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td><b>The ten Core Carbon Principles</b> in three groups (Governance 1–4; Emissions Impact 5–8; Sustainable Development 9–10)</td><td class="loc">ICVCM · Core Carbon Principles page</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td>CCP assessment covers both programmes and categories of credits; label applied to approved categories</td><td class="loc">ICVCM · Core Carbon Principles page</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td>VCMI Claims Code tiers: "Silver, Gold, and Platinum Carbon Integrity Claims recognize increasing levels of climate action"</td><td class="loc">VCMI · Claims Code of Practice page</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td>VCMI foundational criteria: GHG Protocol/national inventory accounting; science-aligned near-term targets; credits from outside the value chain</td><td class="loc">VCMI · Claims Code of Practice page</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td>Credits supplement rather than substitute for internal reductions; targets set before credit use</td><td class="loc">VCMI · Claims Code of Practice page</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td>VCMI vs ICVCM as demand-side vs supply-side governance</td><td class="loc"><b>analytical — not stated on pages read</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">06</td></tr>
+        <tr><td>VCM value-chain incentive geometry (developer pays verifier; standards compete for projects)</td><td class="loc"><b>analytical — derived, not sourced</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">06</td></tr>
+        <tr><td>Two-tier VCM: authorized (CA applied, offsetting claim) vs unauthorized (no CA, contribution claim)</td><td class="loc">CMA.3 annex ¶43 · Perpres Pasal 68(1) pp.47–48</td><td><span class="tag">verified in file</span></td><td class="sess">03, 04, 06</td></tr>
+        <tr><td><b>Indonesia can sell voluntary credits abroad and still count the tonne toward its own NDC</b></td><td class="loc">Pasal 68(1)b p.48 + Pasal 56(2) p.42</td><td><span class="tag">verified in file</span></td><td class="sess">06</td></tr>
+        <tr><td>Major voluntary standards named (Verra, Gold Standard, ACR, CAR, Plan Vivo, ART)</td><td class="loc">named only — no programme document opened</td><td><span class="tag byref">by reference</span></td><td class="sess">06</td></tr>
+        <tr><td>Indonesian VCM issuance actually dominated by forestry</td><td class="loc"><span class="pending">registry data not pulled</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">06 → 10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 07</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>RESOLVED: Enhanced NDC 31.89% unconditional / 43.20% conditional vs BAU 2030</b> — correct, but now <b>superseded</b></td><td class="loc">Second NDC · p.8</td><td><span class="tag">verified in file</span></td><td class="sess">02 → 07 ✓</td></tr>
+        <tr><td>First NDC 29% unconditional / 41% conditional vs 2030 BAU; 2010 pledge 26%</td><td class="loc">Second NDC · p.1</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Second NDC submitted <b>27 October 2025</b>; implementation period <b>2031–2035</b></td><td class="loc">Second NDC · p.19</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>Target type changed: "Level of Emission relative to reference point of year 2019"</b> — no longer BAU-relative</td><td class="loc">Second NDC · p.20 (§4.2)</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>2019 reference level: 1,145,037 Gg CO₂e</b> net, five sectors</td><td class="loc">Second NDC · p.18 · Table 1 p.23</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Gases now CO₂, CH₄, N₂O <b>and HFC</b>; metric GWP-100 <b>IPCC AR5</b>; 2006 IPCC-GL inventory</td><td class="loc">Second NDC · pp.20–21</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Three scenarios CPOS / LCCP_L / LCCP_H with growth assumptions 6.0–8.3%</td><td class="loc">Second NDC · pp.18–19</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>2035 net emission: CPOS 1,787,004 · LCCP_L 1,257,717 · LCCP_H 1,488,866 Gg CO₂e</b></td><td class="loc">Second NDC · Table 1 · p.23</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>vs 2019: <b>+56.1% / +9.8% / +30.0%</b> — all scenarios above the reference year</td><td class="loc">Second NDC · p.21 · recomputed from Table 1</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>National emissions peak in <b>2030</b> with additional measures</td><td class="loc">Second NDC · pp.21–22</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>2060 net emission negative in both LCCP scenarios (−80,889 / −71,154 Gg)</td><td class="loc">Second NDC · Table 1 · p.23</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>Energy 2019→2035 LCCP_L: 655,568 → 1,109,800 (+454,232, +69%)</b></td><td class="loc">Second NDC · Table 1 · p.23</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>FOLU 2019→2035 LCCP_L: +221,384 → −168,412 (swing of 389,796 Gg, source to sink)</b></td><td class="loc">Second NDC · Table 1 · p.23</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Sector waterfall (Fig. 7.2) and the "without FOLU, ~+44%" statement</td><td class="loc"><b>derived from Table 1; reconciled to NDC's own +9.8%</b></td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>LTS-LCCR 2050: peak 2030 at 1,244 MtCO₂e, 540 MtCO₂e by 2050, NZE 2060</td><td class="loc">Second NDC · p.6</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>2019 emissions 1.845 GtCO₂e — LUCF incl. peat fires 50.13%, energy 34.49%</td><td class="loc">Second NDC · p.8</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>First BTR: 2022 emissions 1.383 GtCO₂e — energy 69.01%, LUCF incl. peat fires 22.58%</td><td class="loc">Second NDC · p.8</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>FREL 0.568 GtCO₂e/yr (1990–2012 ref); FRL 0.264 GtCO₂e/yr (2006–2020 ref); FOLU Net Sink 2030</td><td class="loc">Second NDC · p.9</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>PP 40/2025 National Energy Policy: NRE share 19–23% (2030), 36–40% (2040), 70–72% (2060)</b></td><td class="loc">Second NDC · p.10</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>PP 33/2023 Energy Conservation — MEPS, energy management thresholds, labelling</td><td class="loc">Second NDC · p.10</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Perpres 112/2022 renewable acceleration; RUKN 2025; B20→B30 (2020)→B40 (2025); Perpres 79/2023 EV</td><td class="loc">Second NDC · pp.10–11</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>KKP Regulation No. 1/2025 on carbon economic value governance in the marine sector</td><td class="loc">Second NDC · p.13</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>NDC quotes Perpres 110/2025 as the legal framework implementing the NDC</b>; instrument list matches Pasal 55(2)</td><td class="loc">Second NDC · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td><b>UNFCCC focal point: DG Climate Change (Perpres 16/2015) mandate "handed over to Ministry of Environment"</b></td><td class="loc">Second NDC · p.20 (§4.3)</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Coordination set: Ministry of Environment, BAPPENAS, Ministry of Finance, line ministries, Home Affairs</td><td class="loc">Second NDC · p.20</td><td><span class="tag">verified in file</span></td><td class="sess">07</td></tr>
+        <tr><td>Underlying texts of PP 40/2025, PP 33/2023, Perpres 112/2022, PP 26/2025, RUKN 2025, LTS-LCCR</td><td class="loc"><span class="pending">described via the NDC only — not opened</span></td><td><span class="tag byref">by reference</span></td><td class="sess">07 → 08–10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 08</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="background:var(--flag-soft)"><b>CORRECTION:</b> carbon tax rate set <b>≥ carbon market price</b>, Rp30,00/kg CO₂e as a <b>floor</b> — so it is a floor under compliance, <b>not a price ceiling</b>. Supersedes the ceiling inference in Session 05 §6.</td><td class="loc">DJP on UU HPP Pasal 13</td><td><span class="tag">verified in file</span></td><td class="sess">05 ✕ → 08 ✓</td></tr>
+        <tr><td>Carbon tax subject: persons/entities buying carbon-containing goods or conducting carbon-emitting activities</td><td class="loc">DJP on UU HPP Pasal 13</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>DJP's stated sequence: 2021 trading development, 2022–25 tax on coal PLTU, 2025+ expansion</td><td class="loc"><span class="pending">roadmap as described, not evidence of occurrence</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">08</td></tr>
+        <tr><td>Exact statutory wording of UU HPP Pasal 13</td><td class="loc"><span class="pending">statute text not opened</span></td><td><span class="tag byref">by reference</span></td><td class="sess">08</td></tr>
+        <tr><td><b>Promulgated 10 October 2025</b>, signed Prabowo Subianto; <b>LN 2025 No. 172</b>; 9 chapters, 103 articles</td><td class="loc">Perpres 110 · p.68 · Pasal 103 p.67</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Sector coordinators: energy→ESDM, waste→Menteri, IPPU→Perindustrian, agriculture→Pertanian, forestry→Kehutanan</td><td class="loc">Pasal 17(1) · p.17</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>Sub-sector coordinators: pembangkit, migas, transportasi, bangunan → ESDM; industri → Perindustrian; blue carbon → KKP</b></td><td class="loc">Pasal 24(2)a–f · pp.22–23</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Sector baseline set by the Minister; basis and uses enumerated</td><td class="loc">Pasal 17(2)–(4) · pp.17–18</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Baseline may be revised on four enumerated grounds (policy, new activity data, emission factor, methodology)</td><td class="loc">Pasal 18 · pp.18–19</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Governor prepares provincial baseline <b>within 3 months</b> of the national baseline</td><td class="loc">Pasal 19(1) · p.19</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>All mitigation targets — national, Sector, provincial — stated in tonnes CO₂e</b></td><td class="loc">Pasal 22(2) · p.21</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>National mitigation target set by the Minister and "dituangkan dalam dokumen NDC"</b></td><td class="loc">Pasal 23(3) · p.22</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>National target considers national baseline and <b>national Alokasi Karbon</b>; sector target considers <b>Sector Alokasi Karbon</b></td><td class="loc">Pasal 23(1) · Pasal 24(1) · pp.21–22</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Provincial mitigation action plan due <b>within 6 months</b> of the national plan</td><td class="loc">Pasal 30(2) · p.28</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Further mitigation procedures delegated to Peraturan Menteri</td><td class="loc">Pasal 34 · p.31</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>DEFINITIVE: "adisionalitas" absent from the entire operative regulation</b> — Pasal 1, 8–34, 55–74, 83–89 all checked</td><td class="loc">Perpres 110 · pp.1–32, 42–51, 56–60</td><td><span class="tag">verified in file</span></td><td class="sess">00 → 08 ✓</td></tr>
+        <tr><td>Additionality enters via the methodology a project adopts (DRAM/DPP must state national, UNFCCC or international standards)</td><td class="loc">Pasal 65(3)c · p.46</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Steering committee: 17 members incl. <b>Ketua DK OJK</b> and <b>Kepala BMKG</b>; field chairs incl. Menkeu for fiscal/financing</td><td class="loc">Pasal 96(4)d–e · pp.65–66</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Steering committee structure set by Peraturan Menko Bidang Pangan</td><td class="loc">Pasal 96(8) · p.66</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>Transitional: RAN/RAD-GRK, existing Unit Karbon holders, and pre-existing international NEK agreements all adjust within 1 year</b></td><td class="loc">Pasal 97 · 98 · 99 · p.66</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>Perpres 98/2021 revoked</b> ("dicabut dan dinyatakan tidak berlaku")</td><td class="loc">Pasal 101 · p.67</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>But its implementing regulations survive</b> insofar as not conflicting or not yet replaced — as do those of Perpres 61/2011 and 71/2011</td><td class="loc">Pasal 100 · p.67</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td><b>All implementing regulations due within 1 year of promulgation → 10 October 2026</b></td><td class="loc">Pasal 102 · p.67</td><td><span class="tag">verified in file</span></td><td class="sess">08</td></tr>
+        <tr><td>Whether implementing regulations have in fact been issued, and their content</td><td class="loc"><span class="pending">beyond documents held</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">08 → 09</td></tr>
+        <tr><td>Which international agreements Pasal 99 captures, and conformity achieved</td><td class="loc"><span class="pending">not verified</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">08</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 09</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>RESOLVED: carbon trading via the exchange began 26 September 2023</b></td><td class="loc">OJK press release</td><td><span class="tag">verified in file</span></td><td class="sess">00 → 09 ✓</td></tr>
+        <tr><td><b>RESOLVED: POJK No. 14 Tahun 2023</b> governs carbon trading through the carbon exchange; <b>SEOJK 12/SEOJK.04/2023</b> implementing guidance</td><td class="loc">OJK press release</td><td><span class="tag">verified in file</span></td><td class="sess">00 → 09 ✓</td></tr>
+        <tr><td><b>RESOLVED: IDXCarbon operated by the Indonesia Stock Exchange under OJK supervision</b></td><td class="loc">IDXCarbon website</td><td><span class="tag">verified in file</span></td><td class="sess">00 → 09 ✓</td></tr>
+        <tr><td>OJK supervisory scope: exchange operators, market infrastructure, users, settlement, governance, risk management, consumer protection</td><td class="loc">OJK press release</td><td><span class="tag">verified in file</span></td><td class="sess">09</td></tr>
+        <tr><td>Units traded on IDXCarbon: Kuota Emisi GRK (allowance) and SPE-GRK (offset); four mechanisms — auction, regular, negotiated, marketplace</td><td class="loc">IDXCarbon website</td><td><span class="tag">verified in file</span></td><td class="sess">09</td></tr>
+        <tr><td>IDXCarbon volume 1.9m+ tCO₂e; value Rp93.8bn+; 10 SPE-GRK projects; 159 participants</td><td class="loc"><span class="pending">site display, <b>no as-of date given</b></span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">09</td></tr>
+        <tr><td><b>Carbon units traded on the exchange are legally Securities (Efek)</b>; must be registered in the national registry and with the exchange operator</td><td class="loc">reporting on POJK 14/2023 — <span class="pending">regulation text not opened</span></td><td><span class="tag byref">by reference</span></td><td class="sess">09</td></tr>
+        <tr><td>Exchange operator minimum capital Rp100bn, not from loans; licence issued 18 Sept 2023</td><td class="loc"><span class="pending">secondary reporting only</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">09</td></tr>
+        <tr><td>Steering committee chaired by Menko Bidang Pangan; OJK independence preserved (Pasal 96(5)); structure set by Peraturan Menko Pangan</td><td class="loc">Pasal 96(4),(5),(8) · pp.64–66</td><td><span class="tag">verified in file</span></td><td class="sess">08, 09</td></tr>
+        <tr><td>Ministry of Environment: focal point, sets baselines/targets, issues SPE-GRK, grants Otorisasi</td><td class="loc">Ps 17(4), 23(3), 65(5), 68(2)</td><td><span class="tag">verified in file</span></td><td class="sess">09</td></tr>
+        <tr><td>Menteri Terkait: runs the ETS, sets cap and quota, sets the offset limit, recommends issuance and authorisation</td><td class="loc">Ps 62(1), 65(6), 68(2)</td><td><span class="tag">verified in file</span></td><td class="sess">09</td></tr>
+        <tr><td>Carbon levy revenue as PNBP via the environmental fund body or an appointed institution</td><td class="loc">Ps 73(1), 74(1)–(2) · pp.50–51</td><td><span class="tag">verified in file</span></td><td class="sess">09</td></tr>
+        <tr><td>SRN PPI = action ledger (Ps 87); SRUK = unit ledger, decentralised and real-time (Ps 59, 65(8))</td><td class="loc">Ps 59, 65(8), 87 · pp.44, 47, 59</td><td><span class="tag">verified in file</span></td><td class="sess">09</td></tr>
+        <tr><td><b>POJK 14/2023 predates Perpres 110 and references SRN-PPI, while Perpres 110 routes unit recording to SRUK</b> — Pasal 100 conflict question</td><td class="loc"><b>analytical — derived from Ps 59(1), 100, 101</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">09</td></tr>
+        <tr><td>Whether OJK has aligned POJK 14/2023 to the Perpres 110 architecture</td><td class="loc"><span class="pending">not verified</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">09</td></tr>
+        <tr><td>Sovereignty framing: Perpres 110 as strengthening state control over carbon, grounded in Article 33 UUD 1945</td><td class="loc"><span class="pending">Ministry of Forestry communication; not in the Perpres recitals</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">09</td></tr>
+        <tr><td><b>Search for implementing regulations under Perpres 110 returned none</b> — recorded as a negative search result, <b>not</b> evidence of absence</td><td class="loc"><span class="pending">ministry JDIH portals not searched directly</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">08, 09</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Session 10</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>RESOLVED: Indonesia's power ETS caps are intensity benchmarks per MWh, not absolute tonnage</b></td><td class="loc">ESDM on Permen ESDM 16/2022</td><td><span class="tag">verified in file</span></td><td class="sess">01 → 10 ✓</td></tr>
+        <tr><td>Phase I illustrative coal benchmarks: <b>1.297</b> and <b>0.911 tCO₂e/MWh</b> (large plant 29.8% tighter)</td><td class="loc">ESDM media centre item</td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td>PTBAE = technical approval on highest emission level; PTBAE-PU = per-operator quota in tCO₂e</td><td class="loc">ESDM media centre item</td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td>Phase I 2023–2024: coal ≥100 MW on PLN grid, ~99 units, four categories; three further phases to 2030</td><td class="loc">ESDM media centre item</td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td>Full benchmark table, category definitions, later phase scope; regulation date (Dec 2022 vs Jan 2023)</td><td class="loc"><span class="pending">regulation text not opened</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">10</td></tr>
+        <tr><td><b>PLN production 343,891.75 GWh; PLTU (coal) 232,249.94 GWh = 67.5%</b></td><td class="loc">DJK Statistik Ketenagalistrikan 2024</td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td><b>Fossil 88.5% / renewable 11.5%; wind + solar 0.26%</b> — computed from the provincial table, reconciles to stated total</td><td class="loc">DJK Statistik 2024 · computed</td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td>Data year of the DJK production table</td><td class="loc"><span class="pending">page does not label the year</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">10</td></tr>
+        <tr><td>PTBAE-PU worked example (0.911 × output; 3,000→3,600 GWh gives +546,600 tCO₂e allocation)</td><td class="loc"><b>arithmetic on ESDM benchmark; output illustrative</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">10</td></tr>
+        <tr><td>Output-based allocation ⇒ allocation scales with output ⇒ no tonnage guarantee</td><td class="loc"><b>analytical — links Ps 22(2), 1(2) to the benchmark design</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">05, 10</td></tr>
+        <tr><td>2nd FRL 0.264 GtCO₂e/yr vs 1st FREL 0.568 — reference level more than halved</td><td class="loc">Second NDC · p.9</td><td><span class="tag">verified in file</span></td><td class="sess">07, 10</td></tr>
+        <tr><td>FOLU swing 389,796 Gg carries the NDC; energy +69% to 2035</td><td class="loc">Second NDC · Table 1 · p.23</td><td><span class="tag">verified in file</span></td><td class="sess">07, 10</td></tr>
+        <tr><td>2019 50.13% LUCF vs 2022 69.01% energy — fire drives the swing</td><td class="loc">Second NDC · p.8</td><td><span class="tag">verified in file</span></td><td class="sess">07, 10</td></tr>
+        <tr><td><b>PP 40/2025 19–23% is primary energy supply mix, not electricity generation</b> — different denominator from Fig. 10.1</td><td class="loc">Second NDC p.10 vs DJK table</td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td>RUPTL 2025–2034 navigation pointers (Gambar 5.55 p.275; Tabel 3.2/3.3 p.12; Gambar 2.9 p.18; scenarios RE Base and ARED)</td><td class="loc">RUPTL front matter — <b>TOC and figure/table lists only</b></td><td><span class="tag">verified in file</span></td><td class="sess">10</td></tr>
+        <tr><td>Any RUPTL body figure or value</td><td class="loc"><span class="pending"><b>none asserted</b> — body not read</span></td><td><span class="tag byref">by reference</span></td><td class="sess">10</td></tr>
+        <tr><td>Whether forestry dominates Indonesian VCM issuance</td><td class="loc"><span class="pending">registry data still not pulled</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">06, 10</td></tr>
+        <tr><td>PLN Statistik 2025 (110 pp.) — longer generation/emissions time series</td><td class="loc"><span class="pending">not read</span></td><td><span class="tag byref">by reference</span></td><td class="sess">10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Claims logged — Update 12 (JDIH portal check)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>Claim</th><th>Location</th><th>Status</th><th>Session</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="background:var(--accent-soft)"><b>RESOLVED: additionality IS defined in Indonesian law</b> — "prinsip bahwa pengurangan atau penyerapan emisi dari suatu proyek karbon sebagai tambahan dibandingkan kondisi yang akan terjadi tanpa proyek tersebut"</td><td class="loc">Permenhut draft · Pasal 1 angka 29 · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">00 → 12 ✓</td></tr>
+        <tr><td>Additionality is required supporting data for a DRAM application</td><td class="loc">Permenhut draft · Pasal 12(2)b · p.8</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Indonesian definition is narrower than CMA.3 ¶38</b> — counterfactual limb only; no regulatory-surplus or lock-in limbs</td><td class="loc"><b>analytical — comparison of two texts</b></td><td><span class="tag byref">illustrative</span></td><td class="sess">12</td></tr>
+        <tr><td style="background:var(--warm-soft)"><b>SOURCING CAVEAT: the text read is the DRAFT</b> — number, date and gazette number blank; signature block unsigned (Raja Juli Antoni)</td><td class="loc">jdih.kehutanan.go.id · "2026draftpermen06"</td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">12</td></tr>
+        <tr><td>Reported as Permenhut No. 6 Tahun 2026, in force 13 April 2026</td><td class="loc"><span class="pending">secondary commentary only</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">12</td></tr>
+        <tr><td>Implements Perpres 110 <b>Pasal 64, 68(4), 76(4), 86, 94(6)</b></td><td class="loc">Permenhut draft · recitals · p.1</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Nesting</b> defined — alignment across national/provincial/project level to avoid double counting and double claiming</td><td class="loc">Permenhut draft · Pasal 1(27) · p.4</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Program Berbasis Yurisdiksi</b>, <b>Padiatapa (FPIC)</b>, <b>Integrated Area Development</b>, <b>PB-PJL Karbon</b> defined</td><td class="loc">Permenhut draft · Pasal 1(21),(26),(28),(30)</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Panel Metodologi</b> — Minister may establish a methodology panel</td><td class="loc">Permenhut draft · Pasal 58 · p.23</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Offset targets: ≥48.69 million ha forest (reduction); ≥3.5 million ha critical/degraded land (absorption)</b></td><td class="loc">Permenhut draft · Pasal 4(1)b · p.6</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td>Eligible sellers: PBPH holders, social forestry, adat communities, private forest, PB-PJL Karbon — some requiring registered facilitators</td><td class="loc">Permenhut draft · Pasal 6 · pp.6–7</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td>Unit types and ministerial recommendation (SPE-GRK) / approval (non-SPE-GRK); applications via SRUK</td><td class="loc">Permenhut draft · Pasal 10, 11(3) · p.8</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Revokes Permen LHK No. 7 Tahun 2023</b> (Berita Negara 2023 No. 457)</td><td class="loc">Permenhut draft · Pasal 64 · p.25</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td><b>6-month reporting obligation</b> for those mid-validation or holding untransacted Unit Karbon</td><td class="loc">Permenhut draft · Pasal 61 · p.24</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td>Interim roadmap = Kepmen LHK SK.1027/MENLHK/PHL/KUM.1/9/2023; interim DRAM/DPP recording via Ministry system until SRUK operates; jurisdictional trading interim pending rules; roadmap due within 1 year</td><td class="loc">Permenhut draft · Pasal 59, 60, 62, 63 · pp.23–24</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td>Derivative regulations targeted March 2026; four forestry instruments; SRUK testing late March 2026; domestic trading projected early July 2026</td><td class="loc">Kemenko Pangan news release</td><td><span class="tag">verified in file</span></td><td class="sess">12</td></tr>
+        <tr><td>Draft Permen ESDM still in internal synchronisation; covers oil &amp; gas, electricity, minerals &amp; coal, industry, buildings, transport/EV, CCS, waste-to-energy; end-2026 target; SRUK launch 9 July 2026</td><td class="loc"><span class="pending">CNBC Indonesia, 6–7 Jul 2026 — press</span></td><td><span class="tag byref">by reference</span></td><td class="sess">12</td></tr>
+        <tr><td>Carbon price target US$40/t vs current ~US$4–5/t; carbon unit ownership to developers</td><td class="loc"><span class="pending">CNBC Indonesia, 2 Sep 2026 — press</span></td><td><span class="tag flagged">[?] flagged</span></td><td class="sess">12</td></tr>
+        <tr><td><b>Session 09's negative search result superseded</b> — direct ministry portal search found what general search did not</td><td class="loc">method note</td><td><span class="tag">verified in file</span></td><td class="sess">09 → 12</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Open items carried forward</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>To obtain</th><th>Needed for</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>Perpres 110/2025 — pp. 16–37, 54–55, 65–204</td><td class="sess">08</td><td>NDC planning detail, adaptation chapter, and the annexes/elucidation not yet read. Trading, transfer, levy, transparency and institutions now covered (Session 03).</td></tr>
+        <tr><td>Implementing ministerial regulations (Permen) on MRV, methodology, offset-limit setting</td><td class="sess">08</td><td>Where <b>additionality</b> lives — still confirmed absent from the Perpres. LVV accreditation now resolved to KAN (Pasal 85).</td></tr>
+        <tr><td>KAN regulation on validator/verifier competence standards</td><td class="sess">09</td><td>Named as the governing instrument by Pasal 85(2), p.58.</td></tr>
+        <tr><td>Carbon tax rate under UU HPP</td><td class="sess">08</td><td>Pasal 63(3) makes it the ETS backstop, so the rate acts as an effective price ceiling on allowances.</td></tr>
+        <tr><td>Paris Agreement Article 6 text + CMA rulebook decisions</td><td class="sess">03</td><td>Primary basis for 6.2 / 6.4 / 6.8 and corresponding adjustments.</td></tr>
+        <tr><td>PACM (Art. 6.4) methodology standards</td><td class="sess">04</td><td>CDM-to-PACM transition mechanics and methodology approval steps.</td></tr>
+        <tr><td>Indonesia NDC document (latest submitted)</td><td class="sess">07</td><td>Target framing, sectoral split, and how <i>Alokasi Karbon</i> maps onto it.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>

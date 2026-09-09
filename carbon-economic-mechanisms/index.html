@@ -1,0 +1,242 @@
+<title>Carbon Mechanisms Brief</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1000px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:64px 0 34px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2.2rem,5vw,3.4rem); line-height:1.06; letter-spacing:-.022em; margin:16px 0 0; text-wrap:balance; max-width:17ch;}
+.standfirst{margin:20px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.meta{margin-top:28px; display:flex; gap:10px 26px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.meta b{color:var(--ink-2); font-weight:500}
+
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.4rem; margin:52px 0 4px; letter-spacing:-.012em;}
+.blockdesc{color:var(--ink-2); font-size:15px; margin:0 0 18px; max-width:66ch}
+
+.sessions{display:flex; flex-direction:column; gap:10px}
+a.s{
+  display:grid; grid-template-columns:52px 1fr; gap:18px; align-items:baseline;
+  background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent);
+  border-radius:3px; padding:18px 22px; text-decoration:none; color:inherit; box-shadow:var(--shadow);
+  transition:border-left-color .12s ease, transform .12s ease;
+}
+a.s:hover,a.s:focus-visible{border-left-color:var(--flag); transform:translateX(2px)}
+a.s .num{font-family:"IBM Plex Mono",monospace; font-size:13px; color:var(--accent); font-weight:500}
+a.s h3{font-family:"IBM Plex Serif",serif; font-size:1.09rem; margin:0 0 5px; font-weight:600}
+a.s p{margin:0; font-size:14.5px; color:var(--ink-2); max-width:64ch}
+a.s .tags{margin-top:9px; display:flex; gap:7px; flex-wrap:wrap}
+a.s .tag{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:2px 6px; border-radius:2px; background:var(--accent-soft); color:var(--accent-ink)}
+a.s .tag.f{background:var(--flag-soft); color:var(--flag)}
+a.s .tag.l{background:var(--law-soft); color:var(--law)}
+a.s.ledger{border-left-color:var(--law)}
+a.s.ledger .num{color:var(--law)}
+
+.callout{background:var(--flag-soft); border:1px solid var(--flag); border-radius:3px; padding:20px 24px; margin-top:24px}
+.callout h3{font-family:"IBM Plex Serif",serif; font-size:1.05rem; margin:0 0 8px; font-weight:600}
+.callout p{margin:0 0 9px; font-size:14.5px; color:var(--ink-2); max-width:66ch} .callout p:last-child{margin-bottom:0}
+
+.conv{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; margin-top:20px; box-shadow:var(--shadow)}
+.conv h3{font-family:"IBM Plex Serif",serif; font-size:1.05rem; margin:0 0 10px; font-weight:600}
+.conv dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:9px 16px; align-items:baseline}
+.conv dt{font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); white-space:nowrap}
+.conv dd{margin:0; font-size:14.5px; color:var(--ink-2)}
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace}
+
+footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--rule); font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.6}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Personal literature brief · complete</div>
+  <h1>Carbon Economic Mechanisms</h1>
+  <p class="standfirst">Eleven sessions, built from primary sources, on how carbon is priced and traded globally and in Indonesia — anchored in <b>energy</b> (power, industry, efficiency) with <b>forestry</b> as contrast, and read through three lenses: government, project developer, and project owner.</p>
+  <div class="meta">
+    <span><b>Sessions</b> · 11, plus 1 update</span>
+    <span><b>Primary documents read</b> · 9</span>
+    <span><b>Corrections issued</b> · 1</span>
+    <span><b>Open questions</b> · tracked in Session 11, updated in 12</span>
+  </div>
+</header>
+
+<h2>00 · Orientation</h2>
+<p class="blockdesc">The vocabulary, given twice — as the global concept and as the legal definition Indonesian regulation actually uses.</p>
+<div class="sessions">
+  <a class="s" href="00_Orientation/00_Vocabulary_Glossary.html">
+    <span class="num">00</span>
+    <span><h3>The Vocabulary Kit</h3>
+    <p>Twenty-eight terms, each in both vocabularies. Allowance vs credit, ITMO explained word by word, DRAM vs DPP as a market fork, and two terms the Indonesian regulation never defines.</p>
+    <span class="tags"><span class="tag">Perpres 110 Pasal 1</span><span class="tag">glossary</span></span></span>
+  </a>
+</div>
+
+<h2>01 · Global foundations</h2>
+<p class="blockdesc">The economics beneath every instrument, the treaty scaffolding, and the market architecture built on top.</p>
+<div class="sessions">
+  <a class="s" href="01_Global_Foundations/01_Why_Economic_Instruments.html">
+    <span class="num">01</span>
+    <span><h3>Why Put a Price on Carbon</h3>
+    <p>Externalities, the abatement cost curve, price vs quantity instruments, and the absolute-vs-intensity fork. Why a carbon market reduces the <i>cost</i> of reduction, not emissions.</p>
+    <span class="tags"><span class="tag l">Pigou · Coase · Weitzman</span></span></span>
+  </a>
+  <a class="s" href="01_Global_Foundations/02_International_Climate_Governance_Primer.html">
+    <span class="num">02</span>
+    <span><h3>The Treaty Scaffolding</h3>
+    <p>UNFCCC → Kyoto → Paris, and why universal NDC coverage is what made corresponding adjustments necessary. Includes the full Annex I / non-Annex I lists from the Convention text.</p>
+    <span class="tags"><span class="tag">UNFCCC Annexes I &amp; II</span><span class="tag">reference lists</span></span></span>
+  </a>
+  <a class="s" href="01_Global_Foundations/03_Article6_Full.html">
+    <span class="num">03</span>
+    <span><h3>Article 6, End to End</h3>
+    <p>All nine paragraphs, 6.2 vs 6.4 side by side, corresponding adjustments worked through — and Pasal 68, where Indonesia sorts every cross-border trade by one question.</p>
+    <span class="tags"><span class="tag">Perpres 110 pp.42–68</span><span class="tag f">2 flags resolved</span></span></span>
+  </a>
+  <a class="s" href="01_Global_Foundations/04_Methodology_CDM_to_PACM.html">
+    <span class="num">04</span>
+    <span><h3>How a Tonne Gets Made</h3>
+    <p>The Article 6.4 rulebook read directly: baselines, the additionality definition, the activity cycle, and the levy waterfall — the host adjusts 100% but is paid for 93%.</p>
+    <span class="tags"><span class="tag">Decision -/CMA.3</span><span class="tag f">2 flags resolved</span></span></span>
+  </a>
+  <a class="s" href="01_Global_Foundations/05_Compliance_Beyond_ETS.html">
+    <span class="num">05</span>
+    <span><h3>Compliance Beyond the ETS</h3>
+    <p>Seven instrument families, allowance allocation and who captures the scarcity rent, and the global coverage picture. <b>Carries a correction</b> — see Session 08.</p>
+    <span class="tags"><span class="tag">World Bank · EU ETS</span><span class="tag f">corrected</span></span></span>
+  </a>
+  <a class="s" href="01_Global_Foundations/06_VCM.html">
+    <span class="num">06</span>
+    <span><h3>The Voluntary Market</h3>
+    <p>Its incentive geometry, the 2023 over-crediting evidence, the ICVCM and VCMI response — and how Article 6 split the market into two priced tiers.</p>
+    <span class="tags"><span class="tag">ICVCM · VCMI</span><span class="tag l">West et al. 2023</span></span></span>
+  </a>
+</div>
+
+<h2>02 · Indonesia</h2>
+<p class="blockdesc">The national architecture, read from the submitted NDC and the regulation itself rather than from summaries.</p>
+<div class="sessions">
+  <a class="s" href="02_Indonesia_NEK/07_Indonesia_Climate_Policy_Stack_Primer.html">
+    <span class="num">07</span>
+    <span><h3>Indonesia's Climate Stack</h3>
+    <p>The Second NDC read directly — the shift from BAU-relative to reference-year targets, and the sectoral table showing energy up 69% while FOLU carries the whole number.</p>
+    <span class="tags"><span class="tag">Second NDC 2025</span><span class="tag f">flag resolved</span></span></span>
+  </a>
+  <a class="s" href="02_Indonesia_NEK/08_Perpres110_Deep_Read.html">
+    <span class="num">08</span>
+    <span><h3>Reading Perpres 110</h3>
+    <p>The full regulation: the number cascade, sectoral coordinators, transitional provisions, the 10 October 2026 deadline — and a correction to what I told you in Session 05.</p>
+    <span class="tags"><span class="tag">Perpres 110 · full read</span><span class="tag f">correction</span></span></span>
+  </a>
+  <a class="s" href="02_Indonesia_NEK/09_Institutions_Focal_Points.html">
+    <span class="num">09</span>
+    <span><h3>Who Holds the Levers</h3>
+    <p>The institutional map — who sets the cap, grants export authorisation, accredits auditors, runs the exchange, collects the money. Carbon units are legally securities.</p>
+    <span class="tags"><span class="tag">POJK 14/2023 · OJK</span><span class="tag f">3 flags resolved</span></span></span>
+  </a>
+</div>
+
+<h2>03 · Sector application</h2>
+<p class="blockdesc">Your two sectors, tested against the mechanisms — using your own reference documents for the energy baseline.</p>
+<div class="sessions">
+  <a class="s" href="03_Sector_Application/10_Energy_vs_Forestry.html">
+    <span class="num">10</span>
+    <span><h3>Energy and Forests</h3>
+    <p>The power ETS is intensity-benchmarked, so the cap grows with output. Coal is 67.5% of PLN production; wind and solar are 0.26%. Plus a map of your 2,506-page RUPTL.</p>
+    <span class="tags"><span class="tag">Permen ESDM 16/2022</span><span class="tag">DJK · RUPTL</span><span class="tag f">flag resolved</span></span></span>
+  </a>
+</div>
+
+<h2>04 · Synthesis</h2>
+<p class="blockdesc">Everything, applied to one project — and an honest account of what remains unknown.</p>
+<div class="sessions">
+  <a class="s" href="04_Synthesis/11_Three_Lens_Case_Study.html">
+    <span class="num">11</span>
+    <span><h3>One Tonne, End to End</h3>
+    <p>A textile plant's solar-and-efficiency project traced through nine gates, four possible legal destinies for the same tonne, the three lenses in full, ten things that are true, and eleven open questions.</p>
+    <span class="tags"><span class="tag">capstone</span><span class="tag l">three lenses</span></span></span>
+  </a>
+</div>
+
+<h2>05 · Updates</h2>
+<p class="blockdesc">Added after the curriculum closed, as the regulatory picture moves.</p>
+<div class="sessions">
+  <a class="s" href="05_Updates/12_Implementing_Regulations_Watch.html">
+    <span class="num">12</span>
+    <span><h3>The Implementing Layer</h3>
+    <p>A direct check of the ministry JDIH portals. The forestry implementing regulation has landed and <b>defines additionality</b> — closing the brief's longest-standing open question. The energy rule is still a draft.</p>
+    <span class="tags"><span class="tag">Permenhut · forestry</span><span class="tag f">additionality closed</span><span class="tag l">draft, not gazetted</span></span></span>
+  </a>
+</div>
+
+<h2>Sources</h2>
+<p class="blockdesc">Every claim across all eleven sessions, with its document, page or paragraph, and verification status.</p>
+<div class="sessions">
+  <a class="s ledger" href="_Sources/source_ledger.html">
+    <span class="num">§</span>
+    <span><h3>Source Ledger</h3>
+    <p>The running record. Distinguishes what was <b>read directly</b> from what is cited <b>by reference</b>, from what is <b>flagged uncertain</b> — including the one correction issued against an earlier session.</p>
+    <span class="tags"><span class="tag">local file</span><span class="tag l">all sessions</span></span></span>
+  </a>
+</div>
+
+<div class="callout">
+  <h3>One correction stands in this set</h3>
+  <p>In <b>Session 05</b> I said Indonesia's carbon tax acts as a price ceiling on its allowance market. That was wrong — I reasoned from a generic hybrid-instrument model without reading UU HPP. The statute pegs the rate <b>at or above</b> the carbon market price, making it a floor under compliance rather than a ceiling on price, and Indonesia's design stronger than I described.</p>
+  <p>Session 05 now carries a correction banner and the struck text; <b>Session 08</b> sets out the full correction and its sourcing. The lesson generalises: reasoning correctly from a generic model is exactly how confident, wrong advice gets produced.</p>
+</div>
+
+<div class="conv">
+  <h3>How to read these</h3>
+  <dl>
+    <dt>Dotted underline</dt><dd>Hover for a definition — every abbreviation, mechanism and organisation carries one.</dd>
+    <dt>Footnote marker</dt><dd>Hover to see the source; click to jump to the full citation.</dd>
+    <dt><span class="q">[?]</span> in pink</dt><dd>A claim I decline to assert from the sources I have. Treat as unverified and check before using.</dd>
+    <dt>Collapsed blocks</dt><dd>Depth kept out of the main flow — open them when you want the mechanism rather than the summary.</dd>
+    <dt>Article citations</dt><dd>Indonesian regulation cited as <i>Pasal</i> + page as printed; treaty rulebooks by paragraph; treaties by article.</dd>
+  </dl>
+</div>
+
+<footer>
+  Built session by session from primary sources · Perpres 110/2025 · Indonesia's Second NDC (2025) · Decision -/CMA.3 · UNFCCC Convention Annexes · POJK 14/2023 · Permen ESDM 16/2022 · DJK Statistik Ketenagalistrikan 2024 · PLN RUPTL 2025–2034<br>
+  Local files under <span style="color:var(--ink-2)">Research - Carbon Economic Mechanism/</span> · each session also published as an artifact, linked above.
+</footer>
+
+</div>

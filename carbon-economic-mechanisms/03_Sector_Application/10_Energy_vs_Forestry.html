@@ -1,0 +1,456 @@
+<title>Energy and Forests</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --coal:#4a4a52; --coal-soft:#dedee3;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --coal:#9a9aa4; --coal-soft:#2a2a30;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --coal:#9a9aa4; --coal-soft:#2a2a30;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:16ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+.keyline.warn{border-left-color:var(--flag); background:var(--flag-soft)}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:740px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:1000px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:680px; font-size:14.5px}
+th,td{text-align:left; padding:12px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.num,th.num{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap; font-size:13.5px}
+tr.total td{background:var(--surface-2); font-weight:600}
+tr.hi td{background:var(--accent-soft)}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 10 · Sector Application <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>Energy and Forests</h1>
+  <p class="standfirst">Your two sectors, tested against the mechanisms. I used <b>your own reference documents</b> for the energy baseline, and the Session 01 flag on intensity benchmarking finally closes — with the actual numbers. What emerges is a system where the energy sector's cap grows with its output, and the forest sector carries the national target.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>Flag closed</b> · intensity benchmarking, with values</span>
+    <span><b>From your files</b> · DJK Statistik 2024 · RUPTL 2025–2034</span>
+    <span><b>Next</b> · 11 · Three-lens synthesis</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#where"><span class="n">1</span>Where energy actually is</a>
+    <a href="#ets"><span class="n">!</span>Flag closed — the benchmarks</a>
+    <a href="#oba"><span class="n">2</span>Why the cap grows</a>
+    <a href="#efficiency"><span class="n">3</span>The efficiency squeeze</a>
+    <a href="#forestry"><span class="n">4</span>Forestry — the contrast</a>
+    <a href="#why"><span class="n">5</span>Why different mechanisms</a>
+    <a href="#ruptl"><span class="n">6</span>Navigating your RUPTL</a>
+    <a href="#lenses"><span class="n">7</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="where">
+    <div class="sec-head"><span class="n">1</span><h2>Where the energy sector actually is</h2></div>
+    <p class="sec-intro">Before mechanisms, the physical starting point — read from the DJK electricity statistics sitting in your reference folder.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 300" role="img" aria-label="PLN electricity production by plant type. Coal-fired steam plants are 67.5 percent, gas combined cycle 13.9 percent, and all renewables together 11.5 percent, of which wind and solar are 0.26 percent.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">PLN ELECTRICITY PRODUCTION — 343,892 GWh · DJK STATISTIK KETENAGALISTRIKAN 2024</text>
+
+        <!-- stacked bar -->
+        <rect x="0" y="36" width="594" height="46" fill="var(--coal-soft)" stroke="var(--coal)" stroke-width="1.4"/>
+        <rect x="594" y="36" width="122" height="46" fill="var(--warm-soft)" stroke="var(--warm)"/>
+        <rect x="716" y="36" width="63" height="46" fill="var(--surface-2)" stroke="var(--ink-3)"/>
+        <rect x="779" y="36" width="101" height="46" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+
+        <text x="12" y="64" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">PLTU — coal steam · 67.5%</text>
+        <text x="604" y="58" font-family="IBM Plex Sans" font-size="11.5" font-weight="600" fill="var(--ink)">PLTGU</text>
+        <text x="604" y="73" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">13.9%</text>
+        <text x="722" y="58" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">other</text>
+        <text x="722" y="73" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">fossil 7.1%</text>
+        <text x="789" y="58" font-family="IBM Plex Sans" font-size="11.5" font-weight="600" fill="var(--accent-ink)">RENEWABLE</text>
+        <text x="789" y="73" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">11.5%</text>
+
+        <text x="0" y="106" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--ink-3)" letter-spacing="1.2">FOSSIL 88.5%  ·  RENEWABLE 11.5%</text>
+
+        <!-- renewable breakdown -->
+        <text x="0" y="140" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent)" letter-spacing="1.2">INSIDE THE RENEWABLE 11.5% —</text>
+        <g font-family="IBM Plex Sans, sans-serif" font-size="12">
+          <rect x="0" y="152" width="176" height="26" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="10" y="169" fill="var(--ink)">Geothermal 4.87%</text>
+          <rect x="184" y="152" width="172" height="26" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="194" y="169" fill="var(--ink)">Hydro 4.74%</text>
+          <rect x="364" y="152" width="150" height="26" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="374" y="169" fill="var(--ink)">Mini/micro hydro 1.52%</text>
+          <rect x="522" y="152" width="120" height="26" fill="var(--surface-2)" stroke="var(--rule)"/>
+          <text x="532" y="169" fill="var(--ink-2)">Bio/waste 0.13%</text>
+          <rect x="650" y="152" width="230" height="26" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.6"/>
+          <text x="660" y="169" font-weight="600" fill="var(--ink)">Wind + solar — 0.26%</text>
+        </g>
+
+        <rect x="0" y="200" width="880" height="86" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="14" y="224" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">Wind and solar together are one quarter of one percent of PLN production.</text>
+        <text x="14" y="246" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">Indonesia's renewable share is real but it is overwhelmingly <tspan font-weight="600" fill="var(--ink)">geothermal and hydro</tspan> — dispatchable, capital-heavy, long-lead-time assets.</text>
+        <text x="14" y="266" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">That is a different transition problem from one dominated by variable renewables, and it shapes what abatement is available to credit.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 10.1 — Computed from the provincial production table, DJK <i>Statistik Ketenagalistrikan 2024</i>. Component figures sum to 343,891.74 GWh against the table's stated 343,891.75 — reconciled.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — DJK, Statistik Ketenagalistrikan 2024, &lsquo;Produksi Tenaga Listrik PT PLN&rsquo;. Read from the user's reference folder this session; shares computed from the provincial table. The page does not label the reference year.">1</a></sup> Includes own production, rental and IPP purchases. <span class="q">[?]</span> The page read does not label the data year; the publication is the 2024 edition.</p>
+    </div>
+  </section>
+
+  <!-- ETS FLAG -->
+  <section id="ets">
+    <div class="sec-head"><span class="n">!</span><h2>Flag closed — Indonesia's power ETS is intensity-benchmarked</h2></div>
+    <p class="sec-intro">Session 01 said this <span class="q">[?]</span> and refused to assert it. Sessions 05 and 08 kept it open. ESDM's own account settles it, with numbers.</p>
+
+    <div class="card">
+      <h3>Permen ESDM No. 16 Tahun 2022 — the power sub-sector NEK rules</h3>
+      <p><b>PTBAE</b> — <i>Persetujuan Teknis Batas Atas Emisi</i> — is the technical approval setting the highest permitted GHG emission level for power plants in a period. <b>PTBAE-PU</b> is the emission quota allocated to an individual business actor, expressed in tonnes CO₂e.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — Ministry of Energy and Mineral Resources (ESDM) media centre item on Permen ESDM No. 16 Tahun 2022. Fetched and read this session.">2</a></sup></p>
+      <p>Crucially, ESDM states the caps are set as <b>intensity benchmarks per MWh, not absolute tonnage</b>. Illustrative Phase I coal values it gives:</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>Phase I coal category</th><th class="num">Benchmark</th></tr></thead>
+          <tbody>
+            <tr><td class="pair">Smaller facilities</td><td class="num"><b>1.297</b> tCO₂e/MWh</td></tr>
+            <tr><td class="pair">Larger non-mine-mouth plants above 400 MW</td><td class="num"><b>0.911</b> tCO₂e/MWh</td></tr>
+            <tr class="total"><td class="pair">Spread</td><td class="num">the large-plant benchmark is <b>29.8% tighter</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:14px"><b>Coverage:</b> Phase I ran <b>2023–2024</b>, applying to coal plants <b>≥100 MW connected to the PLN grid — roughly 99 units</b>, in four categories differentiated by size and location. Three further phases extend the scheme <b>through 2030</b>. <span class="q">[?]</span> <span style="color:var(--ink-2)">The full benchmark table, the category definitions and the later phases' scope are in the regulation itself, which I have not opened — these are ESDM's illustrative figures. The regulation is also dated inconsistently across sources (enacted late December 2022; ESDM announced it 24 January 2023), so cite the regulation, not a date, until you have the text.</span></p>
+    </div>
+
+    <div class="keyline" style="margin-top:16px">
+      <p class="lead">Session 01 predicted a translation problem. It exists, and it is now specified: intensity at the installation, absolute tonnage at the nation.</p>
+      <p>Perpres 110 Pasal 22(2) requires every mitigation target — national, sector, provincial — to be stated <b>in tonnes CO₂e</b>, and <i>Alokasi Karbon</i> is defined as an absolute CO₂e quantity. But the instrument that actually binds a power plant allocates by <b>tCO₂e per MWh</b>. Those two are only reconcilable through an assumption about how much electricity gets generated.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="oba">
+    <div class="sec-head"><span class="n">2</span><h2>Why the cap grows when the plant does</h2></div>
+    <p class="sec-intro">This is Session 05's output-based allocation, in Indonesian practice. The arithmetic makes it concrete.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 300" role="img" aria-label="Worked example: a coal plant on the 0.911 benchmark generating 3000 GWh receives an allocation of 2.73 million tonnes; if output rises to 3600 GWh the allocation rises to 3.28 million tonnes. The allocation grows with output.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">WORKED EXAMPLE · BENCHMARK 0.911 tCO₂e/MWh · ILLUSTRATIVE OUTPUT</text>
+
+        <rect x="0" y="34" width="420" height="112" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1.4"/>
+        <text x="16" y="58" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">YEAR 1 — output 3,000 GWh</text>
+        <text x="16" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink-2)">0.911 × 3,000,000 MWh</text>
+        <text x="16" y="112" font-family="IBM Plex Mono, monospace" font-size="19" font-weight="500" fill="var(--ink)">= 2,733,000 tCO₂e</text>
+        <text x="16" y="133" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">the plant's PTBAE-PU allocation</text>
+
+        <rect x="460" y="34" width="420" height="112" rx="2" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.4"/>
+        <text x="476" y="58" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">YEAR 2 — output grows to 3,600 GWh</text>
+        <text x="476" y="84" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--ink-2)">0.911 × 3,600,000 MWh</text>
+        <text x="476" y="112" font-family="IBM Plex Mono, monospace" font-size="19" font-weight="500" fill="var(--ink)">= 3,279,600 tCO₂e</text>
+        <text x="476" y="133" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">same benchmark, <tspan font-weight="600" fill="var(--ink)">bigger allocation</tspan></text>
+
+        <path d="M424,90 L456,90" stroke="var(--ink-3)" stroke-width="1.4" marker-end="url(#m10)"/>
+        <defs><marker id="m10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--ink-3)"/></marker></defs>
+
+        <rect x="0" y="164" width="880" height="52" rx="2" fill="var(--surface-2)" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="14" y="186" font-family="IBM Plex Serif, serif" font-size="14.5" font-weight="600" fill="var(--ink)">The plant emitted 546,600 tCO₂e more — and remained fully compliant, having improved nothing.</text>
+        <text x="14" y="206" font-family="IBM Plex Sans" font-size="12.5" fill="var(--ink-2)">Its intensity was unchanged. Under an intensity benchmark, that is compliance. Under the absolute Alokasi Karbon above it, that is 546,600 tonnes off the national budget.</text>
+
+        <text x="0" y="246" font-family="IBM Plex Sans" font-size="13" fill="var(--ink-2)">This is <tspan font-weight="600" fill="var(--ink)">output-based allocation</tspan> — Session 05, Fig. 5.2. It preserves the marginal signal (beat the benchmark and you have quota to sell; miss it and you must buy),</text>
+        <text x="0" y="264" font-family="IBM Plex Sans" font-size="13" fill="var(--ink-2)">but it functions as a <tspan font-weight="600" fill="var(--ink)">production subsidy</tspan> and delivers no tonnage guarantee.</text>
+        <text x="0" y="288" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">Which is exactly what Session 07's NDC table shows: energy emissions planned to rise 69% to 2035, in the ambitious scenario.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 10.2 — Arithmetic computed this session using ESDM's stated 0.911 tCO₂e/MWh benchmark. <b>Output figures are illustrative</b>, chosen to show the mechanism; they are not a real plant.</p>
+    </div>
+
+    <details>
+      <summary>Why a government would choose this anyway — and it is not simply weakness</summary>
+      <p>Session 01 set out the case: an intensity target is politically survivable in a growing economy because it does not cap growth. Fig. 10.1 sharpens why that matters here. A system that is <b>67.5% coal</b> and where wind and solar are <b>0.26%</b> cannot absorb an absolute cap without either curtailing electricity supply or importing abatement it cannot yet build.</p>
+      <p>Benchmarking also does real work that a flat cap would not: the 29.8% spread between the two Phase I benchmarks means <b>efficient large plants receive surplus quota to sell and inefficient plants must buy</b>. Within the coal fleet, that is a genuine merit-order pressure. What it cannot do is reduce the fleet.</p>
+      <p>The honest formulation: <b>Indonesia has built an instrument that improves the efficiency of a growing coal fleet, not one that shrinks it.</b> Whether that is the right first step or an insufficient one is a judgement — but it should be made knowing which of the two the instrument is.</p>
+    </details>
+  </section>
+
+  <!-- 3 -->
+  <section id="efficiency">
+    <div class="sec-head"><span class="n">3</span><h2>Industrial energy efficiency — the squeeze</h2></div>
+    <p class="sec-intro">Your third energy sub-sector, and the one where the mechanisms interact most awkwardly.</p>
+
+    <div class="card">
+      <h3>Three constraints closing in on the same projects</h3>
+      <p><b>1 — The regulatory-surplus test.</b> Decision -/CMA.3 ¶38 requires creditable mitigation to <b>exceed what law or regulation already requires</b>. <b>PP No. 33/2023</b> mandates energy management above a threshold of energy use, minimum energy performance standards and efficiency labelling across industry, buildings and transport.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Second NDC of Indonesia (2025), p.10, describing PP No. 33 Tahun 2023 on Energy Conservation. Read in Session 07.">3</a></sup> Every tightening of MEPS moves efficiency measures from <i>creditable</i> to <i>merely compliant</i>.</p>
+      <p><b>2 — Negative-cost measures need more than a price.</b> Session 01's Fig. 1.1 showed motor, pump and building measures sitting <b>below zero cost</b> and still undone — because the barriers are split incentives, capital rationing and information, not price. A carbon price does not unlock them; obligation or finance does.</p>
+      <p><b>3 — Industry sits with a different ministry.</b> Under Pasal 24(2)(b) the industry sub-sector is coordinated by <b>Menteri Perindustrian</b>, not ESDM. So the offset limit that would create compliance demand for industrial efficiency credits is set by a ministry separate from the one running the power scheme.</p>
+    </div>
+
+    <div class="keyline warn" style="margin-top:16px">
+      <p class="lead">The cheapest abatement in your sector is the hardest to monetise through carbon markets.</p>
+      <p>Industrial energy efficiency is where the negative-cost tonnes are — and it is simultaneously the most exposed to the additionality squeeze, the least responsive to a price signal, and administratively split from the power scheme. <b>Expect the compliance market to deliver less efficiency abatement than the MACC suggests is available</b>, and treat efficiency policy as a regulatory and finance problem with a carbon-market component, rather than the reverse.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="forestry">
+    <div class="sec-head"><span class="n">4</span><h2>Forestry — the contrast, and the load-bearing sector</h2></div>
+    <p class="sec-intro">A lighter pass, as you asked. But the numbers make forestry impossible to treat as a footnote.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Element</th><th>What it is</th><th class="num">Value</th></tr></thead>
+        <tbody>
+          <tr class="hi"><td class="pair">FOLU in the NDC</td><td>Swing from source to sink, 2019→2035 under LCCP_L</td><td class="num">+221,384 → <b>−168,412</b><br><span style="font-size:12px;color:var(--ink-2)">a 389,796 Gg swing</span></td></tr>
+          <tr><td class="pair">FOLU Net Sink 2030</td><td>The programme delivering it — reducing deforestation and degradation, increasing sequestration, cutting fire and peat decomposition emissions, law enforcement, economic incentives</td><td class="num">—</td></tr>
+          <tr><td class="pair">1st FREL</td><td>Submitted Dec 2015; reference period 1990–2012; benchmark for 2013–2020</td><td class="num">0.568 GtCO₂e/yr</td></tr>
+          <tr><td class="pair">2nd FRL</td><td>Submitted Jan 2022; reference period 2006–2020; benchmark for 2021–2030; broader carbon pools incl. peat and mangrove</td><td class="num">0.264 GtCO₂e/yr</td></tr>
+          <tr><td class="pair">Restoration targets</td><td>Peatland restoration and rehabilitation of degraded land by 2030</td><td class="num">~2m ha peat<br>8.3m ha degraded</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figcap" style="font-family:'IBM Plex Sans';font-size:13px;color:var(--ink-3);margin-top:10px">All from the Second NDC, pp. 8–10 and Table 1 p.23.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Second NDC of Indonesia (2025), pp. 8–10 (FOLU Net Sink measures, FREL/FRL values and reference periods, restoration targets) and Table 1 p.23 (sectoral projections). Read in Session 07.">3</a></sup></p>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Note what the 2nd FRL did: it more than halved the reference level, from 0.568 to 0.264 GtCO₂e per year.</p>
+      <p>A forest reference level is a baseline — Session 00's most consequential number, at national scale. Halving it means the same physical performance now generates <b>far fewer</b> creditable reductions against it. Indonesia tightened its own forest baseline, which is the opposite of the incentive Session 06 found operating in project-level REDD+.</p>
+    </div>
+
+    <details>
+      <summary>Why forestry sits in VCM and results-based payment rather than the ETS</summary>
+      <p>Session 01 gave the structural reasons and every one of them now has an Indonesian citation. Forestry produces <b>removals</b> with <b>reversal risk</b> — and Indonesia's own emissions history proves the point: the NDC reports 2019 emissions dominated by LUCF including peat fires at 50.13%, against 2022 emissions dominated by energy at 69.01%. <b>The difference is largely fire.</b> A cap-and-trade obligation cannot sensibly be placed on an asset whose emissions swing that hard on weather.</p>
+      <p>Counterparties are dispersed, with land-tenure and community-rights questions an allowance market has no way to handle. And <b>Pasal 70(3)</b> gives the decisive institutional answer: results-based payment <b>transfers no carbon ownership</b>, and under Pasal 70(4) the reductions stay in Indonesia's NDC. For a sector that must deliver a 389,796 Gg swing, that is exactly the instrument you want — payment without surrender.</p>
+      <p><span class="q">[?]</span> <span style="color:var(--ink-2)">Whether forestry in fact dominates Indonesian voluntary-market issuance — flagged in Session 06 — remains unverified; I have not pulled registry data. The structural argument stands regardless of the issuance split.</span></p>
+    </details>
+  </section>
+
+  <!-- 5 -->
+  <section id="why">
+    <div class="sec-head"><span class="n">5</span><h2>Why the two sectors ended up in different mechanisms</h2></div>
+    <p class="sec-intro">The synthesis. Every row is now sourced rather than asserted.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Energy — power &amp; industry</th><th>Forestry / FOLU</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Abatement type</td><td>Avoided emissions, metered</td><td><b>Removals</b> — <i>Serapan GRK</i>, modelled</td></tr>
+          <tr><td class="pair">Points of obligation</td><td><b>~99 coal units ≥100 MW</b> in Phase I — few, large, already regulated</td><td>Dispersed, with tenure and community-rights questions</td></tr>
+          <tr><td class="pair">Reversal risk</td><td>None — an unburnt tonne stays unburnt</td><td><b>Severe</b> — fire swung the national profile from 50% LUCF (2019) to 22% (2022)</td></tr>
+          <tr><td class="pair">Instrument</td><td><b>ETS</b> — intensity-benchmarked, Permen ESDM 16/2022</td><td><b>RBP and VCM</b> — Pasal 70, and international standards</td></tr>
+          <tr><td class="pair">Ownership on payment</td><td>Quota traded; ownership moves</td><td><b>No transfer</b> — Pasal 70(3)</td></tr>
+          <tr><td class="pair">NDC role</td><td>Emissions <b>rise 69%</b> to 2035 even in the ambitious scenario</td><td><b>Carries the entire target</b> — 389,796 Gg swing</td></tr>
+          <tr class="total"><td class="pair">Strategic position</td><td>Where the cap binds and compliance demand is created</td><td>Where the national number is made — and therefore <b>where headroom is least available to sell</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">The sector with the most carbon to sell is the one Indonesia can least afford to sell from.</p>
+      <p>Forestry generates the removals international buyers want and holds the credits with the strongest voluntary-market demand. It is also the sector delivering the 389,796 Gg swing on which the NDC depends. Every authorised forest tonne exported under Pasal 68 comes out of that swing — while energy, which has abundant creditable activity in principle, is largely inside the compliance system where Session 04's regulatory-surplus test bites.</p>
+      <p style="margin-top:10px"><b>That tension is the single most important thing to carry into Session 11.</b> It is not a flaw in the design; it is the real constraint the design has to manage.</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="ruptl">
+    <div class="sec-head"><span class="n">6</span><h2>Navigating your own RUPTL</h2></div>
+    <p class="sec-intro">Your reference copy is <b>2,506 pages</b>. Here is where the carbon-relevant content sits, so you never have to hunt for it again.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>What you want</th><th>Where it is</th></tr></thead>
+        <tbody>
+          <tr class="hi"><td class="pair"><b>GHG emission projections by scenario</b></td><td>Gambar 5.55, <i>Proyeksi Emisi GRK untuk Berbagai Skenario</i> — BAB V, p.275</td></tr>
+          <tr><td class="pair">Emissions by fuel type, per system</td><td>Gambar 5.56–5.65 — Sumatera, Jawa-Madura-Bali, Kalimantan, Sulawesi, Maluku-Papua-Nusa Tenggara — BAB V, pp.276–282</td></tr>
+          <tr><td class="pair">Renewable capacity plans</td><td>Tabel 3.2 (<b>RE Base</b>) and Tabel 3.3 (<b>ARED</b>) — <i>Rencana Pengembangan Pembangkit EBT (MW)</i> — BAB III, p.12</td></tr>
+          <tr><td class="pair">National generation mix by scenario</td><td>Gambar 5.31–5.34 — BAB V, pp.234–237</td></tr>
+          <tr><td class="pair">The net-zero pathway illustration</td><td>Gambar 2.9, <i>Ilustrasi Jalur Menuju Net Zero Emission</i> — BAB II, p.18</td></tr>
+          <tr><td class="pair">Co-firing and biomass</td><td>Gambar 3.5–3.6, Tabel 3.8 — BAB III, pp.25–28</td></tr>
+          <tr><td class="pair">Investment requirement</td><td>Gambar 6.1 — BAB VI, p.1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:16px">Two things to know before you open it. The RUPTL runs <b>two scenarios throughout — “RE Base” and “ARED” (accelerated renewable energy development)</b> — so every figure exists twice and they are not interchangeable. And it uses <b>per-chapter page numbering</b>, so “BAB V p.275” is not PDF page 275.</p>
+    <p><span class="q">[?]</span> <span style="color:var(--ink-2)">I read the RUPTL's table of contents and figure list, <b>not</b> the underlying figures. No RUPTL number is asserted anywhere in this session — the pointers above are navigation, not data.</span></p>
+
+    <div class="card" style="margin-top:16px">
+      <h3>A denominator trap worth avoiding</h3>
+      <p><b>PP 40/2025</b> sets new and renewable energy at <b>19–23% by 2030</b> — but of the <b>primary energy supply mix</b>, which includes transport fuel, industrial heat and cooking, not only electricity. Fig. 10.1's 11.5% is <b>electricity generation</b> by PLN.</p>
+      <p>These are different denominators and the numbers are not comparable. Mixing them is one of the commonest errors in Indonesian energy commentary — including in otherwise careful briefing notes. When someone quotes a renewable share, <b>ask which denominator</b>.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">7</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>You have an instrument that improves coal-fleet efficiency while the fleet grows, and a forest sector carrying the national target that you therefore cannot afford to sell from. The reconciling variable is the <b>benchmark trajectory</b> — how fast tCO₂e/MWh tightens across the phases to 2030 is the single most consequential number in Indonesian energy carbon policy, and it is set by ESDM.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>In power, your addressable market is <b>quota trading among ~99 covered units</b>, plus whatever offset limit ESDM sets. In industrial efficiency, check MEPS under PP 33/2023 before building an additionality case, and note your ministry is <b>Perindustrian</b>. In forestry, expect authorisation to be hard — those tonnes are load-bearing.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>An intensity benchmark means a coal asset's carbon liability <b>scales with dispatch, not with a fixed cap</b> — model it per MWh, not as an annual tonnage. And your exposure is to the <b>benchmark trajectory</b>, which is a regulatory variable revised phase by phase, not a market price you can hedge.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>A covered plant grows output 20% with unchanged efficiency. Explain its position under its PTBAE-PU, and under the national <i>Alokasi Karbon</i>. Why are both answers correct?</li>
+        <li>Indonesia's renewable share is 11.5% of PLN generation, but wind and solar are 0.26%. What does that composition tell you about which abatement options are actually available to credit?</li>
+        <li>The 2nd FRL cut the forest reference level from 0.568 to 0.264 GtCO₂e/yr. Explain the effect on creditable volumes, and why it runs opposite to the incentive Session 06 identified.</li>
+        <li>Name the three constraints that make industrial energy efficiency hard to monetise through carbon markets, despite being the cheapest abatement available.</li>
+        <li>Someone tells you Indonesia is “at 23% renewables.” What is the one question you ask before accepting the number?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly. <span class="verified byref">by reference</span> named but not opened. <span class="q">[?]</span> marks what I decline to assert.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>Direktorat Jenderal Ketenagalistrikan, <i>Statistik Ketenagalistrikan 2024</i></b> — from your reference folder. Used above: the provincial table <i>Produksi Tenaga Listrik PT PLN</i>, total <b>343,891.75 GWh</b>, PLTU <b>232,249.94 GWh</b>, and the full by-technology breakdown from which Fig. 10.1's shares were computed. Component figures reconcile to the stated total. The table notes it includes own production, rental and IPP purchases. <b>The page read does not label a data year</b>; the publication is the 2024 edition — flagged <span class="q">[?]</span>. <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">All References/DJK - Statistik Ketenagalistrikan 2024.pdf</span></li>
+      <li id="n2"><span class="verified">verified in file</span> <b>Ministry of Energy and Mineral Resources (ESDM)</b>, media centre item on <b>Permen ESDM No. 16 Tahun 2022</b>, <i>Tata Cara Penyelenggaraan Nilai Ekonomi Karbon Subsektor Pembangkit Tenaga Listrik</i>. Fetched and read this session. Used above: the PTBAE and PTBAE-PU definitions; the statement that caps are set as <b>intensity benchmarks per MWh rather than absolute tonnage</b>; the illustrative Phase I coal values of <b>1.297</b> and <b>0.911 tCO₂e/MWh</b>; and Phase I coverage of coal plants ≥100 MW on the PLN grid, ~99 units in four categories, over 2023–2024, with three further phases to 2030. <b>The regulation text itself was not opened.</b> Sources differ on its date (enactment late December 2022; ESDM announcement 24 January 2023) — flagged <span class="q">[?]</span>. <a class="ext" href="https://www.esdm.go.id/en/media-center/news-archives/kementerian-esdm-terbitkan-aturan-acuan-nilai-ekonomi-karbon-subsektor-listri" target="_blank" rel="noopener">esdm.go.id →</a> · <a class="ext" href="https://peraturan.bpk.go.id/Details/257394/permen-esdm-no-16-tahun-2022" target="_blank" rel="noopener">Permen ESDM 16/2022 on BPK →</a></li>
+      <li id="n3"><span class="verified">verified in file</span> <b>Second NDC of Indonesia (2025)</b>. Used above: Table 1 p.23 (sectoral projections, energy and FOLU 2019 and 2035 LCCP_L); p.8 (2019 emissions 50.13% LUCF incl. peat fires vs 2022 69.01% energy; FOLU peat and land restoration targets); pp.9–10 (FREL 0.568 and FRL 0.264 GtCO₂e/yr with reference periods; FOLU Net Sink 2030 measures; PP 40/2025 renewable shares; PP 33/2023 energy conservation and MEPS). Read in Session 07.</li>
+      <li id="n4"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cited above: Pasal 1(2) p.3 (<i>Alokasi Karbon</i> as absolute CO₂e); Pasal 22(2) p.21 (targets in tonnes CO₂e); Pasal 24(2)a–b pp.22–23 (power and industry sub-sector coordinators); Pasal 62(1) p.45 (ETS steps and offset limit); Pasal 68 pp.47–48 (authorisation); Pasal 70(3)–(4) p.49 (results-based payment transfers no ownership). Read in Sessions 00, 03 and 08.</li>
+      <li id="n5"><span class="verified">verified in file</span> <b>PLN, <i>RUPTL 2025–2034</i></b> — from your reference folder, <b>2,506 pages</b>. <b>Only the table of contents, figure list and table list were read</b> (front matter). The §6 pointers are navigation drawn from those lists — chapter, figure/table number and the document's own per-chapter page reference. <b>No figure or value from the RUPTL body is asserted anywhere in this session.</b> <span style="font-family:'IBM Plex Mono',monospace;font-size:11.5px">All References/PLN - RUPTL 2025-2034.pdf</span></li>
+      <li id="n6"><span class="verified byref">by reference</span> <b>Decision -/CMA.3</b>, annex ¶38 — the regulatory-surplus limb of the additionality test, applied in §3 to PP 33/2023 and MEPS. Read in full in Session 04.</li>
+      <li id="n7"><span class="verified byref">by reference</span> <b>PLN, <i>Statistik 2025</i></b> — also in your reference folder, 110 pages. <b>Not read this session</b>; it is the natural source for a longer generation and emissions time series than Fig. 10.1's single year.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

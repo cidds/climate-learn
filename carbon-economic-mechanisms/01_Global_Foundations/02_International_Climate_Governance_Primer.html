@@ -1,0 +1,614 @@
+<title>The Treaty Scaffolding</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--accent);
+  display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+  font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em;
+  margin:14px 0 0; text-wrap:balance; max-width:17ch;
+}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{
+  margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);
+}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card .stamp{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  padding:2px 7px; border-radius:2px; margin-left:8px; white-space:nowrap;
+}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{
+  content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%;
+  transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw);
+  background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px;
+  font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal;
+  line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal;
+  opacity:0; visibility:hidden; pointer-events:none; z-index:80;
+  transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);
+}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:940px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:620px; font-size:14.5px}
+th,td{text-align:left; padding:13px 16px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 02 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>The Treaty Scaffolding</h1>
+  <p class="standfirst">Article 6 is not a free-standing mechanism. It is one article of one treaty, sitting inside thirty years of accumulated architecture — and one structural change between Kyoto and Paris explains why corresponding adjustments had to be invented. That change is the point of this session.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>Prerequisite</b> · Sessions 00–01</span>
+    <span><b>Sets up</b> · Session 03, Article 6 in full</span>
+    <span><b>Sourcing note</b> · treaty text cited by article, the correct unit</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#commons"><span class="n">1</span>Why a treaty at all</a>
+    <a href="#three"><span class="n">2</span>Three instruments, one stack</a>
+    <a href="#annex"><span class="n">A</span>Annex I / non-Annex I</a>
+    <a href="#timeline"><span class="n">3</span>The timeline</a>
+    <a href="#shift"><span class="n">4</span>The shift that made CAs necessary</a>
+    <a href="#machinery"><span class="n">5</span>Paris machinery</a>
+    <a href="#bodies"><span class="n">6</span>COP, CMP, CMA</a>
+    <a href="#indonesia"><span class="n">7</span>Where Indonesia sits</a>
+    <a href="#lenses"><span class="n">8</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="commons">
+    <div class="sec-head"><span class="n">1</span><h2>Why a treaty at all</h2></div>
+    <p>Session 01 ended with a government correcting an externality inside its own borders. That works for river pollution. It fails completely for CO₂, for one reason: <b>the damage does not stay where the emission happened.</b></p>
+    <p>A tonne emitted in Java warms Europe exactly as much as a tonne emitted in Germany. So a country that acts alone bears <b>100% of the abatement cost</b> and captures a <b>vanishingly small share of the benefit</b>. Every country faces that arithmetic, and the rational individual response is to wait for someone else to move. This is the free-rider problem, and it is why domestic instruments alone cannot solve climate change no matter how well designed.</p>
+
+    <div class="keyline">
+      <p class="lead">The treaty layer exists to make unilateral action rational — by making it reciprocal.</p>
+      <p>Everything above the domestic instrument — pledges, transparency rules, review cycles, market mechanisms — is machinery for one purpose: giving each country enough confidence that others are also moving to justify moving itself. Read the whole architecture as a solution to a trust problem and it stops looking bureaucratic.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="three">
+    <div class="sec-head"><span class="n">2</span><h2>Three legal instruments, one stack</h2></div>
+    <p class="sec-intro">They are not replacements for one another. All three remain legally in existence; each nests inside the one before it.</p>
+
+    <div class="card">
+      <h3>UNFCCC — the framework <span class="stamp">adopted 1992 · in force 1994</span></h3>
+      <p>The <span class="tip" data-tip="United Nations Framework Convention on Climate Change — the parent treaty agreed at the Rio Earth Summit in 1992. It creates the objective, principles and institutions but sets no binding emission targets.">UNFCCC</span> is a <b>framework</b> convention: it sets the objective and the institutions but almost no obligations. Its Article 2 objective is stabilising greenhouse gas concentrations at a level that prevents dangerous anthropogenic interference with the climate system.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — UNFCCC (1992), Article 2 (objective) and Article 3 (principles, incl. CBDR-RC). Cited by article; treaty text not opened this session.">1</a></sup></p>
+      <p>Two things it created that still govern everything: the principle of <span class="tip" data-tip="Common But Differentiated Responsibilities and Respective Capabilities — the principle that all states share responsibility for the climate but not equally, given different historical emissions and different capacity to act. UNFCCC Article 3.">CBDR-RC</span>, and the <b>Annex I / non-Annex I</b> split between industrialised and developing countries. That split is the hinge the next thirty years turns on.</p>
+    </div>
+
+    <div class="card">
+      <h3>Kyoto Protocol — binding targets for some <span class="stamp">adopted 1997 · in force 2005</span></h3>
+      <p>Kyoto took the Annex I / non-Annex I split and made it operative: <b>binding emission targets for Annex I countries only</b>. Developing countries, Indonesia among them, took on no target.</p>
+      <p>It also introduced market mechanisms into international law for the first time — three of them: <span class="tip" data-tip="Joint Implementation — Kyoto Article 6. Crediting between two countries that both have Kyoto targets.">JI (Art. 6)</span>, the <span class="tip" data-tip="Clean Development Mechanism — Kyoto Article 12. Project-based crediting in developing countries without targets, generating Certified Emission Reductions (CERs) for use by Annex I countries.">CDM (Art. 12)</span>, and <span class="tip" data-tip="International Emissions Trading — Kyoto Article 17. Trading of assigned amount units between Annex I countries.">international emissions trading (Art. 17)</span>.<sup class="fn"><a class="tip" href="#n2" data-tip="Note 2 — Kyoto Protocol (1997), Articles 6, 12 and 17. Cited by article; treaty text not opened this session.">2</a></sup> The CDM is the ancestor of everything in Session 04.</p>
+    </div>
+
+    <div class="card">
+      <h3>Paris Agreement — universal and self-determined <span class="stamp">adopted 2015 · in force 2016</span></h3>
+      <p>Paris abandoned assigned targets entirely. Instead <b>every</b> party submits its own <span class="tip" data-tip="Nationally Determined Contribution — each country&rsquo;s self-set climate pledge under Paris Article 4, renewed on a five-year cycle with a duty of progression.">NDC</span>, on a five-year cycle, with a duty of progression — each successive NDC must represent the party's “highest possible ambition” and go beyond the last.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Paris Agreement (2015), Article 2 (temperature goal), Article 4 (NDCs, progression), Article 6 (cooperative approaches), Article 13 (transparency), Article 14 (global stocktake). Cited by article.">3</a></sup></p>
+      <p>The trade it made is explicit: <b>universality bought at the price of bindingness</b>. Everyone is in, but nobody's target is imposed. What binds is not the number — it is the <b>procedure</b>: you must submit, you must report, you must be reviewed, you must ratchet.</p>
+    </div>
+  </section>
+
+  <!-- ANNEX REFERENCE -->
+  <section id="annex">
+    <div class="sec-head"><span class="n">A</span><h2>The Annex I / non-Annex I split, in full</h2></div>
+    <p class="sec-intro">A reference section, because this classification decides who could host a CDM project, who had a Kyoto target, and — through Fig. 2.2 below — why corresponding adjustments became necessary. The lists are short enough to reproduce, so here they are.</p>
+
+    <div class="card">
+      <h3>Where to get it — the answer is the treaty itself</h3>
+      <p>The lists are <b>annexes to the UNFCCC text</b>, not a separate publication. In the Convention as adopted at New York on 9 May 1992, <b>Annex I is on p. 32 and Annex II on p. 33</b>. There is no more primary source than this — a secondary summary of an annex is never worth citing over the annex.<sup class="fn"><a class="tip" href="#n7" data-tip="Note 7 — UNFCCC (1992), Annex I (p.32) and Annex II (p.33), with footnote a/ defining economies in transition. Fetched and read directly this session.">7</a></sup></p>
+      <p><a class="ext" href="https://unfccc.int/files/essential_background/background_publications_htmlpdf/application/pdf/conveng.pdf" target="_blank" rel="noopener">Convention text (PDF) — annexes at pp. 32–33 →</a> · <a class="ext" href="https://unfccc.int/parties-observers" target="_blank" rel="noopener">UNFCCC Parties &amp; Observers, for the current amended list →</a></p>
+    </div>
+
+    <div class="figure" style="margin-top:16px">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 250" role="img" aria-label="Nested classification: all Parties to the Convention; within them Annex I, the industrialised countries plus economies in transition; within Annex I, Annex II, which excludes the economies in transition and carries financial obligations. Everyone outside Annex I is non-Annex I.">
+        <rect x="0" y="30" width="880" height="180" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="16" y="52" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.2">ALL PARTIES TO THE CONVENTION</text>
+
+        <rect x="440" y="66" width="420" height="128" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1.4"/>
+        <text x="456" y="88" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">ANNEX I — 36 entries as adopted</text>
+        <text x="456" y="107" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">industrialised countries + 11 economies in transition</text>
+        <text x="456" y="123" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">→ carry the emission commitments</text>
+
+        <rect x="456" y="134" width="388" height="48" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="470" y="153" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">ANNEX II — 25 entries = Annex I minus the 11 EITs</text>
+        <text x="470" y="171" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">→ additionally must provide finance and technology</text>
+
+        <rect x="20" y="66" width="392" height="128" rx="2" fill="var(--warm-soft)" stroke="var(--warm)" stroke-width="1.4"/>
+        <text x="36" y="88" font-family="IBM Plex Serif, serif" font-size="15" font-weight="600" fill="var(--ink)">NON-ANNEX I</text>
+        <text x="36" y="107" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">defined by <tspan font-style="italic">omission</tspan> — everyone not named in Annex I</text>
+        <text x="36" y="126" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">no Kyoto target · eligible as <tspan font-weight="600" fill="var(--ink)">CDM host</tspan></text>
+        <text x="36" y="152" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--warm)">INDONESIA SITS HERE</text>
+        <text x="36" y="174" font-family="IBM Plex Sans" font-size="11.5" font-style="italic" fill="var(--ink-2)">This is the whole reason Fig. 2.2 works the way it does.</text>
+
+        <text x="0" y="234" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">There is no “Annex I test” to apply — membership is by being named on a list drawn up in 1992. It is a political settlement frozen into a treaty annex, not a criterion.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 2.0 — Nesting of the three groups. Annex II is a strict subset of Annex I; non-Annex I is the residual.</p>
+    </div>
+
+    <div class="tablewrap" style="margin-top:16px">
+      <table>
+        <thead><tr><th>Group</th><th>Who</th><th>What they took on</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair"><b>Annex I</b></td>
+            <td>Industrialised countries that were OECD members in 1992, <b>plus</b> 11 countries the annex marks as “undergoing the process of transition to a market economy”</td>
+            <td>Emission commitments — under Kyoto, these became <b>binding targets</b>. Non-Annex I took none.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Annex II</b></td>
+            <td>Annex I <b>minus</b> the economies in transition. Exactly 25 entries against Annex I's 36 — the arithmetic is exact.</td>
+            <td>Everything Annex I owes, <b>plus</b> obligations to provide financial resources and facilitate technology transfer to developing countries.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Non-Annex I</b></td>
+            <td>Every other Party. Not a list — a <b>residual category</b>, defined by not appearing in Annex I.</td>
+            <td>No emission target. Under Kyoto this made them <b>eligible CDM hosts</b>, which is precisely why credits could flow out of them without any accounting consequence.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details>
+      <summary>Annex I — the full list, verbatim from the 1992 Convention (p. 32)</summary>
+      <p>Countries marked <b>ᵃ</b> carry the Convention's own footnote: <i>“Countries that are undergoing the process of transition to a market economy.”</i> These 11 are the <b>economies in transition (EITs)</b> — and they are exactly the countries excluded from Annex II.</p>
+      <p style="columns:2; column-gap:36px; font-size:14px; line-height:1.85;">
+        Australia<br>Austria<br><b>Belarus</b>ᵃ<br>Belgium<br><b>Bulgaria</b>ᵃ<br>Canada<br><b>Czechoslovakia</b>ᵃ<br>Denmark<br>European Economic Community<br><b>Estonia</b>ᵃ<br>Finland<br>France<br>Germany<br>Greece<br><b>Hungary</b>ᵃ<br>Iceland<br>Ireland<br>Italy<br>Japan<br><b>Latvia</b>ᵃ<br><b>Lithuania</b>ᵃ<br>Luxembourg<br>Netherlands<br>New Zealand<br>Norway<br><b>Poland</b>ᵃ<br>Portugal<br><b>Romania</b>ᵃ<br><b>Russian Federation</b>ᵃ<br>Spain<br>Sweden<br>Switzerland<br>Turkey<br><b>Ukraine</b>ᵃ<br>United Kingdom of Great Britain and Northern Ireland<br>United States of America
+      </p>
+      <p style="margin-top:12px"><b>36 entries; 11 marked as EITs.</b> Note two artefacts of 1992 visible in the list itself: <b>Czechoslovakia</b>, which no longer exists, and the <b>European Economic Community</b>, since renamed. The annex has been amended by COP decisions since — countries have been added and Czechoslovakia's dissolution accounted for — so for the <b>current</b> membership check the UNFCCC Parties page rather than the 1992 text. <span class="q">[?]</span> <span style="color:var(--ink-2)">I have verified the original list only; the specific post-1992 amendments are not something I checked, and I am not going to list them from memory.</span></p>
+    </details>
+
+    <details>
+      <summary>Annex II — the full list, verbatim (p. 33)</summary>
+      <p style="columns:2; column-gap:36px; font-size:14px; line-height:1.85;">
+        Australia<br>Austria<br>Belgium<br>Canada<br>Denmark<br>European Economic Community<br>Finland<br>France<br>Germany<br>Greece<br>Iceland<br>Ireland<br>Italy<br>Japan<br>Luxembourg<br>Netherlands<br>New Zealand<br>Norway<br>Portugal<br>Spain<br>Sweden<br>Switzerland<br>Turkey<br>United Kingdom of Great Britain and Northern Ireland<br>United States of America
+      </p>
+      <p style="margin-top:12px"><b>25 entries.</b> Compare against Annex I and the rule is exact: <b>every name here appears in Annex I, and every Annex I name absent here is one of the 11 EITs.</b> The logic is straightforward — the transition economies were industrialised enough to take emission commitments, but were in economic collapse in 1992 and so were not asked to fund anyone else.</p>
+    </details>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Two precisions that catch people out</h3>
+      <p><b>1 — Annex I ≠ Kyoto Annex B.</b> The Convention's Annex I and the Kyoto Protocol's Annex B, which lists the countries with quantified emission targets, are closely related but <b>not identical</b>, and the divergences are real. <span class="q">[?]</span> <span style="color:var(--ink-2)">— Turkey and Belarus are the standard examples cited, but I have not opened the Kyoto annex to verify, so treat the specifics as unconfirmed and check the Protocol text if it matters to you.</span> The general point stands regardless: <b>if you need to know who had a Kyoto target, read Annex B, not Annex I.</b></p>
+      <p><b>2 — “Developing country” is not a UNFCCC classification.</b> The Convention never defines it. Non-Annex I is a residual list, and separate categories — <b>least developed countries</b> and <b>small island developing States</b> — get their own special-circumstances treatment in later instruments. Session 04 shows this concretely: the Article 6.4 rulebook grants simplified additionality approaches to LDCs and SIDS, and Indonesia, being neither, does not qualify.</p>
+    </div>
+
+    <div class="keyline" style="margin-top:16px">
+      <p class="lead">Why a 1992 list still governs a 2026 carbon market.</p>
+      <p>Paris abolished the <b>operative</b> consequence of the split — everyone now has an NDC, which is what Fig. 2.2 is about. But the Annexes were never deleted, and the CBDR-RC principle they encode still shapes who funds whom, who reports what, and which arguments carry weight in a negotiating room. <b>The binary stopped determining obligations and became a fault line in the politics instead.</b></p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="timeline">
+    <div class="sec-head"><span class="n">3</span><h2>Thirty-three years in one line</h2></div>
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 300" role="img" aria-label="Timeline from 1992 to 2025. Treaty adoptions appear above the line: UNFCCC 1992, Kyoto 1997, Paris 2015. Rulebook and review milestones appear below: Glasgow 2021 Article 6 rulebook, Dubai 2023 first global stocktake, Baku 2024 Article 6.4 operational, Belem 2025.">
+        <line x1="50" y1="150" x2="840" y2="150" stroke="var(--ink-3)" stroke-width="1.5"/>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent)" letter-spacing="1.3">
+          <text x="50" y="26">TREATY ADOPTED</text>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--law)" letter-spacing="1.3">
+          <text x="50" y="288">RULEBOOK &amp; REVIEW</text>
+        </g>
+
+        <!-- above: treaties -->
+        <g>
+          <line x1="80" y1="150" x2="80" y2="96" stroke="var(--accent)" stroke-width="1.2"/>
+          <circle cx="80" cy="150" r="5" fill="var(--accent)"/>
+          <rect x="46" y="52" width="150" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="56" y="70" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">1992 · UNFCCC</text>
+          <text x="56" y="86" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">framework · Annex I split</text>
+        </g>
+        <g>
+          <line x1="245" y1="150" x2="245" y2="96" stroke="var(--accent)" stroke-width="1.2"/>
+          <circle cx="245" cy="150" r="5" fill="var(--accent)"/>
+          <rect x="211" y="52" width="150" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+          <text x="221" y="70" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">1997 · Kyoto</text>
+          <text x="221" y="86" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">CDM · JI · IET</text>
+        </g>
+        <g>
+          <line x1="560" y1="150" x2="560" y2="96" stroke="var(--accent)" stroke-width="1.2"/>
+          <circle cx="560" cy="150" r="6.5" fill="var(--accent)"/>
+          <rect x="500" y="52" width="170" height="42" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+          <text x="510" y="70" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">2015 · Paris (COP21)</text>
+          <text x="510" y="86" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">universal NDCs · Article 6</text>
+        </g>
+
+        <!-- below: rulebook -->
+        <g>
+          <line x1="672" y1="150" x2="672" y2="196" stroke="var(--law)" stroke-width="1.2"/>
+          <circle cx="672" cy="150" r="4.5" fill="var(--law)"/>
+          <rect x="612" y="198" width="160" height="40" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="622" y="215" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">2021 · Glasgow</text>
+          <text x="622" y="230" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">Article 6 rulebook</text>
+        </g>
+        <g>
+          <line x1="740" y1="150" x2="740" y2="248" stroke="var(--law)" stroke-width="1.2"/>
+          <circle cx="740" cy="150" r="4.5" fill="var(--law)"/>
+          <rect x="612" y="250" width="160" height="40" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="622" y="267" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">2023 · Dubai</text>
+          <text x="622" y="282" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">first Global Stocktake</text>
+        </g>
+        <g>
+          <line x1="795" y1="150" x2="795" y2="196" stroke="var(--law)" stroke-width="1.2"/>
+          <circle cx="795" cy="150" r="4.5" fill="var(--law)"/>
+          <rect x="782" y="198" width="98" height="40" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+          <text x="790" y="215" font-family="IBM Plex Sans" font-size="12" font-weight="600" fill="var(--ink)">2024 · Baku</text>
+          <text x="790" y="230" font-family="IBM Plex Sans" font-size="10.5" fill="var(--ink-2)">Art. 6.4 live</text>
+        </g>
+
+        <!-- entry into force ticks -->
+        <g stroke="var(--ink-3)" stroke-dasharray="2 3" stroke-width="1">
+          <line x1="122" y1="143" x2="122" y2="157"/>
+          <line x1="380" y1="143" x2="380" y2="157"/>
+          <line x1="595" y1="143" x2="595" y2="157"/>
+        </g>
+        <g font-family="IBM Plex Mono, monospace" font-size="9.5" fill="var(--ink-3)">
+          <text x="104" y="172">1994</text><text x="362" y="172">2005</text><text x="577" y="172">2016</text>
+          <text x="104" y="184">force</text><text x="362" y="184">force</text><text x="577" y="184">force</text>
+        </g>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--ink-3)">
+          <text x="46" y="136">1992</text><text x="820" y="136">2025</text>
+        </g>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 2.1 — Note the gaps between adoption and entry into force: Kyoto took eight years, Paris under one. Note also that Paris was agreed in 2015 but its Article 6 rulebook was not settled until 2021, and the crediting mechanism not operational until 2024. <b>Treaty text moves slowly; rulebooks move slower.</b> COP30 (Belém, Nov 2025) outcomes <span class="q">[?]</span> — beyond what I can verify here; to be confirmed against primary decisions in Session 03.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section id="shift">
+    <div class="sec-head"><span class="n">4</span><h2>The shift that made corresponding adjustments necessary</h2></div>
+    <p class="sec-intro">This is the most valuable thing in this session. If Session 00 left you wondering <i>why</i> corresponding adjustments exist rather than just <i>what</i> they are, here is the answer — and it is structural, not technical.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 340" role="img" aria-label="Two panels. Under Kyoto, only Annex I countries have targets, so a credit flowing from a non-target host to an Annex I buyer needs no adjustment. Under Paris every country has an NDC, so the same transfer requires the host to add the tonne back to its own account.">
+        <!-- PANEL A -->
+        <text x="0" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">UNDER KYOTO — 1997 TO 2020</text>
+        <rect x="0" y="34" width="405" height="120" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/>
+
+        <rect x="20" y="56" width="150" height="76" rx="2" fill="var(--paper)" stroke="var(--ink-3)" stroke-dasharray="4 3"/>
+        <text x="32" y="78" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Host — non-Annex I</text>
+        <text x="32" y="96" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">e.g. Indonesia</text>
+        <text x="32" y="118" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--flag)">NO TARGET</text>
+
+        <rect x="235" y="56" width="150" height="76" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="247" y="78" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Buyer — Annex I</text>
+        <text x="247" y="96" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">e.g. Japan, EU</text>
+        <text x="247" y="118" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--accent)">HAS TARGET</text>
+
+        <line x1="172" y1="94" x2="231" y2="94" stroke="var(--ink)" stroke-width="1.6" marker-end="url(#a2)"/>
+        <text x="150" y="150" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">CER</text>
+
+        <!-- PANEL B -->
+        <text x="475" y="18" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">UNDER PARIS — 2016 ONWARD</text>
+        <rect x="475" y="34" width="405" height="120" rx="3" fill="var(--surface-2)" stroke="var(--rule)"/>
+
+        <rect x="495" y="56" width="150" height="76" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="507" y="78" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Host country</text>
+        <text x="507" y="96" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">Indonesia</text>
+        <text x="507" y="118" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--accent)">HAS AN NDC</text>
+
+        <rect x="710" y="56" width="150" height="76" rx="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="722" y="78" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">Buyer country</text>
+        <text x="722" y="96" font-family="IBM Plex Sans" font-size="11" fill="var(--ink-2)">also has an NDC</text>
+        <text x="722" y="118" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--accent)">HAS AN NDC</text>
+
+        <line x1="647" y1="94" x2="706" y2="94" stroke="var(--ink)" stroke-width="1.6" marker-end="url(#a2)"/>
+        <text x="640" y="150" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">ITMO</text>
+
+        <defs>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+          </marker>
+        </defs>
+
+        <!-- verdicts -->
+        <rect x="0" y="178" width="405" height="92" rx="3" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="18" y="202" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">No double counting possible</text>
+        <text x="18" y="224" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">The host has no target, so it was never</text>
+        <text x="18" y="240" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">counting the tonne. Only the buyer counts it.</text>
+        <text x="18" y="260" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent-ink)">→ NO ADJUSTMENT NEEDED</text>
+
+        <rect x="475" y="178" width="405" height="92" rx="3" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="493" y="202" font-family="IBM Plex Serif, serif" font-size="14" font-weight="600" fill="var(--ink)">Double counting is the default</text>
+        <text x="493" y="224" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">The reduction sits inside the host's own NDC.</text>
+        <text x="493" y="240" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">Without a fix, both parties count the same tonne.</text>
+        <text x="493" y="260" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--flag)">→ CORRESPONDING ADJUSTMENT REQUIRED</text>
+
+        <text x="0" y="300" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">The mechanism did not get stricter. The world changed underneath it: universal coverage turned an empty space into occupied territory.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 2.2 — Why Article 6.4 is not simply “CDM version 2”. Under Kyoto, crediting host countries had no targets, so an exported credit left nothing behind to be double-counted. Paris gave every country an NDC — and the same transaction became an accounting problem overnight.</p>
+    </div>
+
+    <div class="keyline" style="margin-top:20px">
+      <p class="lead">Universality created the double-counting problem. Corresponding adjustments are the fix.</p>
+      <p>This one insight resolves several confusions at once: why the CDM needed replacing rather than renaming; why Article 6 took six years to negotiate; why “authorised” and “unauthorised” credits trade at different prices; and why a host country now has a real, quantified reason to <b>refuse</b> an export it would happily have waved through in 2010.</p>
+    </div>
+
+    <details>
+      <summary>The consequence that catches people out — two grades of credit in one market</summary>
+      <p>Because a corresponding adjustment is applied only when a host <b>authorises</b> a transfer, the same project can produce credits of two different grades: <b>adjusted</b> (authorised, usable against another country's NDC or a compliance scheme like <span class="tip" data-tip="Carbon Offsetting and Reduction Scheme for International Aviation — ICAO&rsquo;s scheme obliging airlines to offset growth in international aviation emissions above a baseline.">CORSIA</span>) and <b>unadjusted</b> (unauthorised, usable for voluntary claims but not counted against any state's target).</p>
+      <p>They are physically identical tonnes and legally different assets. That distinction did not exist before Paris, it is invisible in the project itself, and it is decided by a ministry — which is exactly why <i>Otorisasi</i> appears as a defined term in Perpres 110 (Pasal 1(27), p.5) rather than being left to contract.<sup class="fn"><a class="tip" href="#n4" data-tip="Note 4 — Perpres RI No. 110 Tahun 2025, Pasal 1 angka 27 (Otorisasi) and angka 28 (Corresponding Adjustment), p.5. Verified in file.">4</a></sup></p>
+    </details>
+  </section>
+
+  <!-- 5 -->
+  <section id="machinery">
+    <div class="sec-head"><span class="n">5</span><h2>The four Paris articles that matter to you</h2></div>
+    <p class="sec-intro">Paris has 29 articles. For carbon mechanisms, four carry the load.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Article</th><th>What it establishes</th><th>Why it matters for a carbon mechanism</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair"><b>Art. 2</b><br>Goal</td>
+            <td>Holding warming well below 2°C and pursuing efforts to limit it to 1.5°C</td>
+            <td>The reference point every ambition argument returns to. It sets the <b>direction</b>, not any country's obligation.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Art. 4</b><br>NDCs</td>
+            <td>Every party prepares, communicates and maintains an NDC; five-year cycle; <b>progression</b> — each must go beyond the last</td>
+            <td>The NDC is the <b>accounting boundary</b>. Whether a tonne is inside or outside it determines every transfer question downstream.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Art. 6</b><br>Cooperation</td>
+            <td>6.2 cooperative approaches · 6.4 the mechanism · 6.8 non-market approaches</td>
+            <td>The legal basis for international carbon transfer. <b>All of Session 03.</b></td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Art. 13</b><br>Transparency</td>
+            <td>The <span class="tip" data-tip="Enhanced Transparency Framework — the Paris reporting and review system under which every party submits a Biennial Transparency Report on its inventory, NDC progress and any Article 6 transfers.">Enhanced Transparency Framework</span>, with biennial reporting and technical expert review</td>
+            <td>The <b>enforcement substitute</b>. Paris has no penalties, so exposure through reporting is what makes pledges mean anything — and it is where Article 6 transfers must be declared.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Art. 14</b><br>Stocktake</td>
+            <td>A collective <span class="tip" data-tip="Global Stocktake — a five-yearly collective assessment of progress toward the Paris goals, designed to inform the next round of NDCs. The first concluded at COP28 in Dubai, 2023.">Global Stocktake</span> every five years, feeding the next NDC round</td>
+            <td>The <b>ratchet</b>. It converts collective shortfall into pressure on the next set of national pledges.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <details>
+      <summary>How Paris enforces without enforcement</summary>
+      <p>There is no court, no fine, no trade sanction. The compliance mechanism under Article 15 is explicitly <b>facilitative and non-punitive</b>. What Paris relies on instead is a three-step loop: you <b>pledge</b> (Art. 4), you <b>report and are reviewed</b> (Art. 13), and the collective result is <b>assessed publicly</b> (Art. 14) in time to shape your next pledge.</p>
+      <p>Whether that is sufficient is the central open question about the whole regime — and it is a legitimate criticism, not a settled one. But note what it means for you practically: <b>the transparency framework, not a penalty, is what makes a corresponding adjustment real.</b> A country that fails to apply one is not fined; it is visible. Design your expectations accordingly.</p>
+    </details>
+  </section>
+
+  <!-- 6 -->
+  <section id="bodies">
+    <div class="sec-head"><span class="n">6</span><h2>COP, CMP, CMA — a precision worth having</h2></div>
+    <p class="sec-intro">People say “COP decided” for everything. It is usually wrong, and the distinction matters when you go looking for the actual legal text of an Article 6 rule.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Body</th><th>Governs</th><th>Decisions cited as</th></tr></thead>
+        <tbody>
+          <tr><td class="pair"><b>COP</b></td><td>The <b>UNFCCC</b> — Conference of the Parties</td><td>Decision X/CP.<i>n</i></td></tr>
+          <tr><td class="pair"><b>CMP</b></td><td>The <b>Kyoto Protocol</b> — parties to Kyoto only</td><td>Decision X/CMP.<i>n</i></td></tr>
+          <tr><td class="pair"><b>CMA</b></td><td>The <b>Paris Agreement</b> — parties to Paris only</td><td>Decision X/CMA.<i>n</i></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:18px">All three meet at the same annual conference in the same building, which is why the distinction collapses in press coverage. But <b>Article 6 rules are CMA decisions</b> — so when you search for the Article 6 rulebook, you are looking for CMA decisions from Glasgow (2021) onward, not COP decisions. Getting this right saves an hour of searching the wrong document series.<sup class="fn"><a class="tip" href="#n5" data-tip="Note 5 — Article 6 guidance and rules adopted through CMA decisions at COP26 Glasgow (2021) and subsequent sessions. Specific decision numbers to be confirmed from the UNFCCC decision series in Session 03; not asserted here.">5</a></sup></p>
+  </section>
+
+  <!-- 7 -->
+  <section id="indonesia">
+    <div class="sec-head"><span class="n">7</span><h2>Where Indonesia sits in all this</h2></div>
+    <div class="card">
+      <h3>Then and now</h3>
+      <p><b>Under Kyoto:</b> Indonesia was <b>non-Annex I</b> — no emission target, and therefore a <b>CDM host country</b>. Credits generated here could be sold to Annex I buyers with no accounting consequence for Indonesia whatsoever.</p>
+      <p><b>Under Paris:</b> Indonesia has an NDC like everyone else. The same export now costs it something measurable. <b>Indonesia's structural position flipped from “free seller” to “seller with a stake”</b> — and Perpres 110's authorization architecture is the domestic institutional response to exactly that flip.</p>
+      <p>Indonesia's Enhanced NDC is commonly cited at 31.89% unconditional and 43.20% conditional reduction against BAU by 2030. <span class="q">[?]</span> <span style="color:var(--ink-2)">— figures widely reported but the NDC document has not been opened; to be verified and cited to the submitted NDC in Session 07 rather than relied on here.</span></p>
+    </div>
+
+    <details>
+      <summary>Why this reframes the “should we sell carbon abroad” debate</summary>
+      <p>Under Kyoto, exporting credits was close to free money for a non-Annex I country: revenue in, no target to protect. The instinct that carbon export is straightforwardly good was formed in that era and is <b>still widely held</b>.</p>
+      <p>Under Paris the arithmetic reversed. Every authorised export is a tonne Indonesia must find somewhere else to stay on track — so carbon export is now a genuine <b>trade-off between revenue and domestic target headroom</b>, not a windfall. A government lens on Session 03 has to weigh both sides; a developer lens has to accept that the state has a rational reason to be restrictive that did not exist fifteen years ago.</p>
+    </details>
+  </section>
+
+  <!-- 8 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">8</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>Your NDC is simultaneously a pledge, an accounting boundary, and a <b>budget you can sell pieces of</b>. Authorising exports raises revenue and shrinks headroom. The transparency framework is where that trade becomes visible to everyone — so the decision is public even when the negotiation is not.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>Whether your credit can cross a border is <b>not a property of your project</b>. It is a sovereign decision made after your project exists. Build the authorization question into your development timeline, not your sales process.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>Post-Paris, “carbon credit” names <b>two different assets</b> — adjusted and unadjusted — with different buyers and different prices. Any model that assumes a single credit price is assuming an authorization decision it has not verified.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Why did the CDM not need corresponding adjustments, when Article 6.4 does? Answer structurally — what changed about the <b>world</b>, not about the mechanism.</li>
+        <li>Paris has no penalties. What actually makes an NDC pledge or a corresponding adjustment mean anything?</li>
+        <li>You need the legal text of an Article 6.2 rule. Which decision series do you search, and why not the other two?</li>
+        <li>Under Kyoto, Indonesian carbon export was close to free money. Give the precise reason that is no longer true.</li>
+        <li>Two credits, same project, same vintage, same tonne. One sells for materially more. What is the difference and who created it?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly, page confirmed. <span class="verified byref">by reference</span> cited to primary treaty text by <b>article</b> — the correct citation unit for a treaty, where page numbers are an artefact of the edition, not of the instrument. Claims resting on unverified reporting carry <span class="q">[?]</span>.</p>
+    <ol>
+      <li id="n1"><span class="verified byref">by reference</span> <b>United Nations Framework Convention on Climate Change</b> (1992). Article 2 (objective); Article 3 (principles, including common but differentiated responsibilities and respective capabilities); Annex I. Adopted Rio de Janeiro, June 1992; entered into force 21 March 1994. <a class="ext" href="https://unfccc.int/process-and-meetings/what-is-the-united-nations-framework-convention-on-climate-change" target="_blank" rel="noopener">UNFCCC →</a></li>
+      <li id="n2"><span class="verified byref">by reference</span> <b>Kyoto Protocol</b> (1997). Article 6 (Joint Implementation); Article 12 (Clean Development Mechanism); Article 17 (International Emissions Trading). Adopted Kyoto, December 1997; entered into force 16 February 2005. <a class="ext" href="https://unfccc.int/kyoto_protocol" target="_blank" rel="noopener">UNFCCC →</a></li>
+      <li id="n3"><span class="verified byref">by reference</span> <b>Paris Agreement</b> (2015). Article 2 (purpose and temperature goal); Article 4 (NDCs, five-year cycle, progression); Article 6 (cooperative approaches); Article 13 (enhanced transparency framework); Article 14 (global stocktake); Article 15 (facilitative, non-punitive compliance). Adopted Paris, December 2015; entered into force 4 November 2016. <a class="ext" href="https://unfccc.int/process-and-meetings/the-paris-agreement" target="_blank" rel="noopener">UNFCCC →</a></li>
+      <li id="n4"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cited here: Pasal 1 angka 27 (<i>Otorisasi</i>) and angka 28 (<i>Corresponding Adjustment</i>), p.5. Pages 1–15 read directly.</li>
+      <li id="n5"><span class="verified byref">by reference</span> <b>CMA decisions on Article 6</b>, adopted from COP26 Glasgow (2021) onward, with the Article 6.4 mechanism becoming operational following COP29 Baku (2024). Specific decision numbers deliberately not asserted here — to be cited exactly from the UNFCCC decision series in Session 03. COP30 (Belém, November 2025) outcomes marked <span class="q">[?]</span> as beyond what can be verified in this session.</li>
+      <li id="n7"><span class="verified">verified in file</span> <b>United Nations Framework Convention on Climate Change (1992), Annex I and Annex II</b> — full country lists reproduced above verbatim from the Convention text, <b>Annex I at p. 32, Annex II at p. 33</b>, including footnote a/ (“Countries that are undergoing the process of transition to a market economy”). PDF fetched and read directly this session. Counts stated above (36 Annex I entries, 11 EITs, 25 Annex II entries) were derived by reading the lists, not from a secondary source. Post-1992 amendments to the annexes were <b>not</b> verified and are flagged <span class="q">[?]</span>. <a class="ext" href="https://unfccc.int/files/essential_background/background_publications_htmlpdf/application/pdf/conveng.pdf" target="_blank" rel="noopener">Convention text PDF →</a></li>
+      <li id="n6"><span class="verified byref">by reference</span> <b>Indonesia's Enhanced NDC</b> — target figures cited in Section 7 are widely reported but unverified here; the submitted NDC document is an open item for Session 07. <a class="ext" href="https://unfccc.int/NDCREG" target="_blank" rel="noopener">UNFCCC NDC Registry →</a></li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>

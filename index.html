@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>climate-learn</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;600&display=swap">
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea; --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f; --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f; --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:800px; margin:0 auto; padding:72px 24px 96px;}
+.eyebrow{font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent);}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2.2rem,5vw,3rem); line-height:1.08; letter-spacing:-.022em; margin:16px 0 0;}
+.standfirst{margin:18px 0 0; max-width:60ch; font-size:17px; color:var(--ink-2);}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.25rem; margin:48px 0 14px; letter-spacing:-.01em;}
+a.card{
+  display:block; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent);
+  border-radius:3px; padding:22px 24px; text-decoration:none; color:inherit; box-shadow:var(--shadow);
+  transition:border-left-color .12s ease, transform .12s ease;
+}
+a.card:hover,a.card:focus-visible{border-left-color:var(--law); transform:translateX(2px)}
+a.card h3{font-family:"IBM Plex Serif",serif; font-size:1.16rem; margin:0 0 7px; font-weight:600}
+a.card p{margin:0; font-size:14.5px; color:var(--ink-2); max-width:58ch}
+a.card .tags{margin-top:12px; display:flex; gap:7px; flex-wrap:wrap}
+a.card .tag{font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:2px; background:var(--accent-soft); color:var(--accent-ink)}
+.note{margin-top:22px; font-size:14px; color:var(--ink-2); background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:18px 20px; max-width:62ch}
+.note b{color:var(--ink)}
+footer{margin-top:56px; padding-top:20px; border-top:1px solid var(--rule); font-size:12.5px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.6}
+footer a{color:var(--ink-3)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">cidds / climate-learn</div>
+  <h1>climate &amp; energy learning</h1>
+  <p class="standfirst">Working notes and literature briefs on climate and energy policy — built from primary sources, with every claim traceable to its document.</p>
+
+  <h2>Briefs</h2>
+  <a class="card" href="carbon-economic-mechanisms/">
+    <h3>Carbon Economic Mechanisms</h3>
+    <p>Twelve parts on how carbon is priced and traded globally and in Indonesia. Article 6, methodologies, compliance and voluntary markets, Perpres 110/2025 and the NEK architecture — anchored in energy with forestry as contrast, read through government, developer and owner lenses.</p>
+    <span class="tags"><span class="tag">12 parts</span><span class="tag">Indonesia · global</span><span class="tag">source ledger</span></span>
+  </a>
+
+  <div class="note">
+    <b>On sourcing.</b> Each brief carries a running ledger separating what was read directly from what is cited by reference from what is flagged uncertain. Claims declined for want of a source are marked <b>[?]</b> in the text rather than quietly smoothed over — and corrections are left visible rather than patched away.
+  </div>
+
+  <footer>
+    Personal learning notes — not legal, policy or investment advice.<br>
+    Source: <a href="https://github.com/cidds/climate-learn">github.com/cidds/climate-learn</a>
+  </footer>
+</div>
+</body>
+</html>

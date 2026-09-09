@@ -1,0 +1,498 @@
+<title>Indonesia's Climate Stack</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --paper:#eef2f1; --surface:#ffffff; --surface-2:#f6f9f8;
+  --ink:#0f1c1e; --ink-2:#55686b; --ink-3:#7d9093;
+  --rule:#d2dcdb; --rule-soft:#e4ebea;
+  --accent:#0d6a6e; --accent-soft:#dfeeed; --accent-ink:#0a4d50;
+  --law:#3d4f86; --law-soft:#e4e8f4;
+  --flag:#c31670; --flag-soft:#fbe3ef;
+  --warm:#a8620f; --warm-soft:#f6e9da;
+  --tip-bg:#0f1c1e; --tip-ink:#eef2f1;
+  --shadow:0 1px 2px rgba(15,28,30,.05), 0 8px 24px -16px rgba(15,28,30,.25);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+    --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+    --rule:#24373a; --rule-soft:#1c2c2f;
+    --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+    --law:#93a6e0; --law-soft:#1c2440;
+    --flag:#ff7ab8; --flag-soft:#39122a;
+    --warm:#e0a05a; --warm-soft:#33230f;
+    --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0c1315; --surface:#131f21; --surface-2:#182629;
+  --ink:#e7eeed; --ink-2:#96a8aa; --ink-3:#718588;
+  --rule:#24373a; --rule-soft:#1c2c2f;
+  --accent:#4fb3b0; --accent-soft:#12312f; --accent-ink:#7fcecb;
+  --law:#93a6e0; --law-soft:#1c2440;
+  --flag:#ff7ab8; --flag-soft:#39122a;
+  --warm:#e0a05a; --warm-soft:#33230f;
+  --tip-bg:#e9f0ef; --tip-ink:#0f1c1e;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{margin:0; background:var(--paper); color:var(--ink); font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; font-size:16px; line-height:1.6; -webkit-font-smoothing:antialiased;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px 96px;}
+
+.mast{padding:56px 0 32px; border-bottom:1px solid var(--rule);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:inline-block}
+h1{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:clamp(2rem,4.4vw,3.1rem); line-height:1.08; letter-spacing:-.02em; margin:14px 0 0; text-wrap:balance; max-width:17ch;}
+.standfirst{margin:18px 0 0; max-width:64ch; font-size:17px; color:var(--ink-2);}
+.mast-meta{margin-top:26px; display:flex; gap:8px 22px; flex-wrap:wrap; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);}
+.mast-meta b{color:var(--ink-2); font-weight:500}
+
+.cols{display:grid; grid-template-columns:186px minmax(0,1fr); gap:56px; margin-top:44px;}
+@media (max-width:940px){ .cols{grid-template-columns:1fr; gap:0} .rail{display:none} }
+.rail{position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow-y:auto;}
+.rail h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 12px; font-weight:500;}
+.rail a{display:block; padding:6px 0; font-size:13.5px; color:var(--ink-2); text-decoration:none; border-bottom:1px solid var(--rule-soft);}
+.rail a:hover,.rail a:focus-visible{color:var(--accent)}
+.rail a .n{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-right:8px}
+
+main{min-width:0; display:flex; flex-direction:column; gap:54px;}
+section{scroll-margin-top:24px}
+.sec-head{display:flex; gap:14px; align-items:baseline; margin-bottom:6px; padding-top:8px;}
+.sec-head .n{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--accent); letter-spacing:.06em; padding-top:5px;}
+h2{font-family:"IBM Plex Serif",Georgia,serif; font-weight:600; font-size:1.55rem; margin:0; letter-spacing:-.012em; text-wrap:balance;}
+p{max-width:68ch}
+.sec-intro{margin:0 0 22px 0; color:var(--ink-2); max-width:66ch; font-size:15.5px}
+main p{font-size:15.5px}
+
+.card{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px 24px; box-shadow:var(--shadow);}
+.card + .card{margin-top:14px}
+.card h3{font-family:"IBM Plex Serif",serif; font-size:1.08rem; margin:0 0 8px; font-weight:600;}
+.card p{margin:0 0 10px; font-size:15px} .card p:last-child{margin-bottom:0}
+.card.id{border-left:3px solid var(--law)}
+
+.keyline{border-left:3px solid var(--accent); background:var(--accent-soft); padding:18px 22px; border-radius:3px;}
+.keyline p{margin:0; font-size:16px; max-width:64ch}
+.keyline .lead{font-family:"IBM Plex Serif",serif; font-size:1.16rem; font-weight:600; line-height:1.45; margin-bottom:10px; color:var(--ink);}
+.keyline.warn{border-left-color:var(--flag); background:var(--flag-soft)}
+
+details{margin-top:12px; border-top:1px solid var(--rule-soft); padding-top:10px}
+summary{cursor:pointer; font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); list-style:none; display:flex; align-items:center; gap:7px;}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+"; font-size:13px; line-height:1}
+details[open] summary::before{content:"–"}
+summary:hover{color:var(--ink)}
+details > *:not(summary){margin-top:10px; font-size:14.5px; color:var(--ink-2); max-width:68ch}
+
+.tip{position:relative; cursor:help; border-bottom:1px dotted var(--accent); text-decoration:none; color:inherit;}
+.tip::after{content:attr(data-tip); position:absolute; bottom:calc(100% + 9px); left:50%; transform:translateX(-50%) translateY(4px); width:max-content; max-width:min(340px,78vw); background:var(--tip-bg); color:var(--tip-ink); padding:10px 13px; border-radius:3px; font-family:"IBM Plex Sans",sans-serif; font-size:12.5px; font-weight:400; font-style:normal; line-height:1.55; letter-spacing:0; text-transform:none; text-align:left; white-space:normal; opacity:0; visibility:hidden; pointer-events:none; z-index:80; transition:opacity .15s ease, transform .15s ease; box-shadow:0 8px 28px -8px rgba(0,0,0,.45);}
+.tip::before{content:""; position:absolute; bottom:calc(100% + 3px); left:50%; transform:translateX(-50%) translateY(4px); border:6px solid transparent; border-top-color:var(--tip-bg); opacity:0; visibility:hidden; pointer-events:none; z-index:81; transition:opacity .15s ease, transform .15s ease;}
+.tip:hover::after,.tip:focus-visible::after,.tip:hover::before,.tip:focus-visible::before{opacity:1; visibility:visible; transform:translateX(-50%) translateY(0);}
+.tip.tr::after{left:auto; right:0; transform:translateX(0) translateY(4px)}
+.tip.tr:hover::after,.tip.tr:focus-visible::after{transform:translateX(0) translateY(0)}
+
+.q{color:var(--flag); background:var(--flag-soft); font-weight:600; padding:1px 5px; border-radius:2px; font-size:.92em; font-family:"IBM Plex Mono",monospace;}
+a.ext{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-soft)}
+a.ext:hover,a.ext:focus-visible{border-bottom-color:var(--accent)}
+sup.fn{font-family:"IBM Plex Mono",monospace; font-size:9.5px; color:var(--accent); font-weight:500}
+sup.fn a{color:inherit; text-decoration:none; border-bottom:none; background:var(--accent-soft); padding:1px 4px; border-radius:2px; cursor:help;}
+sup.fn a:hover,sup.fn a:focus-visible{background:var(--accent); color:var(--paper)}
+sup.fn a::after{font-size:12.5px}
+
+.figure{background:var(--surface); border:1px solid var(--rule); border-radius:3px; padding:22px; box-shadow:var(--shadow);}
+.figure .svgbox{overflow-x:auto}
+.figure svg{display:block; min-width:720px; width:100%; height:auto}
+.figcap{margin:14px 0 0; font-size:13px; color:var(--ink-3); font-family:"IBM Plex Mono",monospace; line-height:1.55; max-width:76ch;}
+
+.tablewrap{overflow-x:auto; border:1px solid var(--rule); border-radius:3px; background:var(--surface); box-shadow:var(--shadow); margin-top:14px}
+@media (min-width:1000px){ .tablewrap{overflow:visible} }
+table{border-collapse:collapse; width:100%; min-width:680px; font-size:14.5px}
+th,td{text-align:left; padding:12px 15px; border-bottom:1px solid var(--rule-soft); vertical-align:top}
+th{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:500; background:var(--surface-2);}
+tr:last-child td{border-bottom:none}
+td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
+td.num,th.num{text-align:right; font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap; font-size:13.5px}
+tr.total td{background:var(--surface-2); font-weight:600}
+td.neg{color:var(--accent-ink); font-weight:500}
+:root:not([data-theme="light"]) td.neg{color:var(--accent)}
+
+.lenses{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px; margin-top:16px}
+.lens{background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--law); border-radius:3px; padding:18px 20px; box-shadow:var(--shadow)}
+.lens.dev{border-top-color:var(--accent)} .lens.own{border-top-color:var(--warm)}
+.lens h4{font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--law); margin:0 0 10px; font-weight:500}
+.lens.dev h4{color:var(--accent)} .lens.own h4{color:var(--warm)}
+.lens p{margin:0; font-size:14.5px; color:var(--ink-2)}
+.lens b{color:var(--ink)}
+
+.check{background:var(--surface); border:1px dashed var(--rule); border-radius:3px; padding:22px}
+.check ol{margin:12px 0 0; padding-left:20px; display:flex; flex-direction:column; gap:9px}
+.check li{font-size:14.5px; color:var(--ink-2); max-width:66ch}
+
+blockquote{margin:12px 0; padding:12px 16px; background:var(--surface-2); border-left:2px solid var(--law); font-size:14px; color:var(--ink-2); font-style:italic; max-width:70ch}
+blockquote b{font-style:normal; color:var(--ink)}
+
+.notes{border-top:1px solid var(--rule); padding-top:24px}
+.notes ol{padding-left:22px; margin:14px 0 0; display:flex; flex-direction:column; gap:9px}
+.notes li{font-size:13px; color:var(--ink-2); line-height:1.55}
+.verified{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:1px 5px; border-radius:2px; margin-right:6px; white-space:nowrap;}
+.byref{color:var(--ink-3); border-color:var(--rule)}
+
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow"><span class="dot"></span> Session 07 · Indonesia <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <h1>Indonesia's Climate Stack</h1>
+  <p class="standfirst">Perpres 110 does not float free — it implements something. This session reads the document it implements: Indonesia's <b>Second NDC, submitted 27 October 2025</b>, which I fetched and worked through directly. It changed the shape of Indonesia's target, and its own numbers contain a fact about energy and forestry that should reframe how you read everything after this.</p>
+  <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
+  <div class="mast-meta">
+    <span><b>New primary source</b> · Second NDC of the Republic of Indonesia (2025)</span>
+    <span><b>Flag closed</b> · Indonesia's NDC targets — and superseded</span>
+    <span><b>Next</b> · 08 · Perpres 110 deep read</span>
+  </div>
+</header>
+
+<div class="cols">
+
+  <nav class="rail">
+    <h4>Contents</h4>
+    <a href="#stack"><span class="n">1</span>The stack</a>
+    <a href="#shift"><span class="n">!</span>Flag closed — and superseded</a>
+    <a href="#numbers"><span class="n">2</span>The numbers</a>
+    <a href="#waterfall"><span class="n">3</span>Energy grows, forests save</a>
+    <a href="#energy"><span class="n">4</span>The energy policy layer</a>
+    <a href="#nek"><span class="n">5</span>Where NEK sits</a>
+    <a href="#institutions"><span class="n">6</span>The focal point moved</a>
+    <a href="#lenses"><span class="n">7</span>Three lenses</a>
+    <a href="#check"><span class="n">?</span>Comprehension check</a>
+    <a href="#notes"><span class="n">§</span>Sources</a>
+  </nav>
+
+  <main>
+
+  <!-- 1 -->
+  <section id="stack">
+    <div class="sec-head"><span class="n">1</span><h2>The stack — NEK is one floor, not the building</h2></div>
+    <p class="sec-intro">Carbon pricing sits near the bottom of a tall structure. Knowing which floor you are on prevents the commonest error: treating Perpres 110 as Indonesia's climate policy rather than as one of its instruments.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 340" role="img" aria-label="Indonesia's climate policy stack from development planning at the top through the long-term strategy, the NDC, and down to Perpres 110 on carbon pricing alongside sectoral regulation and fiscal instruments.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">EACH LAYER IS THE MANDATE FOR THE ONE BELOW IT</text>
+
+        <rect x="0" y="30" width="880" height="46" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="14" y="50" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">DEVELOPMENT PLANNING — RPJPN 2025–2045 · RPJMN 2025–2029 · Asta Cita</text>
+        <text x="14" y="68" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">Climate sits inside the growth plan, not beside it. GDP assumptions here become emission scenarios below.</text>
+
+        <rect x="0" y="86" width="880" height="46" rx="2" fill="var(--law-soft)" stroke="var(--law)"/>
+        <text x="14" y="106" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">LTS-LCCR 2050 (2021) — the long-term strategy required by Paris Article 4.19</text>
+        <text x="14" y="124" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">Under the 1.5°C-compatible pathway: emissions peak 2030 at 1,244 MtCO₂e, decline to 540 MtCO₂e by 2050, net zero by 2060</text>
+
+        <rect x="0" y="142" width="880" height="46" rx="2" fill="var(--law-soft)" stroke="var(--law)" stroke-width="1.6"/>
+        <text x="14" y="162" font-family="IBM Plex Sans" font-size="13" font-weight="600" fill="var(--ink)">SECOND NDC (27 October 2025) — the pledge, and the accounting boundary</text>
+        <text x="14" y="180" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">Implementation period 2031–2035 · five sectors · level of emission relative to a 2019 reference point</text>
+
+        <text x="0" y="212" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--ink-3)" letter-spacing="1.2">DELIVERED THROUGH THREE PARALLEL INSTRUMENT FAMILIES —</text>
+
+        <rect x="0" y="222" width="286" height="76" rx="2" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.6"/>
+        <text x="14" y="242" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">CARBON PRICING — NEK</text>
+        <text x="14" y="260" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">Perpres 110/2025 · trading,</text>
+        <text x="14" y="275" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">levy, results-based payment,</text>
+        <text x="14" y="290" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">registry</text>
+
+        <rect x="298" y="222" width="286" height="76" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="312" y="242" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">SECTORAL REGULATION</text>
+        <text x="312" y="260" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">PP 40/2025 energy policy ·</text>
+        <text x="312" y="275" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">PP 33/2023 conservation ·</text>
+        <text x="312" y="290" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">Perpres 112/2022 renewables</text>
+
+        <rect x="596" y="222" width="284" height="76" rx="2" fill="var(--surface-2)" stroke="var(--rule)"/>
+        <text x="610" y="242" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">FISCAL &amp; PLANNING</text>
+        <text x="610" y="260" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">UU HPP carbon tax · subsidy</text>
+        <text x="610" y="275" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">reform · PP 26/2025 RPPLH ·</text>
+        <text x="610" y="290" font-family="IBM Plex Sans" font-size="11.5" fill="var(--ink-2)">green financing</text>
+
+        <text x="0" y="326" font-family="IBM Plex Sans" font-size="12.5" font-style="italic" fill="var(--ink-2)">Session 04's regulatory-surplus test lives in the gap between the first two boxes: what the middle box mandates, the left box can no longer credit.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 7.1 — All instruments named are cited in the Second NDC itself, pp. 4, 6, 10.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), pp. 4 (Perpres 110/2025, PP 26/2025), 6 (LTS-LCCR 2050 pathway), 10 (PP 40/2025, PP 33/2023, Perpres 112/2022). Fetched and read this session.">1</a></sup></p>
+    </div>
+  </section>
+
+  <!-- FLAG -->
+  <section id="shift">
+    <div class="sec-head"><span class="n">!</span><h2>Flag closed — the figures were right, and are now superseded</h2></div>
+    <p class="sec-intro">Session 02 marked Indonesia's 31.89% / 43.20% targets <span class="q">[?]</span> and refused to rely on them. That caution paid off twice over.</p>
+
+    <div class="card">
+      <h3>Verified — and overtaken</h3>
+      <p>The Second NDC confirms the history directly: the First NDC pledged <b>29% unconditional / 41% conditional</b> against the 2030 business-as-usual scenario, up from a 2010 pledge of 26%; the <b>Enhanced NDC (2022)</b> raised this to <b>31.89% unconditional / 43.20% conditional</b> against BAU in 2030.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.1 (First NDC 29%/41%, 2010 pledge 26%) and p.8 (Enhanced NDC 31.89%/43.20%). Verified in file this session.">1</a></sup> So the figures I flagged were correct — <b>for the previous NDC</b>.</p>
+      <p>The Second NDC replaces that architecture. It is no longer a percentage against a projected baseline. It is a <b>level of emission relative to an actual reference year</b>.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>Enhanced NDC (2022)</th><th>Second NDC (2025)</th></tr></thead>
+        <tbody>
+          <tr><td class="pair">Target type</td><td>Emission reductions <b>relative to BAU</b></td><td><b>Level of emission</b> relative to a 2019 reference point</td></tr>
+          <tr><td class="pair">Reference</td><td>Projected 2030 BAU from base-year 2010</td><td><b>Actual 2019 net emissions: 1,145,037 Gg CO₂e</b></td></tr>
+          <tr><td class="pair">Target year</td><td>2030</td><td>2035 — implementation period <b>2031–2035</b></td></tr>
+          <tr><td class="pair">Gases</td><td>CO₂, CH₄, N₂O</td><td>CO₂, CH₄, N₂O, <b>and HFCs</b></td></tr>
+          <tr><td class="pair">Metric</td><td>GWP-100, IPCC <b>AR2</b></td><td>GWP-100, IPCC <b>AR5</b></td></tr>
+          <tr><td class="pair">Structure</td><td>Unconditional / conditional pair</td><td><b>Three scenarios</b> — CPOS, LCCP_L, LCCP_H</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Indonesia moved from a BAU-relative target to a reference-year target — and that is exactly the shift Session 01 described.</p>
+      <p>A BAU-relative pledge is only as demanding as the baseline it is measured against, and the baseline is a projection the pledging country builds itself. A level-of-emission target against an <b>observed</b> year removes that discretion entirely. The NDC says so in its own footnote: the 2019 reference was chosen because it is “the most current methodologies and GHG inventory pre-COVID-19 to better inform Indonesia's actual state.”<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.18, footnote 2. Quoted verbatim; verified in file this session.">1</a></sup></p>
+      <p style="margin-top:10px">This is a <b>genuine methodological strengthening</b>, and it is also why every percentage figure you have previously heard about Indonesia's target is now the wrong currency. Do not mix them.</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="numbers">
+    <div class="sec-head"><span class="n">2</span><h2>The numbers, as submitted</h2></div>
+    <p class="sec-intro">Three scenarios, distinguished by economic growth and by whether international support arrives. Read the last column first.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Scenario</th><th>What it assumes</th><th class="num">2030</th><th class="num">2035</th><th class="num">vs 2019</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair"><b>CPOS</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">current policy</span></td>
+            <td>No additional measures. GDP 6.0% in 2030, 6.7% in 2035</td>
+            <td class="num">1,780,450</td><td class="num">1,787,004</td><td class="num">+56.1%</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>LCCP_L</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">1.5°C, lower growth</span></td>
+            <td>Additional measures toward NZE 2060 or sooner, <b>assuming international funding, technology and capacity support</b>. GDP 6.0% / 6.7%</td>
+            <td class="num">1,345,707</td><td class="num"><b>1,257,717</b></td><td class="num">+9.8%</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>LCCP_H</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">1.5°C, higher growth</span></td>
+            <td>Same measures, higher growth — 8.0% in 2029, 7.0% in 2030, 8.3% in 2035</td>
+            <td class="num">1,491,474</td><td class="num"><b>1,488,866</b></td><td class="num">+30.0%</td>
+          </tr>
+          <tr class="total"><td class="pair">2019 reference</td><td>Actual net emissions, GHG inventory, 2006 IPCC guidelines</td><td class="num">—</td><td class="num">1,145,037</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figcap" style="font-family:'IBM Plex Sans';font-size:13px;color:var(--ink-3);margin-top:10px">All figures Gg CO₂e, net emission, from Table 1 of the Second NDC, p.23. Percentages are the NDC's own (pp. 21–22) and reconcile exactly with the table.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), Table 1 p.23; scenario definitions pp.18–19; percentage statements pp.21–22. Verified in file; arithmetic independently reconciled.">1</a></sup></p>
+
+    <div class="keyline warn" style="margin-top:18px">
+      <p class="lead">Under every scenario Indonesia submitted, 2035 emissions are <em>above</em> 2019.</p>
+      <p>Even the most ambitious — LCCP_L, 1.5°C-aligned and dependent on international support — lands <b>9.8% higher</b> than the reference year. This is not a criticism smuggled in from outside; it is Indonesia's own submitted table. What the NDC promises is that emissions <b>peak in 2030</b> and then turn, reaching net-negative by 2060 in both LCCP scenarios.</p>
+      <p style="margin-top:10px">Hold this when you read the market design: <b>a growing emissions envelope is the context in which the cap under Pasal 62 will be set.</b></p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section id="waterfall">
+    <div class="sec-head"><span class="n">3</span><h2>Energy grows. Forests do the work.</h2></div>
+    <p class="sec-intro">Decompose the 2019→2035 path in the ambitious scenario and the strategy becomes unmistakable — and it directly answers your energy-versus-forestry question, from Indonesia's own numbers.</p>
+
+    <div class="figure">
+      <div class="svgbox">
+      <svg viewBox="0 0 880 360" role="img" aria-label="Waterfall from 2019 net emissions of 1,145,037 to 2035 LCCP_L net emissions of 1,257,717. Energy adds 454,232, IPPU adds 9,386, waste adds 44,117, agriculture subtracts 5,258, and FOLU subtracts 389,796 by flipping from a source to a sink.">
+        <text x="0" y="16" font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--ink-3)" letter-spacing="1.4">2019 → 2035 UNDER LCCP_L · Gg CO₂e · DERIVED FROM TABLE 1, P.23</text>
+
+        <line x1="46" y1="290" x2="870" y2="290" stroke="var(--ink-3)" stroke-width="1"/>
+        <g font-family="IBM Plex Mono, monospace" font-size="9.5" fill="var(--ink-3)">
+          <text x="0" y="294">1,100k</text><text x="0" y="217">1,300k</text><text x="0" y="140">1,500k</text><text x="0" y="63">1,700k</text>
+        </g>
+        <g stroke="var(--rule-soft)" stroke-width="1">
+          <line x1="46" y1="213" x2="870" y2="213"/><line x1="46" y1="136" x2="870" y2="136"/><line x1="46" y1="59" x2="870" y2="59"/>
+        </g>
+
+        <!-- start -->
+        <rect x="60" y="272.7" width="90" height="17.3" fill="var(--ink-3)" stroke="var(--ink)"/>
+        <text x="105" y="266" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--ink)" text-anchor="middle">1,145,037</text>
+
+        <!-- energy -->
+        <rect x="170" y="98.6" width="90" height="174.1" fill="var(--flag-soft)" stroke="var(--flag)" stroke-width="1.4"/>
+        <text x="215" y="92" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--flag)" text-anchor="middle">+454,232</text>
+
+        <!-- ippu -->
+        <rect x="280" y="95" width="90" height="3.6" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="325" y="88" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--flag)" text-anchor="middle">+9,386</text>
+
+        <!-- waste -->
+        <rect x="390" y="78.1" width="90" height="16.9" fill="var(--flag-soft)" stroke="var(--flag)"/>
+        <text x="435" y="71" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--flag)" text-anchor="middle">+44,117</text>
+
+        <!-- agriculture -->
+        <rect x="500" y="78.1" width="90" height="2" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="545" y="71" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="var(--accent-ink)" text-anchor="middle">−5,258</text>
+
+        <!-- folu -->
+        <rect x="610" y="80.1" width="90" height="149.4" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.8"/>
+        <text x="655" y="73" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="500" fill="var(--accent-ink)" text-anchor="middle">−389,796</text>
+
+        <!-- end -->
+        <rect x="720" y="229.5" width="90" height="60.5" fill="var(--ink-3)" stroke="var(--ink)"/>
+        <text x="765" y="223" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="500" fill="var(--ink)" text-anchor="middle">1,257,717</text>
+
+        <!-- connectors -->
+        <g stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="3 2">
+          <line x1="150" y1="272.7" x2="170" y2="272.7"/>
+          <line x1="260" y1="98.6" x2="280" y2="98.6"/>
+          <line x1="370" y1="95" x2="390" y2="95"/>
+          <line x1="480" y1="78.1" x2="500" y2="78.1"/>
+          <line x1="590" y1="80.1" x2="610" y2="80.1"/>
+          <line x1="700" y1="229.5" x2="720" y2="229.5"/>
+        </g>
+
+        <!-- x labels -->
+        <g font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--ink)" text-anchor="middle">
+          <text x="105" y="308">2019</text><text x="215" y="308" font-weight="600">Energy</text><text x="325" y="308">IPPU</text>
+          <text x="435" y="308">Waste</text><text x="545" y="308">Agri.</text><text x="655" y="308" font-weight="600">FOLU</text><text x="765" y="308">2035</text>
+        </g>
+
+        <text x="0" y="336" font-family="IBM Plex Sans" font-size="13" fill="var(--ink-2)">Energy emissions rise <tspan font-weight="600" fill="var(--ink)">69%</tspan> — from 655,568 to 1,109,800. FOLU swings <tspan font-weight="600" fill="var(--ink)">389,796 Gg</tspan>, flipping from a source of +221,384 to a sink of −168,412.</text>
+        <text x="0" y="354" font-family="IBM Plex Sans" font-size="13" font-style="italic" fill="var(--ink-2)">Without the FOLU flip, 2035 emissions would be roughly 44% above 2019 rather than 9.8%.</text>
+      </svg>
+      </div>
+      <p class="figcap">Fig. 7.2 — Waterfall derived from Second NDC Table 1, p.23 (LCCP_L column). Arithmetic reconciled independently: the sector deltas sum to the NDC's own stated +9.8%.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), Table 1, p.23. Sector values read from the table; deltas computed and checked against the NDC's stated percentage on p.21.">1</a></sup></p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Sector</th><th class="num">2019</th><th class="num">2035 LCCP_L</th><th class="num">Change</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td class="pair"><b>Energy</b></td><td class="num">655,568</td><td class="num">1,109,800</td><td class="num">+454,232</td><td>The growth engine — and the emissions engine</td></tr>
+          <tr><td class="pair">IPPU</td><td class="num">63,729</td><td class="num">73,115</td><td class="num">+9,386</td><td>Industrial process emissions, modest growth</td></tr>
+          <tr><td class="pair">Waste</td><td class="num">124,360</td><td class="num">168,477</td><td class="num">+44,117</td><td>Grows with population and consumption</td></tr>
+          <tr><td class="pair">Agriculture</td><td class="num">79,996</td><td class="num">74,738</td><td class="num neg">−5,258</td><td>Broadly flat</td></tr>
+          <tr><td class="pair"><b>FOLU</b></td><td class="num">221,384</td><td class="num neg">−168,412</td><td class="num neg">−389,796</td><td><b>Source becomes sink — carries the entire target</b></td></tr>
+          <tr class="total"><td class="pair">Net</td><td class="num">1,145,037</td><td class="num">1,257,717</td><td class="num">+112,680</td><td>+9.8% against the 2019 reference</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="keyline" style="margin-top:18px">
+      <p class="lead">Indonesia's climate target is a forestry target with an energy problem attached.</p>
+      <p>That is the single most useful sentence I can give you for the sessions ahead, and it comes straight from the submitted table. <b>FOLU Net Sink 2030</b> is not a side programme — it is the mechanism by which the national number works at all. Energy is planned to nearly double its emissions while the forest sector absorbs the difference.</p>
+    </div>
+
+    <details>
+      <summary>Three consequences to carry into Sessions 08–11</summary>
+      <p><b>1 — The carbon market and the NDC pull in different directions in forestry.</b> If FOLU must deliver a 390,000 Gg swing to make the national target work, every forest tonne authorised for export under Pasal 68 is a tonne taken out of that swing. This is the corresponding-adjustment trade from Session 03, but now with a magnitude attached: <b>Indonesia has very little forest headroom to sell.</b></p>
+      <p><b>2 — Energy is where crediting room exists, and where the cap will bind.</b> Energy emissions are planned to grow, which means the <i>Batas Atas Emisi</i> under Pasal 62 will be set against a rising envelope. That makes an intensity-benchmarked design far more likely than an absolute one at installation level — and reopens exactly the translation problem flagged in Session 01.</p>
+      <p><b>3 — The 2019 composition explains the emphasis.</b> The NDC reports 2019 emissions dominated by LUCF including peat fires at <b>50.13%</b>, energy at 34.49%. But the First BTR reports 2022 emissions of 1,383 Gg-scale dominated by <b>energy at 69.01%</b> with LUCF at 22.58%.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.8: 2019 emissions 1.845 GtCO₂e, LUCF incl. peat fires 50.13%, energy 34.49%, waste 6.52%, IPPU 3.15%; First BTR 2022 emissions 1.383 GtCO₂e, energy 69.01%, LUCF incl. peat fires 22.58%.">1</a></sup> The two years differ enormously because 2019 was a severe fire year. <b>Indonesia's emissions profile swings on fire</b> — which is why the reference-year choice matters so much, and why permanence risk in Session 04 is not an abstraction here.</p>
+    </details>
+  </section>
+
+  <!-- 4 -->
+  <section id="energy">
+    <div class="sec-head"><span class="n">4</span><h2>The energy policy layer</h2></div>
+    <p class="sec-intro">Your sector focus, as the NDC itself describes it. Note these are regulation and mandate — the middle box of Fig. 7.1, not the carbon-pricing box.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Instrument</th><th>What it sets</th></tr></thead>
+        <tbody>
+          <tr><td class="pair"><b>PP No. 40/2025</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">National Energy Policy</span></td><td>New and renewable energy share of <b>primary energy supply</b>: <b>19–23% by 2030</b>, <b>36–40% by 2040</b>, <b>70–72% by 2060</b></td></tr>
+          <tr><td class="pair"><b>Perpres 112/2022</b></td><td>Acceleration of renewable energy development for electricity supply — the framework for attracting investment and for transition in the power sector, referenced alongside the National Energy Policy and <b>RUKN 2025</b></td></tr>
+          <tr><td class="pair"><b>PP No. 33/2023</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">Energy Conservation</span></td><td>Energy management obligations above a threshold of energy use, <b>minimum energy performance standards (MEPS)</b> and efficiency labelling — across provider, industry, transport, building and household</td></tr>
+          <tr><td class="pair">Biofuel mandate</td><td>B20 → <b>B30 in 2020</b>, ten years earlier than the First NDC target → <b>B40 in 2025</b></td></tr>
+          <tr><td class="pair">Perpres 79/2023</td><td>Amends Perpres 55/2019 — battery electric vehicle programme for road transport</td></tr>
+          <tr><td class="pair">Green industry</td><td>Act No. 3/2014 on Industry; Minister of Industry Regulation 51/2015 on green industry standards for raw material, energy, process and product</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Read PP 33/2023 next to Session 04's additionality test</h3>
+      <p>Minimum energy performance standards and mandatory energy management are exactly the kind of instrument that triggers the <b>regulatory surplus</b> bar in Decision -/CMA.3 ¶38: creditable mitigation must <b>exceed what law or regulation already requires</b>.</p>
+      <p>So the more thoroughly Indonesia mandates efficiency, the smaller the creditable energy-efficiency pipeline becomes — the dilemma named in Session 04, now with a specific regulation attached to it. <b>For a developer this is a live diligence question:</b> does your efficiency project go beyond the applicable MEPS, or merely meet it? If it merely meets it, it is compliance, not a credit.</p>
+    </div>
+
+    <details>
+      <summary>Marine and blue carbon — a NEK implementing regulation already exists</summary>
+      <p>Worth flagging because it shows the implementing layer is being built sector by sector: the NDC cites <b>Minister of Marine Affairs and Fisheries Regulation No. 1 of 2025 on the Governance of Carbon Economic Value Implementation in the Marine Sector</b>, alongside KKP Decree No. 52/2024 on the climate change mitigation roadmap for the marine and fisheries sector.<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.13. Verified in file this session.">1</a></sup></p>
+      <p>That is a <i>Peraturan Menteri Terkait</i> of exactly the kind Perpres 110 repeatedly delegates to. When Session 08 asks where additionality and methodology detail actually live, this is the shape of the answer — and it means the answer will differ by sector.</p>
+    </details>
+  </section>
+
+  <!-- 5 -->
+  <section id="nek">
+    <div class="sec-head"><span class="n">5</span><h2>Where NEK sits — the NDC names Perpres 110 directly</h2></div>
+    <p class="sec-intro">You do not have to infer the relationship. The NDC states it.</p>
+
+    <blockquote>“The Government of Indonesia has promulgated Presidential Regulation No. 110 of 2025 concerning the implementation of carbon pricing and national greenhouse gas emissions management. The Regulation serves as a legal framework to implement NDC towards low carbon and climate resilience. It also prescribes carbon pricing, including arrangements for <b>carbon trading, carbon levies and result based payments and national registry system</b>. Sectoral Ministries and Agencies as the responsible institutions on the achievement of NDC's target will fully engage in the implementation…”<sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.4. Quoted verbatim; verified in file this session.">1</a></sup></blockquote>
+
+    <p style="margin-top:16px">Three things this settles. First, <b>Perpres 110 is subordinate to the NDC</b> — it is the delivery instrument, not the objective. Second, the instrument list in the NDC matches Pasal 55(2) exactly: trading, levy, results-based payment, registry. Third, <b>sectoral ministries are named as the responsible institutions</b>, which is precisely why Perpres 110 hands so much to <i>Menteri Terkait</i> — the offset limit, the ETS design, the methodology detail.</p>
+
+    <p>The NDC also names <b>PP No. 26 of 2025</b> on Environmental Protection and Management Planning, which sets the framework for the national RPPLH and elaborates decarbonisation, resilience and disaster risk reduction as concrete policy.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="institutions">
+    <div class="sec-head"><span class="n">6</span><h2>The national focal point has moved</h2></div>
+    <p class="sec-intro">A short but important institutional note, and a preview of Session 09.</p>
+
+    <div class="card id">
+      <h3>From KLHK's DG Climate Change to the Ministry of Environment</h3>
+      <p>The NDC records that the <b>Directorate General of Climate Change</b>, established under <b>Presidential Regulation No. 16 of 2015</b> within the Ministry of Environment and Forestry, <b>“serves as the National Focal Point for the United Nations Framework Convention on Climate Change”</b> — and then adds, plainly: <b>“Under new government, this mandate has been handed over to Ministry of Environment.”</b><sup class="fn"><a class="tip" href="#n1" data-tip="Note 1 — Second NDC of Indonesia (2025), p.20, section 4.3 Planning Processes. Quoted verbatim; verified in file this session.">1</a></sup></p>
+      <p>This confirms from primary text what Session 00 left carefully unstated: the former KLHK has been separated, and the UNFCCC focal-point mandate now sits with the <b>Ministry of Environment</b> — which is also the <i>Menteri</i> to whom Perpres 110 assigns <i>Otorisasi</i> (Pasal 68(2)) and SPE-GRK issuance (Pasal 65(5)).</p>
+      <p>The NDC names the coordination set explicitly: Ministry of Environment, <b>BAPPENAS</b> and <b>Ministry of Finance</b> for climate finance and international negotiation, with line ministries — <b>Forestry, Energy and Mineral Resources, Industry, Agriculture, Marine Affairs and Fisheries</b> — and Ministry of Home Affairs for subnational implementation. Session 09 maps this against Perpres 110's steering committee.</p>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section id="lenses">
+    <div class="sec-head"><span class="n">7</span><h2>Three lenses</h2></div>
+    <div class="lenses">
+      <div class="lens">
+        <h4>Government</h4>
+        <p>Two of your three scenarios depend on international support arriving. That makes <b>Article 6 revenue and results-based payment part of the target's feasibility</b>, not a bonus. But the FOLU arithmetic means forest tonnes are the ones you can least afford to authorise for export — so the money you need and the asset you can sell are not the same asset.</p>
+      </div>
+      <div class="lens dev">
+        <h4>Project developer</h4>
+        <p>In energy, check your project against <b>PP 33/2023 MEPS and PP 40/2025 targets</b> before building an additionality case — if the regulation already requires it, it is not creditable. In forestry, expect authorisation to be hard to obtain: those tonnes are load-bearing for the national target.</p>
+      </div>
+      <div class="lens own">
+        <h4>Project / asset owner</h4>
+        <p>The NDC is now stated in <b>absolute tonnes against a 2019 reference</b>, so any diligence memo quoting “31.89% below BAU” is working from a superseded framework. Ask which NDC the counterparty's model was built against — and note that energy sector emissions are planned to rise, which shapes how tight any cap can realistically be.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECK -->
+  <section id="check">
+    <div class="sec-head"><span class="n">?</span><h2>Comprehension check</h2></div>
+    <div class="check">
+      <ol>
+        <li>Why is a “level of emission relative to 2019” target methodologically stronger than “31.89% below BAU in 2030”? Name the discretion it removes.</li>
+        <li>Under LCCP_L, 2035 emissions are 9.8% above 2019 — yet this is the 1.5°C-aligned scenario. Explain how both statements are consistent.</li>
+        <li>FOLU swings 389,796 Gg from source to sink. Using Session 03, explain why that number makes forest carbon <b>exports</b> strategically expensive for Indonesia.</li>
+        <li>An industrial client proposes an energy-efficiency crediting project. Which two regulations do you check first, and what are you checking for?</li>
+        <li>Indonesia's 2019 emissions were 50% LUCF; its 2022 emissions were 69% energy. What single factor explains most of that swing, and what does it imply for permanence risk?</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section id="notes" class="notes">
+    <div class="sec-head"><span class="n">§</span><h2>Sources</h2></div>
+    <p class="sec-intro"><span class="verified">verified in file</span> read directly this session. Page numbers are the document's own printed pages.</p>
+    <ol>
+      <li id="n1"><span class="verified">verified in file</span> <b>Second Nationally Determined Contribution, Republic of Indonesia</b>, submitted to the UNFCCC <b>27 October 2025</b>. Fetched and read directly this session. Cited above: p.1 (First NDC 29%/41%, 2010 pledge 26%); p.4 (Perpres 110/2025 quoted; PP 26/2025; nine NDC implementation programmes); p.6 (LTS-LCCR 2050 — LCCP pathway peaking 2030 at 1,244 MtCO₂e, 540 MtCO₂e by 2050, NZE 2060); p.8 (emissions history 2005–2022; Enhanced NDC 31.89%/43.20%; FOLU peat and land restoration targets); p.9 (FREL 0.568 GtCO₂e/yr and FRL 0.264 GtCO₂e/yr; FOLU Net Sink 2030); p.10 (PP 40/2025 renewable shares 19–23%/36–40%/70–72%; PP 33/2023; Perpres 112/2022; RUKN 2025); p.11 (B20/B30/B40; Perpres 79/2023; Act 3/2014 and Permenperin 51/2015); p.13 (KKP Regulation No. 1/2025 on carbon economic value in the marine sector; KKP Decree 52/2024); p.18 (2019 reference level 1,145,037 Gg CO₂e; scenario definitions; footnote 2 on the reference-year choice); p.19 (scenario growth assumptions; implementation period 2031–2035); p.20 (scope, coverage, gases, 2006 IPCC-GL; section 4.3 on the DG Climate Change focal point and its transfer to the Ministry of Environment); p.21 (GWP-100 AR5; scenario percentages vs 2019); p.22 (peaking in 2030; Figure 1); <b>p.23 (Table 1 — reference point and projected emissions by sector and scenario)</b>. <a class="ext" href="https://unfccc.int/sites/default/files/2025-10/Indonesia_Second%20NDC_2025.10.24.pdf" target="_blank" rel="noopener">Document PDF →</a> · <a class="ext" href="https://unfccc.int/NDCREG" target="_blank" rel="noopener">UNFCCC NDC Registry →</a></li>
+      <li id="n2"><span class="verified">verified in file</span> <b>Arithmetic in §3</b> — sector deltas, percentage changes and the waterfall in Fig. 7.2 were computed from Table 1 (p.23) and reconciled against the NDC's own stated figures of +56.1%, +9.8% and +30.0% on p.21. <b>Derived, not quoted</b>; the underlying values are the NDC's.</li>
+      <li id="n3"><span class="verified">verified in file</span> <b>Peraturan Presiden RI Nomor 110 Tahun 2025</b>. Cross-referenced above: Pasal 55(2) p.42 (instrument list matching the NDC's description); Pasal 62 p.45 (ETS and offset limit); Pasal 65(5) p.46 (SPE-GRK issuance by the Minister); Pasal 68(2) p.48 (<i>Otorisasi</i> by the Minister). Read in Sessions 00 and 03.</li>
+      <li id="n4"><span class="verified byref">by reference</span> <b>Decision -/CMA.3</b>, annex ¶38 — the regulatory-surplus limb of the additionality test, applied in §4 to PP 33/2023 and MEPS. Read in full in Session 04.</li>
+      <li id="n5"><span class="verified byref">by reference</span> <b>LTS-LCCR 2050 (2021)</b>, <b>PP No. 40/2025</b>, <b>PP No. 33/2023</b>, <b>Perpres 112/2022</b>, <b>PP No. 26/2025</b>, <b>UU HPP</b>, <b>RUKN 2025</b> — all named and characterised <b>as described in the Second NDC</b>. The instruments themselves were not opened; where a figure is given above it is the NDC's rendering of it. Reading the underlying regulations is an open item for Sessions 08–10.</li>
+    </ol>
+  </section>
+
+  </main>
+</div>
+</div>
