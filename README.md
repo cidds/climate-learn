@@ -9,9 +9,9 @@ national regulations and statistics — with every claim traceable to its docume
 
 ## Briefs
 
-### [Carbon Economic Mechanisms](carbon-economic-mechanisms/) — 12 parts
+### [Carbon Pricing](carbon-economic-mechanisms/) — 12 parts
 
-How carbon is priced and traded, globally and in Indonesia. Anchored in **energy** (power, industry,
+Carbon pricing and carbon markets, globally and in Indonesia. Anchored in **energy** (power, industry,
 efficiency) with **forestry** as contrast, and read through three lenses: government, project
 developer, project owner.
 

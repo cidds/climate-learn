@@ -82,13 +82,23 @@ footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--rule); font
 
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== interpretation marker ===== */
+.interp{
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  border:1px solid var(--law); border-bottom:1px solid var(--law) !important;
+  padding:1px 5px; border-radius:2px; margin-left:6px; white-space:nowrap;
+  cursor:help; vertical-align:2px;
+}
+.interp:hover{background:var(--law); color:var(--paper)}
 </style>
 
 <div class="wrap">
 
 <header class="mast">
   <div class="eyebrow">Personal literature brief · complete</div>
-  <h1>Carbon Economic Mechanisms</h1>
+  <h1>Carbon Pricing</h1>
   <p class="standfirst">Eleven sessions, built from primary sources, on how carbon is priced and traded globally and in Indonesia — anchored in <b>energy</b> (power, industry, efficiency) with <b>forestry</b> as contrast, and read through three lenses: government, project developer, and project owner.</p>
   <div class="meta">
     <span><b>Sessions</b> · 11, plus 1 update</span>
@@ -132,7 +142,7 @@ footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--rule); font
   </a>
   <a class="s" href="01_Global_Foundations/04_Methodology_CDM_to_PACM.html">
     <span class="num">04</span>
-    <span><h3>How a Tonne Gets Made</h3>
+    <span><h3>Methodologies and the Crediting Cycle</h3>
     <p>The Article 6.4 rulebook read directly: baselines, the additionality definition, the activity cycle, and the levy waterfall — the host adjusts 100% but is paid for 93%.</p>
     <span class="tags"><span class="tag">Decision -/CMA.3</span><span class="tag f">2 flags resolved</span></span></span>
   </a>
@@ -228,7 +238,8 @@ footer{margin-top:56px; padding-top:22px; border-top:1px solid var(--rule); font
   <dl>
     <dt>Dotted underline</dt><dd>Hover for a definition — every abbreviation, mechanism and organisation carries one.</dd>
     <dt>Footnote marker</dt><dd>Hover to see the source; click to jump to the full citation.</dd>
-    <dt><span class="q">[?]</span> in pink</dt><dd>A claim I decline to assert from the sources I have. Treat as unverified and check before using.</dd>
+    <dt><span class="q">[?]</span> in pink</dt><dd>A claim declined for want of a source. Treat as unverified.</dd>
+    <dt><span class="interp">analysis</span> in indigo</dt><dd>The author&#39;s interpretation rather than a sourced fact — the underlying figures are cited, the framing is not.</dd>
     <dt>Collapsed blocks</dt><dd>Depth kept out of the main flow — open them when you want the mechanism rather than the summary.</dd>
     <dt>Article citations</dt><dd>Indonesian regulation cited as <i>Pasal</i> + page as printed; treaty rulebooks by paragraph; treaties by article.</dd>
   </dl>

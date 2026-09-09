@@ -1,6 +1,6 @@
-# Carbon Economic Mechanisms — a literature brief
+# Carbon Pricing — a literature brief
 
-A twelve-part brief on how carbon is priced and traded globally and in Indonesia, built from primary
+A twelve-part brief on carbon pricing and carbon markets, globally and in Indonesia, built from primary
 sources: treaty text, UNFCCC decisions, Indonesia's Second NDC, Perpres 110/2025, and the ministerial
 implementing regulations.
 

@@ -140,13 +140,23 @@ tr.hi td{background:var(--accent-soft)}
 
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== interpretation marker ===== */
+.interp{
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  border:1px solid var(--law); border-bottom:1px solid var(--law) !important;
+  padding:1px 5px; border-radius:2px; margin-left:6px; white-space:nowrap;
+  cursor:help; vertical-align:2px;
+}
+.interp:hover{background:var(--law); color:var(--paper)}
 </style>
 
 <div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
 <div class="wrap">
 
 <header class="mast">
-  <div class="eyebrow"><span class="dot"></span> Session 10 · Sector Application <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <div class="eyebrow"><span class="dot"></span> Session 10 · Sector Application <span class="dot"></span> Carbon Pricing</div>
   <h1>Energy and Forests</h1>
   <p class="standfirst">Your two sectors, tested against the mechanisms. I used <b>your own reference documents</b> for the energy baseline, and the Session 01 flag on intensity benchmarking finally closes — with the actual numbers. What emerges is a system where the energy sector's cap grows with its output, and the forest sector carries the national target.</p>
   <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
@@ -295,7 +305,7 @@ tr.hi td{background:var(--accent-soft)}
       <summary>Why a government would choose this anyway — and it is not simply weakness</summary>
       <p>Session 01 set out the case: an intensity target is politically survivable in a growing economy because it does not cap growth. Fig. 10.1 sharpens why that matters here. A system that is <b>67.5% coal</b> and where wind and solar are <b>0.26%</b> cannot absorb an absolute cap without either curtailing electricity supply or importing abatement it cannot yet build.</p>
       <p>Benchmarking also does real work that a flat cap would not: the 29.8% spread between the two Phase I benchmarks means <b>efficient large plants receive surplus quota to sell and inefficient plants must buy</b>. Within the coal fleet, that is a genuine merit-order pressure. What it cannot do is reduce the fleet.</p>
-      <p>The honest formulation: <b>Indonesia has built an instrument that improves the efficiency of a growing coal fleet, not one that shrinks it.</b> Whether that is the right first step or an insufficient one is a judgement — but it should be made knowing which of the two the instrument is.</p>
+      <p><b>On the design as drafted, the instrument acts on the emissions intensity of a growing coal fleet rather than on its size. <span class="interp tip" data-tip="Author&#39;s interpretation. The underlying facts are cited; the framing and the emphasis are mine, and a practitioner might read them differently.">analysis</span></b> Whether that is the right first step or an insufficient one is a judgement — but it should be made knowing which of the two the instrument is.</p>
     </details>
   </section>
 
@@ -337,8 +347,8 @@ tr.hi td{background:var(--accent-soft)}
     <p class="figcap" style="font-family:'IBM Plex Sans';font-size:13px;color:var(--ink-3);margin-top:10px">All from the Second NDC, pp. 8–10 and Table 1 p.23.<sup class="fn"><a class="tip" href="#n3" data-tip="Note 3 — Second NDC of Indonesia (2025), pp. 8–10 (FOLU Net Sink measures, FREL/FRL values and reference periods, restoration targets) and Table 1 p.23 (sectoral projections). Read in Session 07.">3</a></sup></p>
 
     <div class="keyline" style="margin-top:18px">
-      <p class="lead">Note what the 2nd FRL did: it more than halved the reference level, from 0.568 to 0.264 GtCO₂e per year.</p>
-      <p>A forest reference level is a baseline — Session 00's most consequential number, at national scale. Halving it means the same physical performance now generates <b>far fewer</b> creditable reductions against it. Indonesia tightened its own forest baseline, which is the opposite of the incentive Session 06 found operating in project-level REDD+.</p>
+      <p class="lead">The 2nd FRL revised the reference level: it more than halved the reference level, from 0.568 to 0.264 GtCO₂e per year.</p>
+      <p>A forest reference level is a baseline applied at national scale. Halving it means the same physical performance now generates <b>far fewer</b> creditable reductions against it. Indonesia tightened its own forest baseline, which is the opposite of the incentive Session 06 found operating in project-level REDD+.</p>
     </div>
 
     <details>
@@ -369,9 +379,9 @@ tr.hi td{background:var(--accent-soft)}
     </div>
 
     <div class="keyline" style="margin-top:18px">
-      <p class="lead">The sector with the most carbon to sell is the one Indonesia can least afford to sell from.</p>
+      <p class="lead">The sector with the largest saleable volume is also the sector carrying the national target. <span class="interp tip" data-tip="Author&#39;s interpretation. The underlying facts are cited; the framing and the emphasis are mine, and a practitioner might read them differently.">analysis</span></p>
       <p>Forestry generates the removals international buyers want and holds the credits with the strongest voluntary-market demand. It is also the sector delivering the 389,796 Gg swing on which the NDC depends. Every authorised forest tonne exported under Pasal 68 comes out of that swing — while energy, which has abundant creditable activity in principle, is largely inside the compliance system where Session 04's regulatory-surplus test bites.</p>
-      <p style="margin-top:10px"><b>That tension is the single most important thing to carry into Session 11.</b> It is not a flaw in the design; it is the real constraint the design has to manage.</p>
+      <p style="margin-top:10px"><b>That tension carries directly into Session 11.</b> It is not a flaw in the design; it is the real constraint the design has to manage.</p>
     </div>
   </section>
 
@@ -409,7 +419,7 @@ tr.hi td{background:var(--accent-soft)}
     <div class="lenses">
       <div class="lens">
         <h4>Government</h4>
-        <p>You have an instrument that improves coal-fleet efficiency while the fleet grows, and a forest sector carrying the national target that you therefore cannot afford to sell from. The reconciling variable is the <b>benchmark trajectory</b> — how fast tCO₂e/MWh tightens across the phases to 2030 is the single most consequential number in Indonesian energy carbon policy, and it is set by ESDM.</p>
+        <p>You have an instrument that improves coal-fleet efficiency while the fleet grows, and a forest sector carrying the national target that you therefore cannot afford to sell from. The reconciling variable is the <b>benchmark trajectory</b> — the rate at which tCO₂e/MWh tightens across the phases to 2030, which is set by ESDM. <span class="interp tip" data-tip="Author&#39;s interpretation. The underlying facts are cited; the framing and the emphasis are mine, and a practitioner might read them differently.">analysis</span></p>
       </div>
       <div class="lens dev">
         <h4>Project developer</h4>

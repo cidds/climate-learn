@@ -247,13 +247,23 @@ td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
 
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== interpretation marker ===== */
+.interp{
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  border:1px solid var(--law); border-bottom:1px solid var(--law) !important;
+  padding:1px 5px; border-radius:2px; margin-left:6px; white-space:nowrap;
+  cursor:help; vertical-align:2px;
+}
+.interp:hover{background:var(--law); color:var(--paper)}
 </style>
 
 <div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
 <div class="wrap">
 
 <header class="mast">
-  <div class="eyebrow"><span class="dot"></span> Session 00 · Orientation <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <div class="eyebrow"><span class="dot"></span> Session 00 · Orientation <span class="dot"></span> Carbon Pricing</div>
   <h1>The Vocabulary Kit</h1>
   <p class="standfirst">Twenty-eight terms that unlock every later session. Each one is given twice — once as the global concept, once as the legal definition Indonesian regulation actually uses — because the two do not always line up, and most confusion in this field lives in that gap.</p>
   <p class="standfirst" style="margin-top:14px; font-size:15px;">Anything with a <span class="tip" data-tip="Like this. Hover to read, or tab to it and it opens on focus — every abbreviation, mechanism and organisation on this page carries one.">dotted underline</span> has a definition on hover; footnote markers show their source on hover and jump to the full citation on click.</p>
@@ -269,11 +279,12 @@ td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
   <nav class="rail">
     <h4>Clusters</h4>
     <a href="#map"><span class="n">—</span>The map</a>
-    <a href="#a"><span class="n">A</span>The traded object</a>
+    <a href="#a"><span class="n">A</span>The traded unit</a>
     <a href="#b"><span class="n">B</span>The number behind it</a>
     <a href="#c"><span class="n">C</span>System archetypes</a>
     <a href="#d"><span class="n">D</span>Accounting &amp; integrity</a>
     <a href="#e"><span class="n">E</span>Plumbing &amp; actors</a>
+    <a href="#usage"><span class="n">P</span>Practitioner usage</a>
     <a href="#traps"><span class="n">✕</span>Confusion traps</a>
     <a href="#gaps"><span class="n">!</span>Notable absences</a>
     <a href="#check"><span class="n">?</span>Comprehension check</a>
@@ -374,7 +385,7 @@ td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
 
   <!-- ================= A ================= -->
   <section id="a">
-    <div class="sec-head"><span class="n">A</span><h2>The traded object</h2></div>
+    <div class="sec-head"><span class="n">A</span><h2>The traded unit</h2></div>
     <p class="sec-intro">Start here, because this is where the 30%-understanding usually breaks. “Carbon credit” is used in casual conversation for four different things that are legally distinct.</p>
 
     <div class="terms">
@@ -452,7 +463,7 @@ td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
         </div>
         <p class="def">The <b>counterfactual</b>: projected emissions “tanpa intervensi kebijakan dan/atau teknologi mitigasi” — without policy or mitigation-technology intervention.</p>
         <details>
-          <summary>The single most consequential number in a project</summary>
+          <summary>Why the baseline drives credit volume</summary>
           <p>Credits issued = baseline − actual. Raise the baseline and you manufacture credits without touching a single tonne of real emissions. This is why baseline-setting is procedurally defended (methodology approval, third-party validation, regulator sign-off) rather than left to the developer — and why the 2023–24 VCM integrity crisis was largely a baseline crisis. Perpres 110 sets baselines at national, sector and provincial scope (Pasal 15, p.15).</p>
         </details>
       </article>
@@ -777,6 +788,66 @@ td.pair{white-space:nowrap; font-family:"IBM Plex Serif",serif; font-size:14px}
         <p class="def">Defined explicitly as <b>NDC sectors, not administrative jurisdictions</b>. Pasal 9 lists them: energy, waste, <span class="tip" data-tip="Industrial Processes and Product Use — the IPCC inventory category for emissions from chemical or physical transformation in industry (e.g. CO₂ released when limestone is calcined to make cement), as distinct from emissions from burning fuel for energy.">IPPU</span>, agriculture, forestry, marine &amp; fisheries — with sub-sectors including <b>power generation</b> and <b>industry</b> (your energy focus), alongside forestry, peat &amp; mangrove, and blue carbon.</p>
       </article>
 
+    </div>
+  </section>
+
+  <!-- ================= PRACTITIONER USAGE ================= -->
+  <section id="usage">
+    <div class="sec-head"><span class="n">P</span><h2>What practitioners actually call these things</h2></div>
+    <p class="sec-intro">Terms drift between textbooks, regulation and market practice. Where they diverge, this is the usage you will meet in a room of practitioners — and where this brief departs from it, why.</p>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Preferred usage</th><th>Why, and what it displaces</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="pair"><b>Carbon pricing</b></td>
+            <td>The umbrella term used by the World Bank, ICAP and IEA. It covers <b>both</b> taxes and markets. <b>Carbon markets</b> is narrower — trading only — so a paper about a carbon tax is about carbon pricing, not carbon markets. This brief is titled accordingly.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Carbon credit</b> ·<br><b>offset</b></td>
+            <td>Practice increasingly reserves <b>offset</b> for the <i>use</i> — retiring a credit against a footprint — and uses <b>carbon credit</b> for the instrument itself. “I bought an offset” is loose; “I retired a credit as an offset” is precise. Indonesian regulation keeps <i>Offset Emisi GRK</i> as a defined term, so both appear here.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Allowance</b></td>
+            <td>Standard in emissions trading. <b>Permit</b> is used in the older economics literature and in some US contexts, but not in ETS practice.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>VVB</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">validation &amp; verification body</span></td>
+            <td>The general term across standards. <b>DOE</b> is specific to the CDM and carried into the Article 6.4 rulebook; <b>LVV</b> / <i>Lembaga Validasi dan Verifikasi</i> is the Indonesian term. Three names, one function.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>A6.4ER</b> ·<br><b>PACM unit</b></td>
+            <td>Both are in use for the Article 6.4 unit. A6.4ER is the rulebook's term; PACM unit follows the mechanism's operating name.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Removal</b> ·<br><b>reduction</b></td>
+            <td>A <b>removal</b> takes carbon out of the atmosphere; a <b>reduction</b> avoids an emission. <b>Sequestration</b> and <b>sink</b> describe the process and the store. Indonesian regulation uses <i>Serapan GRK</i> for removals. Buyers increasingly price the two separately.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Ex-ante</b> ·<br><b>ex-post</b></td>
+            <td>An <b>ex-post</b> credit is issued after the reduction is verified. An <b>ex-ante</b> credit is issued against a future reduction. The distinction is central to forward-purchase pricing and is not visible from the credit's name — ask which you are being offered.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Vintage</b></td>
+            <td>The year in which the reduction occurred, not the year the credit was issued or sold. Buyers discount older vintages, so it is a price variable in its own right.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Host Party</b> ·<br><b>host country</b></td>
+            <td>Treaty text says <b>host Party</b>; market practice says <b>host country</b>. Same actor. <b>CA</b> is the near-universal abbreviation for corresponding adjustment.</td>
+          </tr>
+          <tr>
+            <td class="pair"><b>Nilai Ekonomi Karbon</b><br><span style="font-family:'IBM Plex Sans';font-size:12px;color:var(--ink-2)">NEK</span></td>
+            <td>Officially rendered as <b>carbon economic value</b>. It has no exact English equivalent — functionally it is Indonesia's <i>carbon pricing instruments</i> framework. Kept untranslated here, because translating it loses the link to the legal text.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:18px">
+      <h3>Two habits worth adopting</h3>
+      <p><b>Name the instrument, not the category.</b> “Carbon market” covers an ETS, a crediting mechanism and a voluntary standard, which behave differently. Saying which one removes most ambiguity before it starts.</p>
+      <p><b>Separate the unit from its use.</b> A credit is an instrument; retiring it is an act; the claim made afterwards is a third thing. Most disputes about integrity are disputes about one of the three being described as another.</p>
     </div>
   </section>
 

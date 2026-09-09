@@ -139,15 +139,25 @@ tr.total td{background:var(--surface-2); font-weight:600}
 
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== interpretation marker ===== */
+.interp{
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  border:1px solid var(--law); border-bottom:1px solid var(--law) !important;
+  padding:1px 5px; border-radius:2px; margin-left:6px; white-space:nowrap;
+  cursor:help; vertical-align:2px;
+}
+.interp:hover{background:var(--law); color:var(--paper)}
 </style>
 
 <div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
 <div class="wrap">
 
 <header class="mast">
-  <div class="eyebrow"><span class="dot"></span> Session 05 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <div class="eyebrow"><span class="dot"></span> Session 05 · Global Foundations <span class="dot"></span> Carbon Pricing</div>
   <h1>Compliance Beyond the ETS</h1>
-  <p class="standfirst">“Compliance market” is not a synonym for “emissions trading”. It is a family of instruments whose only common feature is a <b>legal obligation</b> — and the ETS is one member. This session maps the family, opens the single most consequential design choice inside an ETS, and finally settles the “compliance vs market priority” phrase you brought to Session 01.</p>
+  <p class="standfirst">“Compliance market” is not a synonym for “emissions trading”. It is a family of instruments whose only common feature is a <b>legal obligation</b> — and the ETS is one member. This session maps the family, opens the design choice that determines who captures the value an ETS creates, and finally settles the “compliance vs market priority” phrase you brought to Session 01.</p>
   <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
   <div class="mast-meta">
     <span><b>Flag closed</b> · World Bank carbon-pricing coverage figures</span>
@@ -287,8 +297,8 @@ tr.total td{background:var(--surface-2); font-weight:600}
 
   <!-- 3 -->
   <section id="allocation">
-    <div class="sec-head"><span class="n">3</span><h2>Allocation — where the real money is decided</h2></div>
-    <p class="sec-intro">Everyone argues about the cap. The cap decides the environmental outcome. <b>Allocation decides who gets paid</b>, and it is worth far more money than the cap is worth argument.</p>
+    <div class="sec-head"><span class="n">3</span><h2>Allocation — who captures the value a cap creates</h2></div>
+    <p class="sec-intro">The cap determines the environmental outcome. <b>Allocation determines who receives the value that cap creates</b> — which is why it attracts most of the lobbying.</p>
 
     <p>A cap makes the right to emit scarce. Scarcity creates value — a <span class="tip" data-tip="The economic value created purely by an artificial restriction on supply. Here: the market value of the total allowances, which exists only because the state limited how many there are.">scarcity rent</span>. That value has to go somewhere, and the allocation method is nothing more than the decision about who receives it.</p>
 
@@ -329,7 +339,7 @@ tr.total td{background:var(--surface-2); font-weight:600}
 
     <details>
       <summary>Grandfathering vs benchmarking — and why the difference is moral as well as technical</summary>
-      <p><b>Grandfathering</b> allocates in proportion to <i>historical emissions</i>. The dirtier you were, the more you receive. It is administratively trivial and perverse: it rewards the firms that did least, and penalises anyone who cut emissions before the baseline year.</p>
+      <p><b>Grandfathering</b> allocates in proportion to <i>historical emissions</i>. The dirtier you were, the more you receive. It is administratively simple, and it allocates most to the firms that emitted most, while giving no credit to anyone who cut emissions before the baseline year.</p>
       <p><b>Benchmarking</b> allocates in proportion to <i>output</i> at a performance standard — typically the average of the best performers in the sector, which is the same construction the Article 6.4 rulebook uses for an ambitious baseline (Session 04, ¶36(a)(ii)). Efficient producers receive more allowances than they need and can sell; laggards must buy. It rewards the right behaviour and it is much harder to compute.</p>
       <p>The practical consequence for you: <b>when an Indonesian sectoral benchmark is proposed, the question to ask is not “how tight?” but “benchmarked on what, against whom?”</b> That single choice determines which firms in the sector are net buyers and which are net sellers — before a single tonne is abated.</p>
     </details>
@@ -397,7 +407,7 @@ tr.total td{background:var(--surface-2); font-weight:600}
 
   <!-- 6 -->
   <section id="stack">
-    <div class="sec-head"><span class="n">6</span><h2>The obligation stack — Indonesia's, specifically</h2></div>
+    <div class="sec-head"><span class="n">6</span><h2>Compliance options under the Indonesian scheme</h2></div>
 
     <div style="background:var(--flag-soft); border:1.5px solid var(--flag); border-radius:3px; padding:20px 22px; margin-bottom:22px;">
       <span style="font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--flag); font-weight:500; display:block; margin-bottom:10px;">Corrected in Session 08 — please read this first</span>
@@ -442,7 +452,7 @@ tr.total td{background:var(--surface-2); font-weight:600}
       <p class="figcap">Fig. 5.3 — Perpres 110/2025, Pasal 62(1)(d) and Pasal 63(1)–(4), p.45. Verified in file in Session 03.<sup class="fn"><a class="tip tr" href="#n3" data-tip="Note 3 — Perpres RI No. 110 Tahun 2025, Pasal 62–63, p.45. Verified in file.">3</a></sup> The carbon tax rate itself sits in UU HPP and is an open reading item for Session 08.</p>
     </div>
 
-    <p style="margin-top:18px"><s style="color:var(--ink-3)">This is a genuinely elegant design and also a genuinely constrained one. Using the tax as the compliance backstop means Indonesia never needs a separate penalty regime, and firms always have a known worst case. The cost is that the ETS cannot discover a price above the tax rate — so if the tax is set low, the cap can be as tight as you like and the market will still not signal scarcity above that level.</s></p>
+    <p style="margin-top:18px"><s style="color:var(--ink-3)">The design has a clear internal logic, and a specific limitation. Using the tax as the compliance backstop means Indonesia never needs a separate penalty regime, and firms always have a known worst case. The cost is that the ETS cannot discover a price above the tax rate — so if the tax is set low, the cap can be as tight as you like and the market will still not signal scarcity above that level.</s></p>
     <p><b>Replaces the struck text:</b> using the tax as the compliance backstop means Indonesia never needs a separate penalty regime. And because UU HPP Pasal 13 pegs the rate at or above the prevailing carbon market price, the backstop does <b>not</b> cap what the market can discover — it guarantees that non-compliance is never the cheap option. The Rp30,00/kg floor binds only when the market is weaker still. <b>The cap can therefore bind as hard as the government chooses to set it.</b></p>
   </section>
 

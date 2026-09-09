@@ -140,13 +140,23 @@ tr.total td{background:var(--surface-2); font-weight:600}
 
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== interpretation marker ===== */
+.interp{
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  border:1px solid var(--law); border-bottom:1px solid var(--law) !important;
+  padding:1px 5px; border-radius:2px; margin-left:6px; white-space:nowrap;
+  cursor:help; vertical-align:2px;
+}
+.interp:hover{background:var(--law); color:var(--paper)}
 </style>
 
 <div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
 <div class="wrap">
 
 <header class="mast">
-  <div class="eyebrow"><span class="dot"></span> Session 03 · Global Foundations <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <div class="eyebrow"><span class="dot"></span> Session 03 · Global Foundations <span class="dot"></span> Carbon Pricing</div>
   <h1>Article 6, End to End</h1>
   <p class="standfirst">Three hundred and twenty words of treaty text that took six years to write rules for. This session takes Article 6 apart paragraph by paragraph — and then shows you the exact article of Perpres 110/2025 where Indonesia implements it, which turns out to be one of the cleanest expressions of Article 6 logic in any national law.</p>
   <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
@@ -179,7 +189,7 @@ tr.total td{background:var(--surface-2); font-weight:600}
   <!-- 1 -->
   <section id="anatomy">
     <div class="sec-head"><span class="n">1</span><h2>Anatomy of Article 6</h2></div>
-    <p class="sec-intro">People say “Article 6” and mean “6.2 and 6.4”. The article has nine paragraphs, and three of the ones nobody quotes do real work.</p>
+    <p class="sec-intro">“Article 6” is commonly used as shorthand for 6.2 and 6.4. The article has nine paragraphs; the others carry operative rules that determine how those two work in practice.</p>
 
     <div class="figure">
       <div class="svgbox">
@@ -233,8 +243,8 @@ tr.total td{background:var(--surface-2); font-weight:600}
 
         <!-- bottom note -->
         <rect x="0" y="258" width="880" height="54" rx="2" fill="var(--flag-soft)" stroke="var(--flag)"/>
-        <text x="14" y="279" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">The paragraph almost nobody quotes, and the one that matters most: 6.5</text>
-        <text x="14" y="298" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">A reduction used by another Party toward its NDC shall NOT also be used by the host to show achievement of its own NDC. Double counting is banned in the treaty itself — not merely in the rulebook.</text>
+        <text x="14" y="279" font-family="IBM Plex Sans" font-size="12.5" font-weight="600" fill="var(--ink)">6.5 — the treaty-level bar on counting one reduction twice</text>
+        <text x="14" y="298" font-family="IBM Plex Sans" font-size="12" fill="var(--ink-2)">A reduction used by another Party toward its NDC shall not also be used by the host to show achievement of its own NDC. The prohibition sits in the treaty text, not only in the rulebook beneath it.</text>
       </svg>
       </div>
       <p class="figcap">Fig. 3.1 — Article 6 structure. Cited by paragraph, the correct unit for treaty text.<sup class="fn"><a class="tip tr" href="#n1" data-tip="Note 1 — Paris Agreement (2015), Article 6, paragraphs 6.1 to 6.9. Cited by paragraph; treaty text not opened this session.">1</a></sup></p>
@@ -296,7 +306,7 @@ tr.total td{background:var(--surface-2); font-weight:600}
           <tr><td class="pair">Governance</td><td><b>Decentralised.</b> Bilateral or plurilateral agreement between governments</td><td><b>Centralised.</b> CMA authority, supervisory body</td></tr>
           <tr><td class="pair">Who sets<br>the methodology</td><td>The participating Parties, between themselves</td><td>The supervisory body, published as standards</td></tr>
           <tr><td class="pair">Who verifies</td><td>Whoever the Parties accept</td><td>Bodies <b>accredited by the mechanism</b></td></tr>
-          <tr><td class="pair">Who issues<br>the unit</td><td><b>Nobody centrally</b> — parties account for transfers</td><td>The mechanism issues A6.4ERs</td></tr>
+          <tr><td class="pair">Who issues<br>the unit</td><td><b>No central body</b> — the participating Parties account for transfers</td><td>The mechanism issues A6.4ERs</td></tr>
           <tr><td class="pair">Levies</td><td>Encouraged, not required</td><td><b>Mandatory</b> adaptation share + OMGE cancellation</td></tr>
           <tr><td class="pair">Corresponding<br>adjustment</td><td>Required when used toward an NDC</td><td>Required for authorised use</td></tr>
           <tr><td class="pair">Speed</td><td><b>Fast</b> — as fast as two governments can agree</td><td><b>Slow</b> — methodology approval, accreditation, registration</td></tr>
@@ -355,7 +365,7 @@ tr.total td{background:var(--surface-2); font-weight:600}
   <!-- 6 -->
   <section id="68">
     <div class="sec-head"><span class="n">6</span><h2>Indonesia's implementation — Pasal 68</h2></div>
-    <p class="sec-intro">This is the payoff. I read the international trading provisions directly, and Pasal 68 is a notably clean piece of drafting: it sorts every cross-border trade by a single question.</p>
+    <p class="sec-intro">Indonesia's international trading provisions, read directly. Pasal 68 sorts every cross-border trade by one question, and the categories follow from the answer.</p>
 
     <div class="figure">
       <div class="svgbox">

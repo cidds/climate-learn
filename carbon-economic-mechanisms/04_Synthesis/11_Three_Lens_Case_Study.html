@@ -152,15 +152,25 @@ tr.hi td{background:var(--accent-soft)}
 
 :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== interpretation marker ===== */
+.interp{
+  font-family:"IBM Plex Mono",monospace; font-size:9px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--law); background:var(--law-soft);
+  border:1px solid var(--law); border-bottom:1px solid var(--law) !important;
+  padding:1px 5px; border-radius:2px; margin-left:6px; white-space:nowrap;
+  cursor:help; vertical-align:2px;
+}
+.interp:hover{background:var(--law); color:var(--paper)}
 </style>
 
 <div style="max-width:1180px;margin:0 auto;padding:20px 24px 0;"><a href="../index.html" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);text-decoration:none;border-bottom:1px solid transparent;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-3)'">&#8592; Carbon Mechanisms Brief</a></div>
 <div class="wrap">
 
 <header class="mast">
-  <div class="eyebrow"><span class="dot"></span> Session 11 · Synthesis <span class="dot"></span> Carbon Economic Mechanisms</div>
+  <div class="eyebrow"><span class="dot"></span> Session 11 · Synthesis <span class="dot"></span> Carbon Pricing</div>
   <h1>One Tonne, End to End</h1>
-  <p class="standfirst">The capstone. A single industrial project, traced through every gate from engineering decision to retired credit — with the article cited at each one. Then the three lenses in full, ten things that are actually true, and an honest inventory of what nobody can yet tell you.</p>
+  <p class="standfirst">The capstone. A single industrial project, traced through every gate from engineering decision to retired credit — with the article cited at each one. Then the three lenses in full, ten findings, each sourced, and the questions that remain open.</p>
   <p class="standfirst" style="margin-top:14px; font-size:15px;">Dotted underlines carry definitions on hover; footnote markers show their source on hover and jump on click.</p>
   <div class="mast-meta">
     <span><b>Closes</b> · the eleven-session curriculum</span>
@@ -180,7 +190,7 @@ tr.hi td{background:var(--accent-soft)}
     <a href="#dev"><span class="n">5</span>Developer, in full</a>
     <a href="#own"><span class="n">6</span>Owner, in full</a>
     <a href="#truths"><span class="n">7</span>Ten things that are true</a>
-    <a href="#unknown"><span class="n">!</span>What nobody can tell you</a>
+    <a href="#unknown"><span class="n">!</span>Open questions</a>
     <a href="#next"><span class="n">8</span>What to do next</a>
     <a href="#check"><span class="n">?</span>Final check</a>
     <a href="#notes"><span class="n">§</span>Sources</a>
@@ -223,14 +233,14 @@ tr.hi td{background:var(--accent-soft)}
       <p>Two limbs, and the project splits on them.</p>
       <p><b>The motors and compressors:</b> PP No. 33/2023 mandates energy management above a consumption threshold, minimum energy performance standards and efficiency labelling. If the upgrade merely brings equipment to MEPS, ¶38's requirement that mitigation <b>“exceeds any mitigation that is required by law or regulation”</b> is not met. <b>Those tonnes are compliance, not credit.</b></p>
       <p><b>The solar:</b> not mandated, so regulatory surplus is satisfied. But the counterfactual limb bites instead — ¶38 requires showing the activity <b>would not have occurred without the incentive from the mechanism</b>. If captive solar already pays back on displaced tariff alone, the honest answer may be that it would have happened anyway.</p>
-      <p><b>The realistic outcome:</b> a project pitched at 25,000 tCO₂e may be creditable for materially less. This is the single most common gap between a developer's model and a validator's conclusion, and it is not a technicality — it is the mechanism working correctly.</p>
+      <p><b>The realistic outcome:</b> a project pitched at 25,000 tCO₂e may be creditable for materially less. This is a recognised source of divergence between a developer's projected volume and a validator's conclusion. It reflects the test operating as drafted rather than a procedural obstacle.</p>
     </div>
 
     <div class="gate fork">
       <div class="g"><span>Gate 3 — the first fork</span><span class="art">Perpres 110 Pasal 65(2)a, (3)c · p.46</span></div>
       <h3>DRAM or DPP?</h3>
       <p>Submit a <b>DRAM</b> — meeting Government requirements, targeting <b>SPE-GRK</b> — or a <b>DPP</b> — meeting an <b>international standard</b>, targeting <b>non-SPE-GRK</b> units. Either is filed with <i>Menteri Terkait</i>, here Perindustrian, for recording.</p>
-      <p>This is chosen <b>before validation, before construction</b>. It determines the standard, the registry, the accreditation route, the buyer pool and the price. Session 00 called it a market strategy disguised as a form; by this point in the curriculum it should read as the most consequential single decision in the project's life.</p>
+      <p>This is chosen <b>before validation, before construction</b>. It determines the standard, the registry, the accreditation route, the buyer pool and the price. Session 00 called it a market strategy disguised as a form; it determines the standard, registry, accreditation route, buyer pool and price.</p>
     </div>
 
     <div class="gate">
@@ -344,7 +354,7 @@ tr.hi td{background:var(--accent-soft)}
       <ol>
         <li><b>Your NDC is a budget you can sell pieces of.</b> Under the Second NDC the 2035 target is a level of emission against a 2019 reference, and every scenario lands above it. Authorising exports raises revenue and shrinks the headroom you need.</li>
         <li><b>The sector with the most saleable carbon is the one you can least afford to sell.</b> FOLU must swing 389,796 Gg from source to sink to make the national number work. Forest tonnes are load-bearing; energy tonnes largely sit inside a compliance system where the regulatory-surplus test bites.</li>
-        <li><b>Your two most consequential dials are set below Presidential-Regulation level</b> — the sectoral offset limit under Pasal 62(1)(d) and the benchmark trajectory under Permen ESDM 16/2022. Both are ministerial, and both will be decided in rooms with fewer people watching than the Perpres was.</li>
+        <li><b>Two of the decisive settings sit below Presidential-Regulation level</b> — the sectoral offset limit under Pasal 62(1)(d) and the benchmark trajectory under Permen ESDM 16/2022. Both are ministerial, and both will be decided in rooms with fewer people watching than the Perpres was.</li>
         <li><b>Your instrument improves coal-fleet efficiency; it does not shrink the fleet.</b> That may be the right first step for a 67.5%-coal system. It is not the same thing as a cap, and the difference should be stated plainly rather than blurred.</li>
         <li><b>You have an underused sovereign power.</b> CMA.3 ¶27 lets a host Party pre-specify baseline approaches, additionality requirements and crediting periods; ¶37 lets you commission standardized baselines centrally. The latter is the highest-leverage thing available for a small-project pipeline, because it removes the fixed cost that makes small projects uneconomic to certify.</li>
         <li><b>Regulating more shrinks your creditable pipeline.</b> Every MEPS tightening moves measures from creditable to merely compliant. That is not an argument against regulating — it is an argument for designing carbon policy and sectoral regulation as one thing.</li>
@@ -388,8 +398,8 @@ tr.hi td{background:var(--accent-soft)}
 
   <!-- 7 -->
   <section id="truths">
-    <div class="sec-head"><span class="n">7</span><h2>Ten things that are actually true</h2></div>
-    <p class="sec-intro">Compiled from eleven sessions. Each one is sourced in the ledger; each one contradicts something commonly said.</p>
+    <div class="sec-head"><span class="n">7</span><h2>Ten findings, each sourced</h2></div>
+    <p class="sec-intro">Compiled from eleven sessions. Each is recorded in the source ledger, and several cut against a common assumption.</p>
     <div class="truths">
       <div class="truth"><p><b>A carbon market does not reduce emissions. The cap does.</b> The market reduces the cost of the reduction. Judge a market by whether the cap binds, not by whether the market functions.</p></div>
       <div class="truth"><p><b>Corresponding adjustments exist because the world changed, not because the rules tightened.</b> Under Kyoto, host countries had no targets, so an exported credit left nothing to double-count. Paris gave everyone an NDC and made the same transaction an accounting problem overnight.</p></div>
@@ -406,8 +416,8 @@ tr.hi td{background:var(--accent-soft)}
 
   <!-- 8 -->
   <section id="unknown">
-    <div class="sec-head"><span class="n">!</span><h2>What nobody can tell you yet</h2></div>
-    <p class="sec-intro">The standing flags, gathered. This list is as much a deliverable as the sessions — it tells you where confident advice should make you suspicious.</p>
+    <div class="sec-head"><span class="n">!</span><h2>Open questions</h2></div>
+    <p class="sec-intro">The standing flags, gathered. Each is a question a confident answer would need a document to support.</p>
 
     <div class="tablewrap">
       <table>
@@ -417,7 +427,7 @@ tr.hi td{background:var(--accent-soft)}
           <tr class="hi"><td class="pair"><b>What additionality test applies domestically?</b></td><td>Absent from the entire Perpres. Currently enters only through whichever methodology a project adopts.</td><td class="n">00, 08</td></tr>
           <tr class="hi"><td class="pair"><b>What are the sectoral offset limits?</b></td><td>Pasal 62(1)(d) creates the dial; no value is public to me. Without it, domestic compliance demand is unquantifiable.</td><td class="n">03, 05</td></tr>
           <tr><td class="pair">Is there an operating ETS beyond power Phase I?</td><td>Determines whether industrial projects have any compliance counterparty at all.</td><td class="n">10</td></tr>
-          <tr><td class="pair">Full Permen ESDM 16/2022 benchmark table and later phases</td><td>The benchmark trajectory to 2030 is the most consequential number in Indonesian energy carbon policy.</td><td class="n">10</td></tr>
+          <tr><td class="pair">Full Permen ESDM 16/2022 benchmark table and later phases</td><td>The benchmark trajectory to 2030 determines how far the scheme tightens.</td><td class="n">10</td></tr>
           <tr><td class="pair">Has POJK 14/2023 been aligned to SRUK?</td><td>It requires SRN-PPI registration; Perpres 110 routes units to SRUK. A live registration-pathway question.</td><td class="n">09</td></tr>
           <tr><td class="pair">Have pre-existing international agreements been adjusted?</td><td>Pasal 99 required it within one year. Affects any bilateral arrangement predating 10 Oct 2025.</td><td class="n">08</td></tr>
           <tr><td class="pair">Did later CMA decisions extend the CDM transition deadlines?</td><td>I read the Glasgow rulebook, not the subsequent series. Determines whether legacy pipeline can still move.</td><td class="n">04</td></tr>
@@ -429,8 +439,8 @@ tr.hi td{background:var(--accent-soft)}
     </div>
 
     <div class="keyline warn" style="margin-top:18px">
-      <p class="lead">The most useful thing this curriculum gives you may be the ability to notice when someone is guessing.</p>
-      <p>Every row above is a question a confident adviser will answer fluently. Most of those answers cannot currently be sourced. <b>When you hear one, ask which document it comes from</b> — and if the answer is a summary, a deck, or “market practice”, treat it as a hypothesis.</p>
+      <p class="lead">Each of these is a point where a sourced answer and an assumed one look alike.</p>
+      <p>Each row above is a question that can be answered fluently without a document behind it. <b>Asking which instrument an answer rests on</b> separates a sourced position from an inferred one.</p>
     </div>
   </section>
 
