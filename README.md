@@ -7,6 +7,8 @@ national regulations and statistics — with every claim traceable to its docume
 
 **Published site:** https://cidds.github.io/climate-learn/
 
+**Single-page version:** [carbon-economic-mechanisms/all-in-one.html](carbon-economic-mechanisms/all-in-one.html) — every chapter in one file, works offline.
+
 ## Briefs
 
 ### [Carbon Pricing](carbon-economic-mechanisms/) — 12 parts

@@ -7,7 +7,7 @@ implementing regulations.
 Anchored in **energy** (power, industry, efficiency) with **forestry** as contrast, and read through
 three lenses: government, project developer, and project owner.
 
-**Start at `index.html`.**
+**Start at `index.html`.** Or read [`all-in-one.html`](all-in-one.html) — every chapter and the source ledger in a single file, with a collapsible chapter menu.
 
 ## Structure
 
